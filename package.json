@@ -3,7 +3,13 @@
   "type": "module",
   "version": "0.7.1",
   "license": "MIT",
-  "packages": [],
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "esbuild",
+      "sharp"
+    ]
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
