@@ -552,23 +552,247 @@ In backend development, NAT is critical for managing server connectivity in priv
 
 ### What is authentication?
 
+**Authentication** is the process of verifying the identity of a user, device, or system attempting to access a resource or application. It ensures that the entity making a request is who or what it claims to be.
+
+**Key Points**:
+
+- **Purpose**: Confirms identity to prevent unauthorized access to sensitive resources (e.g., APIs, databases).
+- **Common Methods**:
+  - **Password-Based**: User provides a username and password (e.g., logging into a TODO service).
+  - **Token-Based**: Uses tokens like JWT (JSON Web Tokens) or API keys for programmatic access.
+  - **Multi-Factor Authentication (MFA)**: Combines multiple credentials (e.g., password + SMS code).
+  - **OAuth**: Delegates authentication to a third-party provider (e.g., "Login with Google").
+  - **Biometrics**: Uses fingerprints or facial recognition.
+- **Example**: In a TODO service, when a user logs in with an email and password to access `https://api.todo-service.com/v1/tasks`, the backend verifies the credentials against a stored user database before granting access.
+- **Outcome**: Successful authentication typically results in a session, token, or access grant, allowing the user to interact with protected resources.
+
+In backend development, authentication is critical for securing APIs and ensuring only authorized users can perform actions like creating or viewing tasks.
+
 ### What is authorization?
+
+**Authorization** is the process of determining whether an authenticated user, device, or system has permission to access specific resources or perform certain actions within an application or system. It occurs after authentication and focuses on what the entity is allowed to do.
+
+**Key Points**:
+
+- **Purpose**: Enforces access control to ensure users or systems only interact with resources or operations they are permitted to access.
+- **How It Works**: The system checks the authenticated entity's permissions or roles against predefined rules or policies.
+- **Common Methods**:
+  - **Role-Based Access Control (RBAC)**: Permissions are assigned based on roles (e.g., admin, user).
+  - **Attribute-Based Access Control (ABAC)**: Permissions are based on attributes (e.g., user location, department).
+  - **Access Control Lists (ACLs)**: Define specific permissions for individual users or groups.
+- **Example**: In a TODO service:
+  - After authentication, a user might be authorized to view their own tasks (`GET /v1/tasks`) but not another user’s tasks.
+  - An admin might be authorized to delete any task (`DELETE /v1/tasks/{id}`), while a regular user cannot.
+- **Difference from Authentication**:
+  - Authentication verifies _who_ you are (e.g., valid login credentials).
+  - Authorization determines _what_ you can do (e.g., read or modify specific data).
+
+In backend development, authorization is critical for securing APIs and ensuring users or clients only access resources or perform actions within their permitted scope, protecting data integrity and privacy.
 
 ### What is encryption?
 
+**Encryption** is the process of converting readable data (plaintext) into an unreadable format (ciphertext) using an algorithm and a key to protect its confidentiality. It ensures that only authorized parties with the correct key can decrypt and access the original data.
+
+**Key Points**:
+
+- **Purpose**: Secures sensitive data during storage or transmission to prevent unauthorized access, interception, or tampering.
+- **Types**:
+  - **Symmetric Encryption**: Uses the same key for encryption and decryption (e.g., AES). Fast but requires secure key sharing.
+  - **Asymmetric Encryption**: Uses a pair of keys (public and private) for encryption and decryption (e.g., RSA). Slower but secure for key exchange.
+- **Use Cases**:
+  - Protecting data in transit (e.g., HTTPS for API requests in a TODO service).
+  - Securing stored data (e.g., encrypting user passwords in a database).
+  - Ensuring secure communication (e.g., SSL/TLS for web servers).
+- **Example**: In a TODO service, when a client sends a `POST /v1/tasks` request over HTTPS, the data (e.g., task details) is encrypted using TLS to prevent eavesdropping during transmission.
+- **Components**:
+  - **Plaintext**: Original data (e.g., "Create new task").
+  - **Ciphertext**: Encrypted data (e.g., "X7aP9qZ...").
+  - **Key**: Secret used to encrypt/decrypt (e.g., a 256-bit AES key).
+  - **Algorithm**: Mathematical process (e.g., AES, RSA).
+
+In backend development, encryption is critical for securing sensitive data, such as user credentials or API payloads, ensuring privacy and compliance with security standards.
+
 ### What is HTTPS?
+
+**HTTPS** (HyperText Transfer Protocol Secure) is an extension of HTTP that uses encryption to secure communication between a client (e.g., a web browser or app) and a server over a network, typically the internet. It ensures data privacy, integrity, and authentication.
+
+**Key Points**:
+
+- **Purpose**: Protects data in transit from eavesdropping, tampering, or interception by encrypting it with protocols like TLS (Transport Layer Security) or its predecessor, SSL (Secure Sockets Layer).
+- **How It Works**:
+  - Uses **TLS/SSL** to encrypt HTTP requests and responses.
+  - Authenticates the server using digital certificates issued by trusted Certificate Authorities (CAs).
+  - Establishes a secure connection via a handshake process, ensuring only the client and server can read the data.
+- **Key Features**:
+  - **Encryption**: Scrambles data (e.g., API payloads) to prevent unauthorized access.
+  - **Data Integrity**: Ensures data isn’t altered during transmission.
+  - **Server Authentication**: Verifies the server’s identity (e.g., confirms `api.todo-service.com` is legitimate).
+- **Example**: In a TODO service, a client sending a `POST /v1/tasks` request to `https://api.todo-service.com` uses HTTPS (port 443) to encrypt task data, ensuring it’s secure from interception.
+- **Difference from HTTP**: HTTP is unencrypted and vulnerable to attacks like man-in-the-middle; HTTPS adds a secure layer.
+- **Indicator**: Websites using HTTPS show a padlock icon in browsers and start with `https://`.
+
+In backend development, HTTPS is essential for securing API endpoints, protecting user data (e.g., login credentials, task details), and ensuring trust in web applications.
 
 ### What is a password hash?
 
+A **password hash** is a one-way transformation of a password into a fixed-length string of characters using a cryptographic hash function. It is used to securely store passwords in a database, making it difficult for attackers to retrieve the original password even if the database is compromised.
+
+**Key Points**:
+
+- **Purpose**: Protects passwords by storing them in an irreversible, encrypted form instead of plaintext.
+- **How It Works**:
+  - A hash function (e.g., bcrypt, SHA-256, Argon2) processes the password to produce a unique hash.
+  - The hash is stored in the database instead of the actual password.
+  - During login, the provided password is hashed and compared to the stored hash to verify authenticity.
+- **Key Features**:
+  - **One-Way**: Cannot be reversed to retrieve the original password.
+  - **Deterministic**: The same password always produces the same hash (for verification).
+  - **Collision-Resistant**: Different passwords should produce different hashes.
+- **Salting**: A random string (salt) is added to the password before hashing to prevent attacks using precomputed tables (e.g., rainbow tables).
+- **Example**: In a TODO service:
+  - User password: `"MySecurePass123"`
+  - Salt: `randomSalt123`
+  - Hashed result (using bcrypt): `$2b$10$randomSalt123...hashedValue`
+  - Stored in the `users` table for authentication during login.
+- **Common Hash Functions**:
+  - **bcrypt**: Adaptive, slow by design to resist brute-force attacks.
+  - **Argon2**: Memory-hard, resistant to GPU-based attacks.
+  - **SHA-256**: Faster but less secure for passwords without proper salting.
+
+In backend development, password hashing is critical for securely storing user credentials, ensuring that even if a database is breached, the original passwords remain protected.
+
 ### What is SQL injection?
+
+**SQL injection** is a security vulnerability in which an attacker manipulates a web application's database query by injecting malicious SQL code into user inputs (e.g., forms, URL parameters, or API payloads). This can allow unauthorized access to or manipulation of the database.
+
+**Key Points**:
+
+- **How It Works**: Attackers exploit poorly sanitized input fields to inject SQL commands that the database executes, altering the intended query behavior.
+- **Impact**:
+  - Unauthorized data access (e.g., retrieving all user data).
+  - Data modification or deletion (e.g., changing or deleting tasks).
+  - Bypassing authentication (e.g., logging in without valid credentials).
+  - Potential database compromise or data leaks.
+- **Example**: In a TODO service:
+  - Normal query: `SELECT * FROM users WHERE username = 'john' AND password = 'pass123'`
+  - Vulnerable input: User enters `' OR '1'='1` as the password.
+  - Resulting query: `SELECT * FROM users WHERE username = 'john' AND password = '' OR '1'='1'`
+  - This evaluates to true for all users, bypassing authentication.
+- **Prevention**:
+  - **Prepared Statements/Parameterized Queries**: Use placeholders for user inputs (e.g., `SELECT * FROM users WHERE username = ? AND password = ?`).
+  - **Input Validation/Sanitization**: Restrict and clean user inputs to prevent malicious code.
+  - **ORMs**: Use Object-Relational Mappers (e.g., SQLAlchemy, Sequelize) that handle inputs safely.
+  - **Least Privilege**: Limit database user permissions to minimize damage.
+
+In backend development, protecting against SQL injection is critical to secure database interactions in applications like a TODO service, ensuring user data and system integrity are maintained.
 
 ### What is XSS?
 
+**XSS** (Cross-Site Scripting) is a security vulnerability in web applications where an attacker injects malicious scripts (typically JavaScript) into content that is then displayed to users. These scripts execute in the context of a victim’s browser, potentially compromising user data or interactions.
+
+**Key Points**:
+
+- **How It Works**: Attackers exploit unvalidated or unsanitized user inputs (e.g., form fields, URL parameters) to inject scripts that run when other users view the affected page or API response.
+- **Types**:
+  - **Stored XSS**: Malicious script is stored in the database and executed when users access the data (e.g., a comment with `<script>alert('hacked')</script>`).
+  - **Reflected XSS**: Script is embedded in a URL or input and executed immediately when a user visits the manipulated link.
+  - **DOM-Based XSS**: Script manipulates the browser’s Document Object Model (DOM) without server interaction.
+- **Impact**:
+  - Steal user data (e.g., cookies, session tokens).
+  - Redirect users to malicious sites.
+  - Deface websites or perform unauthorized actions (e.g., creating tasks in a TODO service).
+- **Example**: In a TODO service:
+  - An attacker submits a task title: `<script>stealCookies()</script>`.
+  - If the title is displayed without sanitization, the script runs in users’ browsers when they view the task list.
+- **Prevention**:
+  - **Input Sanitization**: Escape or sanitize user inputs (e.g., convert `<` to `&lt;`).
+  - **Output Encoding**: Encode data before rendering (e.g., use libraries like DOMPurify).
+  - **Content Security Policy (CSP)**: Restrict script sources in browsers.
+  - **Use Frameworks**: Modern frameworks (e.g., React, Angular) often escape outputs by default.
+  - **Avoid eval()**: Never execute user input as code.
+
+In backend development, preventing XSS is critical to protect users interacting with APIs or web interfaces, ensuring malicious scripts don’t compromise the application or user data in systems like a TODO service.
+
 ### What is CSRF?
+
+**CSRF** (Cross-Site Request Forgery) is a security vulnerability in web applications where an attacker tricks an authenticated user into performing unintended actions on a trusted site without their knowledge or consent. It exploits the trust a website has in a user’s browser, which may automatically include credentials (e.g., cookies) with requests.
+
+**Key Points**:
+
+- **How It Works**: An attacker crafts a malicious request (e.g., via a link, image, or form) that, when triggered by a logged-in user, sends a request to the target site, leveraging the user’s active session to execute unauthorized actions.
+- **Impact**:
+  - Perform actions like changing account details, creating/deleting resources, or transferring funds.
+  - Compromise user data or application integrity.
+- **Example**: In a TODO service:
+  - A user is logged into `https://api.todo-service.com`.
+  - They visit a malicious site that includes an image tag: `<img src="https://api.todo-service.com/v1/tasks/delete/123">`.
+  - The browser sends a `GET` request to delete task `123`, using the user’s session cookie, without their knowledge.
+- **Prevention**:
+  - **CSRF Tokens**: Include a unique, unpredictable token in legitimate requests (e.g., in forms or headers) that the server validates.
+  - **SameSite Cookies**: Set cookies with `SameSite=Strict` or `SameSite=Lax` to restrict cross-site requests.
+  - **Validate HTTP Methods**: Use POST instead of GET for state-changing actions and verify methods server-side.
+  - **User Interaction**: Require explicit confirmation for sensitive actions (e.g., re-entering a password).
+  - **CORS Policies**: Restrict cross-origin requests to trusted domains.
+
+In backend development, preventing CSRF is crucial for securing APIs and web applications, ensuring that actions like creating or deleting tasks in a TODO service are performed only by authorized, intentional user requests.
 
 ### What is a session?
 
+A **session** is a temporary, server-managed interaction between a client (e.g., a user's browser or app) and a server that maintains state information across multiple requests during a user's visit to a web application. It is used to track user activity, maintain login status, or store temporary data without requiring repeated authentication.
+
+**Key Points**:
+
+- **Purpose**: Preserves user-specific data (e.g., login status, preferences) across stateless HTTP requests.
+- **How It Works**:
+  - When a user logs in or starts interacting, the server creates a session and assigns a unique **session ID**.
+  - The session ID is typically stored in a cookie or sent in requests (e.g., via headers).
+  - The server stores session data (e.g., user ID, role) in memory, a database, or a cache (e.g., Redis).
+  - The client includes the session ID in subsequent requests, allowing the server to retrieve the associated session data.
+- **Example**: In a TODO service:
+  - A user logs into `https://api.todo-service.com` with credentials.
+  - The server creates a session, stores it (e.g., `session_id: abc123, user_id: 456`), and sends `abc123` to the client in a cookie.
+  - When the user requests `GET /v1/tasks`, the browser sends the session ID, and the server verifies the user’s identity to return their tasks.
+- **Features**:
+  - **Expiration**: Sessions typically expire after a set time (e.g., 30 minutes) or on logout for security.
+  - **Security**: Can be secured with HTTPS, secure cookies, and session tokens to prevent hijacking.
+- **Session Storage**:
+  - **Server-Side**: Session data stored on the server (e.g., in Redis, database).
+  - **Client-Side**: Minimal data (session ID) stored in cookies or tokens (e.g., JWT for stateless sessions).
+- **Use Case**: Maintains user authentication state, so a logged-in user can access protected endpoints like `POST /v1/tasks` without re-entering credentials.
+
+In backend development, sessions are critical for managing user interactions in applications like a TODO service, ensuring a seamless and secure experience while maintaining state across requests.
+
 ### What is a cookie?
+
+A **cookie** is a small piece of data stored by a web server on a client’s device (e.g., browser) and sent back to the server with subsequent requests. It is used to maintain state, track user activity, or store small amounts of information across HTTP requests, which are inherently stateless.
+
+**Key Points**:
+
+- **Purpose**: Enables persistence of user-specific data, such as session IDs, preferences, or tracking information, between requests.
+- **How It Works**:
+  - The server sends a cookie to the client via an HTTP response header (`Set-Cookie`).
+  - The client (e.g., browser) stores the cookie and includes it in future requests to the same server via the `Cookie` header.
+- **Components**:
+  - **Name-Value Pair**: The key and data (e.g., `session_id=abc123`).
+  - **Attributes**: Optional settings like:
+    - `Expires` or `Max-Age`: When the cookie expires.
+    - `Domain`: Which domains can access the cookie (e.g., `todo-service.com`).
+    - `Path`: Which paths on the server the cookie applies to (e.g., `/v1`).
+    - `Secure`: Ensures the cookie is only sent over HTTPS.
+    - `HttpOnly`: Prevents client-side scripts from accessing the cookie (mitigates XSS).
+    - `SameSite`: Controls cross-site request behavior (e.g., `Strict`, `Lax`, `None`).
+- **Example**: In a TODO service:
+  - After a user logs into `https://api.todo-service.com`, the server sends a cookie: `Set-Cookie: session_id=abc123; Secure; HttpOnly; SameSite=Strict`.
+  - The browser stores it and includes `Cookie: session_id=abc123` in subsequent requests (e.g., `GET /v1/tasks`), allowing the server to identify the user.
+- **Types**:
+  - **Session Cookies**: Temporary, deleted when the browser closes.
+  - **Persistent Cookies**: Stored until they expire or are deleted.
+- **Use Cases**:
+  - Maintaining user sessions (e.g., staying logged in).
+  - Storing user preferences (e.g., theme settings).
+  - Tracking user behavior (e.g., analytics).
+
+In backend development, cookies are critical for managing sessions and user state in applications like a TODO service, but they must be secured (e.g., with `Secure` and `HttpOnly`) to prevent attacks like XSS or session hijacking.
 
 ## Performance
 
