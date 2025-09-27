@@ -367,23 +367,186 @@ In backend development, normalization is critical for designing efficient and ma
 
 ### What is TCP?
 
+**TCP** (Transmission Control Protocol) is a standard communication protocol used in computer networks to ensure reliable, ordered, and error-checked data transmission between devices over the internet or other networks. It operates at the transport layer of the OSI model and is a core component of the internet protocol suite (TCP/IP).
+
+**Key Points**:
+
+- **Reliability**: Guarantees delivery of data packets in the correct order without loss or duplication by using acknowledgments, retransmissions, and error detection.
+- **Connection-Oriented**: Establishes a connection between sender and receiver via a three-way handshake (SYN, SYN-ACK, ACK) before data transfer and closes it afterward.
+- **Flow Control**: Manages data flow to prevent overwhelming the receiver using mechanisms like sliding windows.
+- **Error Handling**: Detects and corrects errors through checksums and retransmits lost packets.
+- **Use Cases**: Used in applications requiring reliable data transfer, such as web browsing (HTTP/HTTPS), email (SMTP), and file transfers (FTP).
+- **Example**: In a TODO service, when a client sends a `POST` request to `https://api.todo-service.com/v1/tasks` to create a task, TCP ensures the request and response data are delivered accurately and in sequence.
+
+In backend development, TCP underpins reliable communication between clients and servers, ensuring API requests and responses are transmitted correctly.
+
 ### What is UDP?
+
+**UDP** (User Datagram Protocol) is a lightweight communication protocol used in computer networks for transmitting data between devices. It operates at the transport layer of the OSI model, like TCP, but is designed for speed and efficiency rather than reliability.
+
+**Key Points**:
+
+- **Connectionless**: Does not establish a connection before sending data, unlike TCP's three-way handshake.
+- **Unreliable**: Does not guarantee delivery, order, or error correction; packets may be lost, duplicated, or arrive out of sequence.
+- **Low Overhead**: Minimal header size and no retransmission or flow control, making it faster than TCP.
+- **Use Cases**: Ideal for applications where speed is critical and occasional data loss is acceptable, such as:
+  - Real-time applications (e.g., video streaming, online gaming).
+  - DNS queries.
+  - VoIP (e.g., Zoom or Skype calls).
+- **Example**: In a TODO service, UDP might be used for a real-time feature like broadcasting task updates to multiple clients, where low latency is prioritized over guaranteed delivery.
+
+In backend development, UDP is used when performance is more critical than reliability, unlike TCP, which ensures accurate data transfer.
 
 ### What is IP?
 
+**IP** (Internet Protocol) is a fundamental protocol in the internet protocol suite that enables communication between devices across networks, such as the internet or local networks. It operates at the network layer of the OSI model and is responsible for addressing and routing data packets from a source to a destination.
+
+**Key Points**:
+
+- **Purpose**: Defines how data packets are formatted, addressed, transmitted, and routed across networks.
+- **Addressing**: Assigns unique IP addresses to devices to identify them (e.g., `192.168.1.1` for IPv4 or `2001:db8::1` for IPv6).
+- **Versions**:
+  - **IPv4**: Uses 32-bit addresses (e.g., `192.168.0.1`), limited to ~4.3 billion unique addresses.
+  - **IPv6**: Uses 128-bit addresses (e.g., `2001:0db8:85a3::8a2e:0370:7334`), designed to handle more devices.
+- **Functions**:
+  - **Packet Routing**: Directs packets through routers to reach the destination IP address.
+  - **Fragmentation**: Breaks data into smaller packets for transmission and reassembles them if needed.
+- **Connectionless**: Sends packets independently without establishing a connection (unlike TCP).
+- **Example**: In a TODO service, when a client sends a request to `https://api.todo-service.com/v1/tasks`, the IP protocol routes the request to the server’s IP address (e.g., `93.184.216.34`).
+
+In backend development, IP ensures data packets reach the correct server or client, forming the foundation for protocols like TCP and UDP to handle reliable or fast communication.
+
 ### What is a port?
+
+A **port** is a virtual point in a computer’s networking system used to identify specific processes or services on a device, allowing multiple applications to communicate over a network simultaneously. It is a 16-bit number (0 to 65535) associated with an IP address to direct data to the correct application or service.
+
+**Key Points**:
+
+- **Purpose**: Differentiates between different services or applications running on the same device, enabling targeted data delivery.
+- **Types**:
+  - **Well-Known Ports** (0–1023): Reserved for common services (e.g., port 80 for HTTP, 443 for HTTPS, 22 for SSH).
+  - **Registered Ports** (1024–49151): Used for specific applications or services.
+  - **Dynamic/Private Ports** (49152–65535): Temporarily assigned for client-side connections.
+- **How It Works**: Combines with an IP address to form a complete network address (e.g., `192.168.1.1:80` specifies HTTP traffic to a server at that IP).
+- **Example**: In a TODO service, a client sending a request to `https://api.todo-service.com:443/v1/tasks` uses port 443 (HTTPS) to communicate with the server’s web service, while the server might use port 3306 internally for MySQL database connections.
+
+In backend development, ports are critical for routing network traffic to the appropriate application or service, ensuring proper communication between clients and servers.
 
 ### What is DNS?
 
+**DNS** (Domain Name System) is a protocol and distributed system that translates human-readable domain names (e.g., `api.todo-service.com`) into machine-readable IP addresses (e.g., `93.184.216.34`) to locate devices or services on a network, such as the internet.
+
+**Key Points**:
+
+- **Purpose**: Acts like a phonebook for the internet, mapping domain names to IP addresses so clients can access servers without needing to know their numeric addresses.
+- **How It Works**:
+  - A client (e.g., a browser) sends a DNS query to a DNS resolver.
+  - The resolver contacts DNS servers (e.g., root, TLD, and authoritative servers) to find the corresponding IP address.
+  - The IP address is returned, allowing the client to connect to the server.
+- **Components**:
+  - **Domain Name**: Hierarchical name (e.g., `subdomain.example.com`).
+  - **DNS Resolver**: A server that processes DNS queries.
+  - **DNS Records**: Data types like A (IPv4 address), AAAA (IPv6), CNAME (alias), or MX (mail server).
+- **Example**: In a TODO service, when a client accesses `https://api.todo-service.com/v1/tasks`, DNS resolves `api.todo-service.com` to an IP address like `192.168.1.1` to locate the server.
+- **Port Usage**: DNS typically uses port 53 for queries (often over UDP for speed, sometimes TCP for larger responses).
+
+In backend development, DNS is critical for enabling clients to find and connect to servers hosting APIs or web services using domain names.
+
 ### What is a socket?
+
+A **socket** is an endpoint for communication between two devices (e.g., a client and a server) over a network. It is a software interface that enables data exchange using protocols like TCP or UDP, combining an IP address and a port number to identify a specific process or service on a device.
+
+**Key Points**:
+
+- **Purpose**: Facilitates bidirectional communication, allowing applications to send and receive data across networks (e.g., the internet).
+- **Components**: A socket is defined by:
+  - **IP Address**: Identifies the device (e.g., `192.168.1.1`).
+  - **Port Number**: Identifies the specific application or service (e.g., `443` for HTTPS).
+  - **Protocol**: TCP (reliable, connection-oriented) or UDP (fast, connectionless).
+- **Types**:
+  - **Stream Sockets**: Use TCP for reliable, ordered data transfer (e.g., HTTP requests).
+  - **Datagram Sockets**: Use UDP for faster, unreliable data transfer (e.g., streaming).
+- **Example**: In a TODO service, when a client sends a request to `https://api.todo-service.com:443/v1/tasks`, a socket is created on the client (e.g., `192.168.1.100:49152`) and server (e.g., `93.184.216.34:443`) to handle the HTTP communication over TCP.
+- **Backend Role**: Servers listen on sockets (e.g., port 80 or 443) to accept incoming client connections, while clients create sockets to initiate requests.
+
+In backend development, sockets are fundamental for enabling network communication, such as handling API requests or real-time data exchange (e.g., WebSockets for live updates).
 
 ### What is latency?
 
+**Latency** is the time delay between a client's request and the server's response in a network or system. It measures how long it takes for data to travel from one point to another or for a system to process a request.
+
+**Key Points**:
+
+- **Definition**: The duration (usually in milliseconds) from initiating an action (e.g., sending an HTTP request) to receiving the first response.
+- **Causes**:
+  - Network delays (e.g., distance, routing, or congestion).
+  - Server processing time (e.g., database queries, computation).
+  - Application inefficiencies (e.g., unoptimized code).
+- **Example**: In a TODO service, if a client sends a `GET /tasks` request to `https://api.todo-service.com`, latency is the time from sending the request to receiving the first byte of the response (e.g., 50ms for a fast server, 500ms for a distant or slow one).
+- **Impact**: High latency can degrade user experience, especially in real-time applications like video calls or interactive APIs.
+- **Measurement**: Often measured as round-trip time (RTT) in networking or response time in APIs.
+
+In backend development, minimizing latency is critical for performance, achieved through optimizations like caching, efficient database queries, or using content delivery networks (CDNs).
+
 ### What is bandwidth?
+
+**Bandwidth** is the maximum rate at which data can be transferred over a network connection, typically measured in bits per second (bps), such as Mbps (megabits per second) or Gbps (gigabits per second). It represents the capacity of a network link to handle data traffic.
+
+**Key Points**:
+
+- **Definition**: The volume of data that can be transmitted in a given time, akin to the width of a pipe for data flow.
+- **Factors Affecting Bandwidth**:
+  - Network infrastructure (e.g., fiber vs. copper cables).
+  - Network congestion or shared usage.
+  - Hardware limitations (e.g., routers, network cards).
+- **Example**: In a TODO service, if a server has a bandwidth of 100 Mbps, it can theoretically handle 100 megabits of data per second for API requests and responses (e.g., sending large lists of tasks or media files).
+- **Difference from Latency**: Bandwidth is about capacity (how much data), while latency is about speed (how fast data travels).
+- **Impact**: Low bandwidth can lead to slow data transfers, especially for large payloads, affecting user experience in high-traffic applications.
+
+In backend development, bandwidth is critical for ensuring servers can handle multiple client requests efficiently, especially for data-intensive operations like streaming or bulk API responses.
 
 ### What is a firewall?
 
+A **firewall** is a network security device or software that monitors and controls incoming and outgoing network traffic based on predefined security rules. It acts as a barrier between a trusted internal network and untrusted external networks (e.g., the internet) to protect systems from unauthorized access and threats.
+
+**Key Points**:
+
+- **Purpose**: Filters traffic to prevent malicious activities, such as hacking, malware, or unauthorized data access.
+- **How It Works**: Examines packets (data units) and allows, blocks, or redirects them based on rules (e.g., IP addresses, ports, protocols).
+- **Types**:
+  - **Hardware Firewall**: Physical device between networks (e.g., a router with firewall capabilities).
+  - **Software Firewall**: Runs on a server or device (e.g., Windows Defender Firewall).
+  - **Network-Based**: Protects entire networks (e.g., enterprise firewalls).
+  - **Host-Based**: Protects individual devices.
+- **Rules Examples**:
+  - Allow `HTTPS` traffic on port 443.
+  - Block incoming traffic from a specific IP address.
+- **Example**: In a TODO service, a firewall might allow `GET /tasks` requests to `https://api.todo-service.com:443` only from trusted IP ranges and block suspicious traffic to prevent attacks like DDoS.
+- **Advanced Features**: Can include intrusion detection, VPN support, or deep packet inspection.
+
+In backend development, firewalls are critical for securing servers hosting APIs or databases, ensuring only legitimate traffic reaches the application.
+
 ### What is NAT?
+
+**NAT** (Network Address Translation) is a technique used in networking to map one IP address space to another by modifying network address information in the IP header of packets while they are in transit. It is typically implemented in routers or firewalls to manage IP address allocation and enable communication between networks, especially when private IP addresses are used.
+
+**Key Points**:
+
+- **Purpose**: Allows multiple devices on a private network (e.g., home or office) to share a single public IP address for accessing external networks (e.g., the internet).
+- **How It Works**:
+  - Translates private IP addresses (e.g., `192.168.1.10`) to a public IP address (e.g., `203.0.113.1`) for outgoing traffic.
+  - Maintains a translation table to route responses back to the correct private IP and port.
+- **Types**:
+  - **Static NAT**: Maps a private IP to a specific public IP (one-to-one).
+  - **Dynamic NAT**: Maps private IPs to a pool of public IPs (temporary assignments).
+  - **PAT (Port Address Translation)**: Maps multiple private IPs to a single public IP using different port numbers (most common, also called NAT overload).
+- **Example**: In a TODO service, a server behind a NAT-enabled router with a private IP (`192.168.1.100`) sends API responses to clients on the internet via a public IP (`93.184.216.34`). The router uses NAT to translate the private IP to the public IP and tracks the connection using ports.
+- **Benefits**:
+  - Conserves public IP addresses.
+  - Provides a layer of security by hiding internal network structures.
+- **Drawbacks**: Can complicate direct inbound connections (e.g., peer-to-peer apps) unless configured with port forwarding.
+
+In backend development, NAT is critical for managing server connectivity in private networks, enabling APIs or services to communicate with external clients while maintaining security and efficient IP usage.
 
 ## Security
 
