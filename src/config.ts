@@ -3,13 +3,13 @@ import type { GithubConfig, Link, PostConfig, ProjectConfig, Site, SkillsShowcas
 //--- Readme Page Config ---
 export const SITE: Site = {
   title: 'Xeost',
-  description:
-    'Litos is a modern blogging theme built on Astro.js, designed for developers. It supports multiple post layouts, photo displays, project displays, and more, providing an elegant user experience and powerful customization capabilities.',
-  website: 'https://litos.vercel.app/',
+  description: 'Xeost a dynamic website blog dedicated to unraveling the intricacies of modern technology.',
+  website: 'https://xeost.com/',
   lang: 'en',
   base: '/',
-  author: 'Dnzzk2',
+  author: 'Xeost',
   ogImage: '/og-image.webp',
+  gitHubRepo: 'https://github.com/xeost/xeost-com',
   gaId: 'G-TVDVCVS9V9', // Google Analytics ID (used only in production)
 }
 
@@ -26,7 +26,7 @@ export const HEADER_LINKS: Link[] = [
 
 export const FOOTER_LINKS: Link[] = [
   {
-    name: 'Readme',
+    name: 'Home',
     url: '/',
   },
   {
@@ -47,20 +47,20 @@ export const FOOTER_LINKS: Link[] = [
 export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: 'github',
-    url: 'https://github.com/yourname',
+    url: 'https://github.com/xeost',
     icon: 'icon-[ri--github-fill]',
-    count: 11,
+    count: 5,
   },
-  {
-    name: 'twitter',
-    url: 'https://x.com/yourname',
-    icon: 'icon-[ri--twitter-x-fill]',
-  },
-  {
-    name: 'bilibili',
-    url: 'https://space.bilibili.com/yourSpaceId',
-    icon: 'icon-[ri--bilibili-fill]',
-  },
+  // {
+  //   name: 'twitter',
+  //   url: 'https://x.com/yourname',
+  //   icon: 'icon-[ri--twitter-x-fill]',
+  // },
+  // {
+  //   name: 'bilibili',
+  //   url: 'https://space.bilibili.com/yourSpaceId',
+  //   icon: 'icon-[ri--bilibili-fill]',
+  // },
 ]
 
 /**
@@ -160,16 +160,17 @@ export const SKILLSSHOWCASE_CONFIG: SkillsShowcaseConfig = {
 
 export const GITHUB_CONFIG: GithubConfig = {
   ENABLED: true,
-  GITHUB_USERNAME: 'Dnzzk2',
+  GITHUB_USERNAME: 'fabiankaraben',
   TOOLTIP_ENABLED: true,
 }
 
 //--- Posts Page Config ---
 export const POSTS_CONFIG: PostConfig = {
   title: 'Posts',
-  description: 'Posts by Dnzzk2',
-  introduce: 'Here, I will share the usage instructions for this theme to help you quickly use it.',
-  author: 'Dnzzk2',
+  description: 'Posts by Xeost',
+  introduce:
+    'Here, I will share from in-depth tutorials on programming languages to strategies for scalable infrastructure, our blog empowers readers to build, optimize, and innovate in the ever-evolving digital landscape.',
+  author: 'Xeost',
   homePageConfig: {
     size: 5,
     type: 'compact',
@@ -204,6 +205,6 @@ export const TAGS_CONFIG: TagsConfig = {
 
 export const PROJECTS_CONFIG: ProjectConfig = {
   title: 'Projects',
-  description: 'The examples of my projects.',
-  introduce: 'The examples of my projects.',
+  description: 'The Xeost projects.',
+  introduce: 'The Xeost projects.',
 }

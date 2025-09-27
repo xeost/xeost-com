@@ -16,6 +16,7 @@ export type Site = {
   author: string
   website: string
   ogImage: string
+  gitHubRepo: string
   gaId: string
 }
 
