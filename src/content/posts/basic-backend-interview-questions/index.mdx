@@ -198,23 +198,170 @@ In backend development, endpoints are designed to handle specific client request
 
 ### What is a database?
 
+A **database** is an organized collection of data, typically stored and managed electronically on a computer system, designed to allow efficient storage, retrieval, updating, and deletion of data. In the context of backend development, it serves as a structured repository to store application data, such as user information, transactions, or content.
+
+**Key Points**:
+
+- **Purpose**: Enables persistent storage and management of data for applications.
+- **Types**:
+  - **Relational Databases**: Use tables with rows and columns (e.g., MySQL, PostgreSQL), managed with SQL.
+  - **NoSQL Databases**: Handle unstructured or semi-structured data (e.g., MongoDB for documents, Redis for key-value stores).
+- **Components**: Consists of tables (in relational databases), collections (in NoSQL), or other data structures, with mechanisms for querying and indexing.
+- **Backend Role**: The backend interacts with the database to perform CRUD operations (Create, Read, Update, Delete) via APIs or direct queries.
+
+For example, in a TODO service, a database might store tasks with fields like `id`, `title`, and `status`.
+
 ### What is SQL?
+
+**SQL** (Structured Query Language) is a standardized programming language used to manage and manipulate relational databases. It enables users to perform operations such as querying, inserting, updating, and deleting data, as well as defining and managing database structures.
+
+**Key Points**:
+
+- **Purpose**: Interacts with relational databases to retrieve and manage data.
+- **Common Operations**:
+  - **SELECT**: Retrieve data (e.g., `SELECT * FROM tasks WHERE status = 'pending'`).
+  - **INSERT**: Add data (e.g., `INSERT INTO tasks (title) VALUES ('New Task')`).
+  - **UPDATE**: Modify data (e.g., `UPDATE tasks SET status = 'completed' WHERE id = 1`).
+  - **DELETE**: Remove data (e.g., `DELETE FROM tasks WHERE id = 1`).
+- **Additional Functions**: Defines schemas (e.g., creating tables), manages permissions, and supports joins for combining data across tables.
+- **Used With**: Relational databases like MySQL, PostgreSQL, SQLite, or Oracle.
+
+In backend development, SQL is used to interact with databases to support application logic, such as fetching or updating tasks in a TODO service.
 
 ### What is a primary key?
 
+A **primary key** is a unique identifier for each record in a relational database table. It ensures that every row can be uniquely distinguished and is used to enforce data integrity and enable efficient data retrieval.
+
+**Key Points**:
+
+- **Uniqueness**: No two records in the table can have the same primary key value.
+- **Non-null**: A primary key cannot contain null values.
+- **Purpose**: Facilitates indexing, searching, and linking tables via foreign keys.
+- **Example**: In a TODO service table `tasks`, a column `id` (e.g., `1`, `2`, `3`) can serve as the primary key to uniquely identify each task.
+- **Implementation**: Typically an auto-incrementing integer or a unique string (e.g., UUID).
+
+In backend development, primary keys are critical for database operations like querying or joining tables.
+
 ### What is a foreign key?
+
+A **foreign key** is a column (or set of columns) in a relational database table that establishes a link between data in two tables. It references the primary key (or a unique key) of another table, ensuring referential integrity by enforcing that the value in the foreign key column matches an existing value in the referenced table's primary key or unique key.
+
+**Key Points**:
+
+- **Purpose**: Maintains relationships between tables, enabling data consistency and relational queries (e.g., joins).
+- **Constraints**: Ensures the foreign key value exists in the referenced table or is null (if allowed).
+- **Example**: In a TODO service:
+  - Table `tasks`: Has columns `task_id` (primary key) and `title`.
+  - Table `users`: Has columns `user_id` (primary key) and `name`.
+  - Table `tasks` may have a `user_id` column as a foreign key referencing `users.user_id`, linking each task to a specific user.
+- **Behavior**: Can enforce rules like cascading deletes/updates (e.g., if a user is deleted, their tasks are also deleted).
+
+In backend development, foreign keys are used to model relationships and ensure data integrity across related tables.
 
 ### What is a table in a database?
 
+A **table** in a database is a structured collection of data organized into rows and columns, used to store related information in a relational database. Each table represents a specific entity or concept (e.g., users, tasks) and is defined by a schema that specifies its columns and their data types.
+
+**Key Points**:
+
+- **Columns**: Define the attributes of the entity (e.g., `id`, `title`, `status` in a `tasks` table).
+- **Rows**: Represent individual records or instances of the entity (e.g., a single task with values `1`, `"Buy groceries"`, `"pending"`).
+- **Primary Key**: A unique column (or set of columns) to identify each row (e.g., `id`).
+- **Purpose**: Organizes data for efficient storage, retrieval, and manipulation using queries (e.g., SQL).
+- **Example**: In a TODO service, a `tasks` table might have columns `task_id` (primary key), `title`, `description`, and `due_date`.
+
+In backend development, tables are fundamental for storing and managing application data, enabling operations like CRUD (Create, Read, Update, Delete).
+
 ### What is a row in a database?
+
+A **row** in a database is a single record or entry in a relational database table that represents one instance of the entity defined by the table. Each row contains values for the columns defined in the table's schema, corresponding to the attributes of that entity.
+
+**Key Points**:
+
+- **Structure**: A row consists of data for each column in the table (e.g., for a `tasks` table with columns `task_id`, `title`, `status`, a row might be `1, "Buy groceries", "pending"`).
+- **Uniqueness**: Typically identified by a primary key (e.g., `task_id`).
+- **Purpose**: Stores a complete set of data for a single entity instance, such as one task in a TODO service.
+- **Example**: In a `tasks` table:
+  - Columns: `task_id`, `title`, `due_date`, `status`
+  - Row: `1, "Complete project", "2025-10-01", "pending"`
+
+In backend development, rows are manipulated through SQL queries (e.g., SELECT, INSERT, UPDATE, DELETE) to manage individual records in a database.
 
 ### What is a column in a database?
 
+A **column** in a database is a single attribute or field in a relational database table that defines a specific type of data stored for each record (row) in that table. It represents a particular property of the entity the table describes.
+
+**Key Points**:
+
+- **Structure**: Each column has a name and a defined data type (e.g., integer, string, date) that specifies what kind of data it can hold.
+- **Purpose**: Organizes data by categorizing it into specific attributes for all records in the table.
+- **Example**: In a `tasks` table for a TODO service:
+  - Columns: `task_id` (integer), `title` (string), `due_date` (date), `status` (string).
+  - A row might contain: `1, "Buy groceries", "2025-10-01", "pending"`, where each value corresponds to a column.
+- **Constraints**: Columns can have rules like `NOT NULL`, unique, or foreign key constraints to ensure data integrity.
+
+In backend development, columns define the structure of the data stored in a table and are used in SQL queries to retrieve or manipulate specific attributes.
+
 ### What is CRUD?
+
+**CRUD** stands for **Create, Read, Update, Delete**, representing the four fundamental operations used to manage data in a database or application. These operations are essential for interacting with persistent storage in backend development.
+
+**Key Points**:
+
+- **Create**: Adds new data to the database (e.g., inserting a new task in a TODO service).
+  - Example: `INSERT INTO tasks (title, status) VALUES ('New Task', 'pending')`
+- **Read**: Retrieves or queries data from the database (e.g., fetching a list of tasks).
+  - Example: `SELECT * FROM tasks WHERE status = 'pending'`
+- **Update**: Modifies existing data in the database (e.g., changing a task’s status).
+  - Example: `UPDATE tasks SET status = 'completed' WHERE task_id = 1`
+- **Delete**: Removes data from the database (e.g., deleting a task).
+  - Example: `DELETE FROM tasks WHERE task_id = 1`
+
+**Context**:
+
+- **Backend Role**: CRUD operations are typically implemented in APIs (e.g., REST endpoints like `POST /tasks`, `GET /tasks`, `PUT /tasks/{id}`, `DELETE /tasks/{id}`).
+- **Purpose**: Provides a standardized way to manage data, ensuring applications can store, retrieve, modify, and remove records efficiently.
+
+In a TODO service, CRUD enables users to create tasks, view them, update their details, and delete them as needed.
 
 ### What is a query?
 
+A **query** in a database is a request for data or instructions to retrieve, manipulate, or manage information stored in a database, typically written in a query language like SQL for relational databases. It specifies what data to access or how to modify it based on defined criteria.
+
+**Key Points**:
+
+- **Purpose**: Queries allow users or applications to interact with a database to perform operations like retrieving, inserting, updating, or deleting data (aligned with CRUD operations).
+- **Types** (in SQL):
+  - **SELECT**: Retrieves data (e.g., `SELECT title, status FROM tasks WHERE status = 'pending'`).
+  - **INSERT**: Adds new data (e.g., `INSERT INTO tasks (title) VALUES ('New Task')`).
+  - **UPDATE**: Modifies data (e.g., `UPDATE tasks SET status = 'completed' WHERE task_id = 1`).
+  - **DELETE**: Removes data (e.g., `DELETE FROM tasks WHERE task_id = 1`).
+- **Components**: Queries often include clauses like `WHERE` (filtering), `ORDER BY` (sorting), `JOIN` (combining tables), and `GROUP BY` (aggregating data).
+- **Example**: In a TODO service, a query like `SELECT * FROM tasks WHERE due_date = '2025-10-01'` retrieves all tasks due on a specific date.
+
+In backend development, queries are used to fetch or manipulate data in response to API requests or application logic, enabling dynamic interaction with the database.
+
 ### What is normalization?
+
+**Normalization** is the process of organizing data in a relational database to eliminate redundancy, improve data integrity, and ensure efficient storage and retrieval. It involves structuring tables and their relationships according to a set of rules, called normal forms, to minimize data anomalies during CRUD operations (Create, Read, Update, Delete).
+
+**Key Points**:
+
+- **Purpose**: Reduces data duplication, ensures consistency, and simplifies maintenance.
+- **Normal Forms** (simplified):
+  - **1NF (First Normal Form)**: Ensures all columns contain atomic (indivisible) values and each record is unique (no duplicate rows).
+  - **2NF**: Meets 1NF and ensures non-key columns are fully dependent on the primary key (eliminates partial dependencies).
+  - **3NF**: Meets 2NF and ensures non-key columns are not dependent on other non-key columns (eliminates transitive dependencies).
+- **Example**: In a TODO service:
+  - Unnormalized table: A `tasks` table with columns `task_id`, `title`, `user_name`, `user_email` might repeat `user_name` and `user_email` for tasks by the same user.
+  - Normalized:
+    - `tasks` table: `task_id`, `title`, `user_id` (foreign key).
+    - `users` table: `user_id`, `user_name`, `user_email`.
+    - This splits user data into a separate table, reducing redundancy.
+- **Benefits**: Saves storage space, ensures data consistency, and simplifies updates.
+- **Trade-offs**: May increase query complexity (e.g., requiring joins) and impact performance for read-heavy applications.
+
+In backend development, normalization is critical for designing efficient and maintainable database schemas, especially for applications like a TODO service where tasks and user data need clear relationships.
 
 ## Networking
 
