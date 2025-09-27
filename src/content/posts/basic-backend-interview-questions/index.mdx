@@ -1,7 +1,7 @@
 ---
 title: '100 Basic Backend Interview Questions'
 description: 'Fundamentals, Databases, Networking, Security, Performance. This article covers the most common basic interview questions for Go developers.'
-pubDate: 2025-08-15
+pubDate: 2025-08-16
 author: 'Xeost'
 # cover: assets/cover.png
 recommend: false
@@ -25,7 +25,37 @@ In short, the backend server powers the application's functionality, acting as t
 
 ### What is an API?
 
+An API (Application Programming Interface) is a set of rules and tools that allows different software applications to communicate with each other. It acts as an intermediary, enabling the exchange of data or functionality between systems, such as a backend server and a frontend client, by defining standardized methods for requests and responses (e.g., GET, POST). For example, a backend API might provide data like user profiles or process actions like payments, which the frontend can access without needing to understand the backend's internal logic.
+
+> [!important]+ **Example**: A simple To-Do List API
+>
+> **Base URL**: `https://api.todo-service.com/v1`
+>
+> - **GET** `/tasks` - Get all tasks
+> - **GET** `/tasks/{id}` - Get a task by ID
+> - **POST** `/tasks` - Create a new task
+> - **PUT** `/tasks/{id}` - Update a task by ID
+> - **DELETE** `/tasks/{id}` - Delete a task by ID
+
 ### What is the difference between frontend and backend development?
+
+**Frontend Development**:
+
+- Focuses on the user-facing part of a web application.
+- Involves building the interface, visuals, and user interactions (e.g., buttons, forms, layouts).
+- Uses technologies like HTML, CSS, JavaScript, and frameworks like React or Vue.js.
+- Runs in the user's browser, handling client-side logic and rendering.
+- Goal: Create an intuitive, responsive, and visually appealing user experience.
+
+**Backend Development**:
+
+- Focuses on the server-side logic, data management, and application functionality.
+- Involves handling requests, processing data, managing databases, and ensuring system reliability.
+- Uses technologies like Python, Java, Node.js, and databases like MySQL or MongoDB.
+- Runs on the server, managing APIs, authentication, and business logic.
+- Goal: Ensure the application is secure, scalable, and efficiently processes data.
+
+**Key Difference**: Frontend is about what users see and interact with in the browser; backend is about the behind-the-scenes logic, data, and server operations that power the application.
 
 ### What is a server?
 
