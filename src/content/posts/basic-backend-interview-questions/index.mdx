@@ -1,12 +1,14 @@
 ---
 title: '100 Basic Backend Interview Questions'
-description: 'Fundamentals, Databases, Networking, Security, Performance. This article covers the most common basic interview questions for Go developers.'
+description: 'Fundamentals, Databases, Networking, Security, Performance. This article covers the most common basic interview questions for backend developers.'
 pubDate: 2025-08-16
 author: 'Xeost'
 # cover: assets/cover.png
 recommend: false
 tags: ['Interview Q&A', 'Backend']
 ---
+
+This is a list of 100 language-agnostic basic backend interview questions for Backend developers. It covers the most common interview questions for backend developers, including fundamentals, databases, networking, security, and performance.
 
 ## Fundamentals
 
@@ -59,17 +61,138 @@ An API (Application Programming Interface) is a set of rules and tools that allo
 
 ### What is a server?
 
+A **server** is a computer or software system that provides resources, services, or data to other computers (clients) over a network. In the context of a web application, it handles backend tasks such as processing requests, managing databases, executing business logic, and sending responses to clients (e.g., browsers or apps). Servers can be physical machines or virtual instances running software like Apache, Nginx, or Node.js, and they operate continuously to ensure availability and reliability of services.
+
 ### What is a request-response cycle?
+
+The **request-response cycle** is the process in which a client (e.g., a web browser or app) communicates with a server to request resources or services, and the server processes the request and sends back a response.
+
+**Steps in the Cycle**:
+
+1. **Request**: The client sends an HTTP request to the server, specifying an action (e.g., GET, POST) and a resource (e.g., `/tasks`).
+2. **Processing**: The server receives the request, processes it (e.g., retrieves data, performs logic, or updates a database), and prepares a response.
+3. **Response**: The server sends back an HTTP response, typically containing data (e.g., JSON, HTML) or a status (e.g., 200 OK, 404 Not Found).
+
+**Example**:
+
+- A user clicks a link in a browser (client) to view a webpage (`GET /home`).
+- The server processes the request, fetches the webpage content, and sends it back.
+- The browser renders the response for the user to see.
+
+This cycle is the foundation of client-server communication in web applications.
 
 ### What is HTTP?
 
+HTTP (HyperText Transfer Protocol) is a protocol used for communication between clients (e.g., web browsers) and servers over the internet. It defines how requests and responses are structured and transmitted, enabling the retrieval of resources like web pages, images, or APIs.
+
+Key points:
+
+- **Stateless**: Each request-response cycle is independent.
+- **Methods**: Includes actions like GET (retrieve data), POST (send data), PUT (update data), and DELETE (remove data).
+- **Structure**: Requests contain headers, methods, and URLs; responses include status codes (e.g., 200 OK, 404 Not Found) and data.
+- **Port**: Typically uses port 80 (or 443 for HTTPS).
+
+HTTP is the foundation for data exchange in web applications.
+
 ### What are HTTP methods?
+
+HTTP methods are standardized actions that define the type of operation a client (e.g., a browser or app) wants to perform on a server's resource (e.g., a webpage, API endpoint). They are part of the HTTP protocol and indicate the intended action in a request-response cycle. Below are the most common HTTP methods:
+
+1. **GET**: Retrieve a resource or data from the server (e.g., fetch a webpage or list of tasks).
+2. **POST**: Send data to the server to create a new resource (e.g., submit a form or create a new task).
+3. **PUT**: Update an existing resource on the server (e.g., modify a task's details).
+4. **DELETE**: Remove a resource from the server (e.g., delete a task).
+5. **PATCH**: Partially update a resource (e.g., change only the status of a task).
+6. **HEAD**: Retrieve metadata (headers) about a resource without the body, similar to GET.
+7. **OPTIONS**: Query the server for supported HTTP methods or communication options.
+8. **TRACE**: Echo the received request for debugging purposes (rarely used).
+9. **CONNECT**: Establish a tunnel to the server, typically for proxying (e.g., for HTTPS).
+
+Each method is used in specific contexts to interact with resources in a predictable and standardized way, forming the backbone of RESTful APIs and web communication.
 
 ### What is a URL?
 
+A **URL** (Uniform Resource Locator) is a string that specifies the address of a resource on the internet, such as a webpage, file, or API endpoint. It provides a standardized way to locate and access resources over a network, typically via HTTP/HTTPS.
+
+**Components of a URL**:
+
+- **Scheme**: The protocol used (e.g., `http`, `https`).
+- **Host**: The domain name or IP address of the server (e.g., `example.com`).
+- **Port** (optional): The port number for the connection (e.g., `:80` for HTTP, often omitted).
+- **Path**: The specific resource or endpoint on the server (e.g., `/tasks`).
+- **Query Parameters** (optional): Key-value pairs for additional data (e.g., `?id=123`).
+- **Fragment** (optional): A reference to a specific part of the resource (e.g., `#section1`).
+
+**Example**:
+
+`https://api.todo-service.com:443/v1/tasks?id=123#details`
+
+- Scheme: `https`
+- Host: `api.todo-service.com`
+- Port: `443`
+- Path: `/v1/tasks`
+- Query: `id=123`
+- Fragment: `details`
+
+A URL acts as a precise address for accessing resources in web applications.
+
 ### What is a URI?
 
+A **URI** (Uniform Resource Identifier) is a string that uniquely identifies a resource, either on the internet or within a system. It serves as a general way to reference resources, encompassing both **URLs** (Uniform Resource Locators) and **URNs** (Uniform Resource Names).
+
+**Key Points**:
+
+- **Purpose**: Identifies a resource by name, location, or both.
+- **Types**:
+  - **URL**: Specifies the location and how to access a resource (e.g., `https://api.todo-service.com/v1/tasks`).
+  - **URN**: Identifies a resource by name without specifying its location (e.g., `urn:isbn:1234567890`).
+- **Components** (for URLs, a subset of URIs):
+  - Scheme (e.g., `https`, `ftp`).
+  - Authority (e.g., domain like `example.com`).
+  - Path (e.g., `/v1/tasks`).
+  - Query (e.g., `?id=123`).
+  - Fragment (e.g., `#section`).
+- **Difference from URL**: All URLs are URIs, but not all URIs are URLs (e.g., URNs are URIs but don’t specify a location).
+
+**Example**:
+
+- URI (URL): `https://api.todo-service.com/v1/tasks?id=123`
+- URI (URN): `urn:uuid:6e8bc430-9c3a-11d9-9669-0800200c9a66`
+
+In backend development, URIs are used to define endpoints or resources in APIs and systems.
+
+### What is FQDN?
+
+An **FQDN** (Fully Qualified Domain Name) is the complete address of a specific resource on the internet, uniquely identifying a host within the domain name system (DNS). It includes the hostname and all domain levels, providing an absolute path to the resource.
+
+**Key Points**:
+
+- **Structure**: Consists of the hostname, subdomain (if any), second-level domain, and top-level domain (e.g., `api.todo-service.com`).
+- **Purpose**: Used to locate servers or resources precisely in networking and web applications.
+- **Example**:
+  - `api.todo-service.com` is an FQDN, where:
+    - `api` is the hostname.
+    - `todo-service` is the second-level domain.
+    - `com` is the top-level domain.
+  - In contrast, `todo-service.com` is a domain name but not fully qualified without the hostname.
+- **Usage in Backend**: FQDNs are used in DNS resolution, server configuration, APIs, and networking (e.g., specifying a server in a URL like `https://api.todo-service.com/v1/tasks`).
+
+An FQDN ensures unambiguous identification of a resource across the internet.
+
 ### What is an endpoint in an API?
+
+An **endpoint** in an API is a specific address (URL) that represents a resource or function in a web service, allowing clients to interact with the server by sending requests to perform actions like retrieving, creating, updating, or deleting data. Each endpoint is tied to a specific HTTP method (e.g., GET, POST) and path.
+
+**Key Points**:
+
+- **Structure**: Typically consists of a base URL and a path (e.g., `https://api.todo-service.com/v1/tasks`).
+- **Purpose**: Defines a point of interaction for a specific operation (e.g., `GET /tasks` to list tasks or `POST /tasks` to create a task).
+- **Example** (from a TODO service):
+  - `GET /v1/tasks` - Retrieves all tasks.
+  - `POST /v1/tasks` - Creates a new task.
+  - `DELETE /v1/tasks/{id}` - Deletes a task by ID.
+
+In backend development, endpoints are designed to handle specific client requests and return appropriate responses, forming the core of API functionality.
 
 ## Databases
 
