@@ -10,6 +10,7 @@ export const SITE: Site = {
   base: '/',
   author: 'Dnzzk2',
   ogImage: '/og-image.webp',
+  gaId: 'G-TVDVCVS9V9', // Google Analytics ID (used only in production)
 }
 
 export const HEADER_LINKS: Link[] = [
