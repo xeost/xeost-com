@@ -207,18 +207,6 @@ export interface Photo {
   description?: string
 }
 
-/**
- * 图片页面配置接口 / Photos page configuration interface
- * @property {string} title - 页面标题 / Page title
- * @property {string} description - 页面描述 / Page description
- * @property {string} introduce - 页面介绍 / Page introduction
- */
-export interface PhotosConfig {
-  title: string
-  description: string
-  introduce: string
-}
-
 export type TimelineIconType = 'emoji' | 'icon' | 'color' | 'number' | 'image'
 
 export interface PhotoData {
@@ -230,6 +218,5 @@ export interface PhotoData {
   }
   description?: string
   date: string
-  photos: Photo[]
   travel?: string
 }

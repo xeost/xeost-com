@@ -1,15 +1,4 @@
-import type {
-  GithubConfig,
-  Link,
-  PhotoData,
-  PhotosConfig,
-  PostConfig,
-  ProjectConfig,
-  Site,
-  SkillsShowcaseConfig,
-  SocialLink,
-  TagsConfig,
-} from '~/types'
+import type { GithubConfig, Link, PostConfig, ProjectConfig, Site, SkillsShowcaseConfig, SocialLink, TagsConfig } from '~/types'
 
 //--- Readme Page Config ---
 export const SITE: Site = {
@@ -32,10 +21,6 @@ export const HEADER_LINKS: Link[] = [
     name: 'Projects',
     url: '/projects',
   },
-  {
-    name: 'Photos',
-    url: '/photos',
-  },
 ]
 
 export const FOOTER_LINKS: Link[] = [
@@ -54,10 +39,6 @@ export const FOOTER_LINKS: Link[] = [
   {
     name: 'Tags',
     url: '/tags',
-  },
-  {
-    name: 'Photos',
-    url: '/photos',
   },
 ]
 
@@ -225,111 +206,3 @@ export const PROJECTS_CONFIG: ProjectConfig = {
   description: 'The examples of my projects.',
   introduce: 'The examples of my projects.',
 }
-
-export const PHOTOS_CONFIG: PhotosConfig = {
-  title: 'Photos',
-  description: 'Here I will record some photos taken in daily life.',
-  introduce: 'Here I will record some photos taken in daily life.',
-}
-
-export const PhotosList: PhotoData[] = [
-  {
-    title: "Friend's Adorable Cat",
-    icon: {
-      type: 'emoji',
-      value: '🌠',
-    },
-    description: 'So kawaii (*^ω^*)',
-    date: '2025-06-21',
-    travel: '',
-    photos: [
-      {
-        src: '/photos/cat1.webp',
-        alt: "Friend's Adorable Cat",
-        width: 1080,
-        height: 810,
-        variant: '4x3',
-      },
-      {
-        src: '/photos/cat2.webp',
-        alt: "Friend's Adorable Cat",
-        width: 1080,
-        height: 810,
-        variant: '4x3',
-      },
-      {
-        src: '/photos/cat3.webp',
-        alt: "Friend's Adorable Cat",
-        width: 1080,
-        height: 810,
-        variant: '4x3',
-      },
-      {
-        src: '/photos/cat4.webp',
-        alt: "Friend's Adorable Cat",
-        width: 1080,
-        height: 810,
-        variant: '4x3',
-      },
-    ],
-  },
-  {
-    title: 'Ningbo · Dongqian Lake',
-    icon: {
-      type: 'emoji',
-      value: '🌅',
-    },
-    description: 'Cycling around Dongqian Lake. Although I got leg cramps a few times, the scenery was beautiful.',
-    date: '2025-03-01',
-    travel: '',
-    photos: [
-      {
-        src: '/photos/dqh1.webp',
-        alt: 'Ningbo · Dongqian Lake',
-        width: 1080,
-        height: 1358,
-        variant: '4x5',
-      },
-      {
-        src: '/photos/dqh2.jpg',
-        alt: 'Ningbo · Dongqian Lake',
-        width: 1080,
-        height: 1080,
-        variant: '1x1',
-      },
-      {
-        src: '/photos/dqh3.jpg',
-        alt: 'Ningbo · Dongqian Lake',
-        width: 1440,
-        height: 1080,
-        variant: '4x3',
-      },
-    ],
-  },
-  {
-    title: 'Ningbo · Zhoushan',
-    icon: {
-      type: 'emoji',
-      value: '🌉',
-    },
-    description: '',
-    date: '2024-09-07',
-    travel: '',
-    photos: [
-      {
-        src: '/photos/zs1.webp',
-        alt: 'Ningbo · Zhoushan',
-        width: 1210,
-        height: 908,
-        variant: '4x3',
-      },
-      {
-        src: '/photos/zs2.webp',
-        alt: 'Ningbo · Zhoushan',
-        width: 1080,
-        height: 810,
-        variant: '4x3',
-      },
-    ],
-  },
-]
