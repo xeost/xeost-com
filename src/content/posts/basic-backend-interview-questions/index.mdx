@@ -1450,82 +1450,1864 @@ In backend development, synchronization is critical for applications like a TODO
 
 ### What is REST?
 
+**REST** (Representational State Transfer) is an architectural style for designing networked applications, particularly web APIs, that emphasizes simplicity, scalability, and statelessness. It uses standard web protocols (primarily HTTP) to enable communication between clients and servers, treating resources as the central concept.
+
+**Key Points**:
+
+- **Core Principles**:
+  - **Stateless**: Each request from a client to a server must contain all the information needed to process it, without relying on stored server-side state.
+  - **Client-Server**: Separates the client (e.g., a browser or app) from the server, allowing independent evolution of each.
+  - **Resources**: Data or services are represented as resources, identified by URLs (e.g., `/tasks` for a list of tasks).
+  - **Standard HTTP Methods**: Uses methods like:
+    - `GET`: Retrieve a resource (e.g., `GET /v1/tasks` to list tasks).
+    - `POST`: Create a resource (e.g., `POST /v1/tasks` to add a task).
+    - `PUT`/`PATCH`: Update a resource (e.g., `PUT /v1/tasks/123` to modify a task).
+    - `DELETE`: Remove a resource (e.g., `DELETE /v1/tasks/123` to delete a task).
+  - **Uniform Interface**: Standard conventions for accessing resources (e.g., consistent URLs, HTTP status codes).
+  - **Cacheable**: Responses can be cached to improve performance.
+  - **Layered System**: Allows intermediaries (e.g., proxies, load balancers) without affecting client-server interaction.
+- **Example**: In a TODO service:
+  - `GET https://api.todo-service.com/v1/tasks` retrieves a list of tasks.
+  - `POST https://api.todo-service.com/v1/tasks` with a JSON payload creates a new task.
+  - Response format is typically JSON (e.g., `{"id": 123, "title": "Buy groceries", "status": "pending"}`).
+- **Benefits**:
+  - Scalable due to statelessness and caching.
+  - Simple to implement and understand.
+  - Compatible with web standards (HTTP, URLs).
+- **Challenges**:
+  - Statelessness may require more data in requests.
+  - Over-fetching/under-fetching data (addressed by GraphQL in some cases).
+
+In backend development, REST is widely used for building APIs (like a TODO service) due to its simplicity and alignment with HTTP, enabling clients to interact with server resources efficiently and predictably.
+
 ### What is SOAP?
+
+**SOAP** (Simple Object Access Protocol) is a protocol for exchanging structured information in the implementation of web services, typically using XML over HTTP or other transport protocols. It is designed for robust, standardized communication between clients and servers, emphasizing strict specifications and security.
+
+**Key Points**:
+
+- **Purpose**: Enables structured data exchange for web services, often in enterprise applications requiring high reliability and security.
+- **How It Works**:
+  - Uses XML-based messages to send requests and responses.
+  - Operates over protocols like HTTP, SMTP, or TCP, but most commonly HTTP.
+  - Messages consist of an **envelope** (root element), **header** (optional metadata), and **body** (actual data or request).
+  - Relies on a **WSDL** (Web Services Description Language) file to define the service’s structure and operations.
+- **Key Features**:
+  - **Strict Standards**: Follows a rigid, standardized format with defined rules for message structure.
+  - **Extensibility**: Supports advanced features like security (WS-Security) and transactions.
+  - **Protocol Independence**: Not tied to HTTP; can use other protocols.
+  - **Built-in Error Handling**: Uses fault elements in XML for standardized error reporting.
+- **Example**: In a TODO service:
+  - A SOAP request to create a task might look like:
+    ```xml title="xml"
+    <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+      <soap:Body>
+        <CreateTask xmlns="http://todo-service.com">
+          <title>Buy groceries</title>
+          <status>pending</status>
+        </CreateTask>
+      </soap:Body>
+    </soap:Envelope>
+    ```
+  - The server responds with a structured XML response containing the task ID or error details.
+- **Contrast with REST**:
+  - **SOAP**: Uses XML, strict protocol, stateful or stateless, complex (WSDL, WS-Security).
+  - **REST**: Uses JSON or XML, lightweight, stateless, simpler, leverages HTTP methods (GET, POST, etc.).
+- **Benefits**:
+  - Robust for enterprise systems with strict requirements (e.g., banking, healthcare).
+  - Strong security and transaction support.
+  - Platform and language agnostic.
+- **Challenges**:
+  - Complex due to XML and WSDL overhead.
+  - Slower performance compared to REST due to verbose messages.
+  - Less flexible for rapid development or lightweight APIs.
+- **Use Cases**: Common in enterprise systems (e.g., financial services, CRM systems) where formal contracts and security are critical, unlike REST’s popularity in simpler web APIs like a TODO service.
+
+In backend development, SOAP is used when a TODO service requires strict standards, advanced security, or integration with legacy enterprise systems, though REST is often preferred for simplicity and performance.
 
 ### What is JSON?
 
+**JSON** (JavaScript Object Notation) is a lightweight, text-based data format used for structuring and exchanging data between systems, particularly in web applications and APIs. It is easy to read, write, and parse, making it widely used for client-server communication.
+
+**Key Points**:
+
+- **Purpose**: Represents structured data in a platform-independent way, ideal for API payloads and configuration files.
+- **Structure**:
+  - **Objects**: Key-value pairs enclosed in curly braces `{}` (e.g., `{"key": "value"}`).
+  - **Arrays**: Ordered lists enclosed in square brackets `[]` (e.g., `["item1", "item2"]`).
+  - **Data Types**: Supports strings, numbers, booleans, null, objects, and arrays.
+- **Syntax**:
+  ```json title="json"
+  {
+    "id": 1,
+    "title": "Buy groceries",
+    "status": "pending",
+    "tags": ["urgent", "personal"],
+    "completed": false,
+    "details": null
+  }
+  ```
+- **Example**: In a TODO service:
+  - A `GET /v1/tasks` API request returns:
+    ```json title="json"
+    [
+      { "id": 1, "title": "Buy groceries", "status": "pending" },
+      { "id": 2, "title": "Finish report", "status": "completed" }
+    ]
+    ```
+  - A `POST /v1/tasks` request sends:
+    ```json
+    { "title": "New task", "status": "pending" }
+    ```
+- **Benefits**:
+  - Human-readable and concise.
+  - Widely supported across programming languages (e.g., JavaScript, Python, Java).
+  - Efficient for web APIs (smaller payloads compared to XML).
+- **Contrast with XML**:
+  - JSON is lighter and simpler; XML is more verbose but supports more complex structures.
+- **Use Cases**:
+  - API responses and requests (e.g., RESTful APIs in a TODO service).
+  - Configuration files (e.g., `package.json` in Node.js).
+  - Data storage in NoSQL databases like MongoDB.
+
+In backend development, JSON is the standard format for data exchange in APIs like a TODO service, enabling efficient and interoperable communication between clients and servers.
+
 ### What is XML?
+
+**XML** (Extensible Markup Language) is a flexible, text-based data format used to structure, store, and transport data between systems, particularly in web applications and services. It uses custom tags to define data and its hierarchy, making it highly customizable and widely used for data interchange.
+
+**Key Points**:
+
+- **Purpose**: Represents structured data in a platform-independent, human-readable format, suitable for complex data structures and web services.
+- **Structure**:
+  - Consists of nested elements defined by custom tags, enclosed in angle brackets `< >`.
+  - Elements have a start tag (e.g., `<task>`), content, and an end tag (e.g., `</task>`).
+  - Supports attributes within tags (e.g., `<task id="1">`).
+  - Must have a single root element containing all other elements.
+- **Syntax**:
+  ```xml title="xml"
+  <tasks>
+    <task id="1">
+      <title>Buy groceries</title>
+      <status>pending</status>
+    </task>
+    <task id="2">
+      <title>Finish report</title>
+      <status>completed</status>
+    </task>
+  </tasks>
+  ```
+- **Example**: In a TODO service:
+  - A `GET /v1/tasks` API response in XML:
+    ```xml title="xml"
+    <response>
+      <tasks>
+        <task id="1">
+          <title>Buy groceries</title>
+          <status>pending</status>
+        </task>
+      </tasks>
+    </response>
+    ```
+  - A `POST /v1/tasks` request:
+    ```xml title="xml"
+    <task>
+      <title>New task</title>
+      <status>pending</status>
+    </task>
+    ```
+- **Benefits**:
+  - Highly structured and extensible (custom tags for specific needs).
+  - Supports complex data with metadata (e.g., attributes, namespaces).
+  - Widely used in enterprise systems (e.g., SOAP web services, configuration files).
+- **Challenges**:
+  - More verbose than JSON, leading to larger payloads and slower parsing.
+  - Complex to read/write compared to JSON’s simplicity.
+- **Contrast with JSON**:
+  - **JSON**: Lightweight, concise, ideal for APIs, uses key-value pairs and arrays.
+  - **XML**: More verbose, supports richer metadata (attributes, schemas), common in legacy or enterprise systems.
+- **Use Cases**:
+  - Data exchange in SOAP-based web services.
+  - Configuration files (e.g., Maven’s `pom.xml`).
+  - Document storage (e.g., XHTML, RSS feeds).
+
+In backend development, XML is used in applications like a TODO service for structured data exchange, particularly in legacy systems or SOAP APIs, though JSON is often preferred for modern REST APIs due to its simplicity and efficiency.
 
 ### What is a web service?
 
+A **web service** is a software system designed to enable machine-to-machine communication over a network, typically the internet, using standardized protocols like HTTP. It provides a way for applications to interact with each other by exposing functionalities or data through a defined interface, often in a platform-independent manner.
+
+**Key Points**:
+
+- **Purpose**: Allows different applications, systems, or devices to exchange data or perform operations remotely, such as retrieving or updating information.
+- **How It Works**:
+  - Operates over web protocols (e.g., HTTP, HTTPS) and often uses formats like JSON or XML for data exchange.
+  - Typically accessed via APIs (Application Programming Interfaces) with endpoints (e.g., `https://api.todo-service.com/v1/tasks`).
+- **Types**:
+  - **RESTful Web Services**: Use REST architecture, leveraging HTTP methods (GET, POST, PUT, DELETE) for operations, often returning JSON (e.g., a TODO service API).
+  - **SOAP Web Services**: Use XML-based messages with strict standards, often with WSDL for service description, common in enterprise systems.
+  - **GraphQL Web Services**: Allow clients to request specific data structures, reducing over- or under-fetching.
+- **Example**: In a TODO service:
+  - A web service exposes endpoints like `GET /v1/tasks` to retrieve tasks or `POST /v1/tasks` to create a task.
+  - A client (e.g., a mobile app) sends a request to the server, which processes it and returns a response (e.g., JSON with task data).
+- **Characteristics**:
+  - **Interoperability**: Works across different platforms and languages (e.g., a Java server can serve a Python client).
+  - **Stateless** (in REST): Each request contains all necessary information, no server-side state is maintained between requests.
+  - **Scalable**: Can handle multiple clients through distributed architectures.
+- **Use Cases**:
+  - APIs for mobile or web apps (e.g., a TODO app accessing task data).
+  - Integration between systems (e.g., connecting a TODO service to a calendar app).
+  - Enterprise services (e.g., financial or CRM systems using SOAP).
+- **Benefits**:
+  - Enables modular, distributed systems.
+  - Simplifies integration across diverse applications.
+  - Supports scalability and cross-platform communication.
+- **Challenges**:
+  - Security concerns (e.g., requires HTTPS, authentication).
+  - Performance overhead for complex protocols like SOAP.
+  - Need for robust error handling and versioning.
+
+In backend development, web services are critical for building APIs like those in a TODO service, enabling clients to interact with server-side data and functionality efficiently and securely.
+
 ### What is microservices?
+
+**Microservices** is an architectural style for developing applications as a collection of small, independent services that each perform a specific function and communicate over a network, typically using APIs. Each service is designed to be loosely coupled, independently deployable, and focused on a single business capability.
+
+**Key Points**:
+
+- **Purpose**: Enhances modularity, scalability, and maintainability by breaking down complex applications into smaller, manageable components.
+- **How It Works**:
+  - Each microservice runs as a separate process, handling a specific task (e.g., user authentication, task management).
+  - Services communicate via lightweight protocols like HTTP/REST, gRPC, or message queues (e.g., Kafka).
+  - Each service can use its own database, technology stack, or programming language.
+- **Example**: In a TODO service:
+  - **Task Service**: Handles CRUD operations for tasks (`GET /v1/tasks`, `POST /v1/tasks`).
+  - **User Service**: Manages user authentication and profiles (`POST /v1/users/login`).
+  - **Notification Service**: Sends reminders for tasks (e.g., via email or push notifications).
+  - Each service is deployed independently and communicates via APIs.
+- **Characteristics**:
+  - **Single Responsibility**: Each service focuses on one function (e.g., task creation, user management).
+  - **Independence**: Services can be developed, deployed, and scaled separately.
+  - **Decentralized Data**: Each service may have its own database to avoid tight coupling.
+  - **Interoperability**: Uses standard protocols (e.g., REST, JSON) for communication.
+- **Benefits**:
+  - **Scalability**: Scale individual services (e.g., scale only the task service during high traffic).
+  - **Flexibility**: Different services can use different technologies (e.g., Python for one, Node.js for another).
+  - **Resilience**: Failure in one service (e.g., notifications) doesn’t crash the entire system.
+  - **Faster Development**: Teams can work on different services concurrently.
+- **Challenges**:
+  - **Complexity**: Managing multiple services increases operational overhead (e.g., monitoring, deployment).
+  - **Data Consistency**: Distributed data can lead to eventual consistency issues.
+  - **Communication Overhead**: Network calls between services can introduce latency.
+  - **Debugging**: Harder to trace issues across distributed systems.
+- **Contrast with Monolithic Architecture**:
+  - **Monolithic**: A single, unified application where all components (e.g., UI, business logic, database) are tightly coupled and deployed together.
+  - **Microservices**: Splits the application into independent services, allowing modular development and deployment.
+- **Technologies**: Often implemented with tools like Docker (containerization), Kubernetes (orchestration), and APIs (REST, gRPC).
+
+In backend development, microservices are ideal for building scalable, flexible applications like a TODO service, where separate services handle tasks, users, or notifications, but they require careful design to manage complexity and ensure reliable communication.
 
 ### What is monolithic architecture?
 
+**Monolithic architecture** is a traditional software design approach where an entire application is built as a single, unified unit, with all components—such as the user interface, business logic, and data access layer—tightly coupled and deployed together as one executable or process.
+
+**Key Points**:
+
+- **Purpose**: Simplifies development, testing, and deployment by keeping all functionality in a single codebase, suitable for smaller or less complex applications.
+- **How It Works**:
+  - All components (e.g., API endpoints, database access, authentication logic) are integrated into one application.
+  - The application runs as a single process, sharing the same memory and resources.
+  - Changes or updates require rebuilding and redeploying the entire application.
+- **Example**: In a TODO service:
+  - A monolithic application includes:
+    - API endpoints (`GET /v1/tasks`, `POST /v1/tasks`).
+    - Business logic for task management.
+    - Database access (e.g., querying a `tasks` table).
+    - User authentication (e.g., login validation).
+  - All are part of one codebase (e.g., a single Node.js or Java application) and deployed as one unit.
+- **Characteristics**:
+  - **Tight Coupling**: Components are interdependent, sharing the same codebase and resources.
+  - **Single Deployment**: The entire application is deployed as one unit.
+  - **Shared Database**: Typically uses a single database for all functionality.
+- **Benefits**:
+  - **Simplicity**: Easier to develop, test, and debug for smaller applications due to a unified codebase.
+  - **Unified Deployment**: Single deployment process simplifies initial setup.
+  - **Performance**: No network overhead for communication between components (unlike microservices).
+- **Challenges**:
+  - **Scalability Limits**: Scaling requires replicating the entire application, which can be resource-intensive.
+  - **Complexity with Growth**: Large codebases become hard to maintain as features grow.
+  - **Tight Coupling**: Changes in one component (e.g., authentication) can break others.
+  - **Technology Lock-In**: Difficult to adopt new technologies for specific components.
+  - **Single Point of Failure**: A bug or crash can affect the entire application.
+- **Contrast with Microservices**:
+  - **Monolithic**: Single codebase, tightly coupled, deployed as one unit.
+  - **Microservices**: Multiple independent services, loosely coupled, deployed separately.
+- **Use Cases**:
+  - Small to medium-sized applications (e.g., a basic TODO service with limited features).
+  - Early-stage projects where simplicity and speed of development are priorities.
+
+In backend development, a monolithic architecture is suitable for a straightforward TODO service with limited complexity, but it may become challenging to scale or maintain as the application grows compared to a microservices approach.
+
 ### What is an HTTP status code?
+
+An **HTTP status code** is a three-digit number returned by a server in response to a client's HTTP request, indicating the outcome of the request. It provides information about whether the request was successful, failed, or requires further action, helping clients (e.g., browsers, apps) understand the result of their interaction with the server.
+
+**Key Points**:
+
+- **Purpose**: Communicates the result of an HTTP request (e.g., success, error, redirection) in a standardized way.
+- **Categories** (based on the first digit):
+  - **1xx (Informational)**: Request received, processing continues (e.g., 100 Continue).
+  - **2xx (Success)**: Request successfully processed (e.g., 200 OK).
+  - **3xx (Redirection)**: Further action needed, often a redirect (e.g., 301 Moved Permanently).
+  - **4xx (Client Error)**: Client-side issue (e.g., 404 Not Found).
+  - **5xx (Server Error)**: Server-side issue (e.g., 500 Internal Server Error).
+- **Common Examples**:
+  - **200 OK**: Request succeeded (e.g., `GET /v1/tasks` returns task list).
+  - **201 Created**: Resource created (e.g., `POST /v1/tasks` adds a new task).
+  - **400 Bad Request**: Invalid request syntax or parameters.
+  - **401 Unauthorized**: Authentication required or failed.
+  - **403 Forbidden**: Client lacks permission to access the resource.
+  - **404 Not Found**: Resource not found (e.g., `GET /v1/tasks/999` for a nonexistent task).
+  - **500 Internal Server Error**: Generic server failure (e.g., database crash).
+- **Example**: In a TODO service:
+  - `GET https://api.todo-service.com/v1/tasks` returns `200 OK` with a JSON list of tasks.
+  - `POST https://api.todo-service.com/v1/tasks` with invalid data returns `400 Bad Request`.
+  - `DELETE https://api.todo-service.com/v1/tasks/999` for a nonexistent task returns `404 Not Found`.
+- **Usage**: Included in the HTTP response header (e.g., `Status: 200 OK`) and often accompanied by a response body (e.g., JSON with details or error messages).
+
+In backend development, HTTP status codes are critical for building robust APIs (like a TODO service), enabling clear communication of request outcomes and guiding client behavior (e.g., retrying, redirecting, or displaying errors).
 
 ### What is GET method?
 
+The **GET method** is an HTTP method used to request and retrieve data from a specified resource on a server. It is one of the most common methods in the HTTP protocol, primarily used for fetching resources without modifying them.
+
+**Key Points**:
+
+- **Purpose**: Retrieves data from the server (e.g., a webpage, API data, or file) without altering the server’s state (idempotent and safe).
+- **How It Works**:
+  - The client sends a GET request to a specific URL (endpoint).
+  - The server processes the request and returns the requested resource, typically in formats like JSON, XML, or HTML, along with an HTTP status code (e.g., 200 OK).
+- **Characteristics**:
+  - **Idempotent**: Multiple identical GET requests produce the same result (no side effects).
+  - **Cacheable**: Responses can be cached to improve performance.
+  - **Query Parameters**: Data can be sent via URL query strings (e.g., `?id=123&status=pending`).
+- **Example**: In a TODO service:
+  - Request: `GET https://api.todo-service.com/v1/tasks`
+    - Retrieves a list of all tasks for the authenticated user.
+    - Response (JSON):
+      ```json title="JSON Response"
+      [
+        { "id": 1, "title": "Buy groceries", "status": "pending" },
+        { "id": 2, "title": "Finish report", "status": "completed" }
+      ]
+      ```
+  - Request: `GET https://api.todo-service.com/v1/tasks/123`
+    - Retrieves details of task with ID 123.
+- **Use Cases**:
+  - Fetching data from APIs (e.g., task lists, user profiles).
+  - Loading webpages or static content in browsers.
+  - Querying resources with filters (e.g., `GET /v1/tasks?status=pending`).
+- **Limitations**:
+  - Data is sent in the URL, which has length limits and is visible in logs or browser history.
+  - Not suitable for sensitive data (use POST for secure data transmission).
+  - Should not modify server state (use POST, PUT, or DELETE for state changes).
+
+In backend development, the GET method is fundamental for building RESTful APIs, like those in a TODO service, to allow clients to retrieve task data efficiently and safely.
+
 ### What is POST method?
+
+The **POST method** is an HTTP method used to send data to a server to create or update a resource. It is commonly used in web applications and APIs to submit data, such as form inputs or API payloads, to the server for processing.
+
+**Key Points**:
+
+- **Purpose**: Sends data to the server to create a new resource or perform an action, often modifying the server’s state (non-idempotent).
+- **How It Works**:
+  - The client sends a POST request to a specific URL (endpoint) with data in the request body, typically in formats like JSON or form-data.
+  - The server processes the data (e.g., stores it in a database) and returns a response, often with an HTTP status code (e.g., 201 Created) and a confirmation.
+- **Characteristics**:
+  - **Non-Idempotent**: Multiple identical POST requests may create multiple resources (e.g., duplicate tasks).
+  - **Not Cacheable**: Responses are typically not cached due to their dynamic nature.
+  - **Data in Body**: Data is sent in the request body, not the URL, making it suitable for sensitive or large data.
+- **Example**: In a TODO service:
+  - Request: `POST https://api.todo-service.com/v1/tasks`
+    - Request Body (JSON):
+      ```json title="JSON Request Body"
+      {
+        "title": "Buy groceries",
+        "status": "pending",
+        "due_date": "2025-10-01"
+      }
+      ```
+    - Creates a new task in the database.
+    - Response (JSON, status 201 Created):
+      ```json title="JSON Response"
+      {
+        "id": 123,
+        "title": "Buy groceries",
+        "status": "pending",
+        "due_date": "2025-10-01"
+      }
+      ```
+- **Use Cases**:
+  - Creating new resources (e.g., adding a task or user in a TODO service).
+  - Submitting forms (e.g., user registration).
+  - Triggering actions (e.g., sending a notification).
+- **Contrast with GET**:
+  - **GET**: Retrieves data, safe, idempotent, data in URL query parameters.
+  - **POST**: Sends data to create/update, non-idempotent, data in request body.
+- **Security**: Suitable for sensitive data (e.g., passwords) since the payload is not exposed in the URL (unlike GET).
+
+In backend development, the POST method is essential for building RESTful APIs, like those in a TODO service, to enable clients to create new tasks or submit data securely and reliably.
 
 ## Miscellaneous
 
 ### What is version control?
 
+**Version control** is a system that tracks and manages changes to files, typically source code, documents, or other digital content, allowing multiple users to collaborate, maintain history, and revert to previous versions if needed. It is essential for software development and managing changes in a structured way.
+
+**Key Points**:
+
+- **Purpose**: Enables tracking of file modifications, collaboration among multiple contributors, and recovery from errors by maintaining a history of changes.
+- **How It Works**:
+  - Stores a repository of files and their revision history.
+  - Tracks changes (e.g., additions, deletions, modifications) as commits, each with a unique identifier, timestamp, and author.
+  - Supports branching and merging to manage parallel development.
+- **Types**:
+  - **Centralized Version Control**: Single central repository (e.g., SVN).
+  - **Distributed Version Control**: Each user has a full copy of the repository (e.g., Git).
+- **Example**: In a TODO service:
+  - Developers use version control (e.g., Git) to manage the codebase for the API (`https://api.todo-service.com/v1/tasks`).
+  - A commit might add a new endpoint (`POST /v1/tasks`), with the history showing who added it and when.
+  - If a bug is introduced, developers can revert to a previous version.
+- **Key Features**:
+  - **Commits**: Snapshots of changes with messages describing the updates.
+  - **Branches**: Parallel versions of the codebase for features or fixes.
+  - **Merging**: Combines changes from different branches.
+  - **Conflict Resolution**: Handles overlapping changes from multiple contributors.
+- **Benefits**:
+  - Collaboration: Multiple developers can work on the same project simultaneously.
+  - History: Tracks all changes, enabling rollbacks or audits.
+  - Backup: Prevents loss of work by storing versions.
+  - Experimentation: Branches allow testing new features without affecting the main codebase.
+- **Tools**: Common systems include Git, Subversion (SVN), Mercurial, and platforms like GitHub, GitLab, or Bitbucket.
+- **Use Case**: In a TODO service, version control tracks changes to API code, database schemas, or configuration files, ensuring team collaboration and the ability to revert faulty updates.
+
+In backend development, version control is critical for managing the development of applications like a TODO service, enabling efficient collaboration, error recovery, and codebase evolution.
+
 ### What is Git?
+
+**Git** is a distributed version control system used to track changes in source code or other files, enabling multiple developers to collaborate on a project efficiently. It allows users to manage file versions, coordinate work, and maintain a history of changes in a repository.
+
+**Key Points**:
+
+- **Purpose**: Tracks file modifications, supports collaboration, and enables reverting to previous versions, branching, and merging for parallel development.
+- **How It Works**:
+  - Stores a repository (repo) containing files and their change history.
+  - Each change is recorded as a **commit** with a unique ID, message, and author.
+  - Users can work on local copies of the repo and synchronize changes with a remote repository (e.g., on GitHub, GitLab).
+- **Key Features**:
+  - **Distributed**: Every user has a complete local copy of the repository, enabling offline work and redundancy.
+  - **Commits**: Snapshots of changes (e.g., adding a new API endpoint).
+  - **Branches**: Parallel versions of the codebase for features or fixes (e.g., `feature/add-task-endpoint`).
+  - **Merging**: Combines changes from different branches.
+  - **Conflict Resolution**: Handles overlapping changes when merging.
+  - **Staging Area**: Allows selective inclusion of changes in a commit.
+- **Example**: In a TODO service:
+  - A developer creates a branch to add a `POST /v1/tasks` endpoint.
+  - They commit changes to the branch: `git commit -m "Add task creation endpoint"`.
+  - The branch is merged into the main codebase after review, and pushed to a remote repo (e.g., `git push origin main`).
+  - If a bug is found, they revert to a previous commit using `git revert`.
+- **Benefits**:
+  - Enables team collaboration without overwriting work.
+  - Tracks history for auditing or debugging.
+  - Supports experimentation via branches without risking the main codebase.
+  - Integrates with platforms like GitHub for code reviews and CI/CD.
+- **Common Commands**:
+  - `git init`: Initialize a new repository.
+  - `git add`: Stage changes for commit.
+  - `git commit`: Save changes to the repo.
+  - `git branch`: Manage branches.
+  - `git merge`: Combine branches.
+  - `git push/pull`: Sync with remote repositories.
+- **Contrast with Other VCS**:
+  - Unlike centralized systems (e.g., SVN), Git’s distributed nature allows offline work and faster operations.
+
+In backend development, Git is essential for managing the codebase of applications like a TODO service, enabling developers to track changes, collaborate on API development, and maintain a reliable history of updates.
 
 ### What is logging?
 
+**Logging** is the process of recording events, activities, or errors that occur during the execution of a software application or system. In backend development, logs capture critical information about the system's behavior, aiding in debugging, monitoring, performance analysis, and auditing.
+
+**Key Points**:
+
+- **Purpose**: Tracks what happens in an application (e.g., API requests, errors, or system events) to diagnose issues, monitor performance, or ensure security compliance.
+- **How It Works**:
+  - The application generates log messages with details like timestamps, event types, and contextual data.
+  - Logs are stored in files, databases, or external systems (e.g., log aggregators like ELK Stack or CloudWatch).
+  - Logs can be categorized by severity (e.g., INFO, DEBUG, WARN, ERROR).
+- **Example**: In a TODO service:
+  - A log entry for a `POST /v1/tasks` request might be:
+    ```
+    2025-09-28 02:27:03 [INFO] UserID=123 created task: title="Buy groceries", status="pending"
+    ```
+  - An error log for a failed database query:
+    ```
+    2025-09-28 02:27:05 [ERROR] Database query failed: Connection timeout for task_id=456
+    ```
+- **Key Features**:
+  - **Timestamps**: Record when an event occurred.
+  - **Severity Levels**: Categorize logs (e.g., DEBUG for development, ERROR for critical issues).
+  - **Context**: Include details like user ID, request ID, or endpoint.
+  - **Structured Logging**: Use formats like JSON for easier parsing (e.g., `{"timestamp": "2025-09-28", "level": "INFO", "message": "Task created"}`).
+- **Use Cases**:
+  - **Debugging**: Identify why an API request failed (e.g., `GET /v1/tasks` returns 500).
+  - **Monitoring**: Track system health or performance (e.g., request latency).
+  - **Auditing**: Record user actions for security or compliance (e.g., who deleted a task).
+  - **Analytics**: Analyze usage patterns (e.g., most frequent API calls).
+- **Benefits**:
+  - Simplifies troubleshooting and error resolution.
+  - Provides insights into application behavior and performance.
+  - Supports compliance with security or regulatory requirements.
+- **Challenges**:
+  - Log volume can overwhelm storage or analysis tools.
+  - Sensitive data (e.g., passwords) must be sanitized to avoid exposure.
+  - Requires proper configuration to balance detail and performance.
+- **Tools**: Common logging tools include Log4j (Java), Winston (Node.js), Python’s `logging` module, and centralized systems like ELK Stack, Splunk, or Grafana Loki.
+
+In backend development, logging is critical for a TODO service to monitor API operations (e.g., task creation, deletion), diagnose errors, and ensure system reliability, making it easier to maintain and debug the application.
+
 ### What is debugging?
+
+**Debugging** is the process of identifying, analyzing, and resolving errors, bugs, or unexpected behavior in a software application or system. In backend development, it involves diagnosing issues in code, APIs, databases, or server configurations to ensure the application functions correctly.
+
+**Key Points**:
+
+- **Purpose**: To find and fix problems that cause incorrect output, crashes, or performance issues, improving the reliability and functionality of the system.
+- **How It Works**:
+  - Developers reproduce the issue, analyze logs or code, and trace the problem to its source.
+  - Tools like debuggers, logs, or monitoring systems help inspect the application’s state.
+  - Fixes are applied, tested, and verified to resolve the issue without introducing new problems.
+- **Example**: In a TODO service:
+  - Issue: A `GET /v1/tasks` request returns a 500 Internal Server Error.
+  - Debugging steps:
+    - Check server logs: `2025-09-28 02:30:03 [ERROR] Database query failed: Invalid column name 'task_status'`.
+    - Identify the issue: The query references `task_status` instead of `status`.
+    - Fix the query, test the endpoint, and confirm it returns 200 OK with task data.
+- **Common Techniques**:
+  - **Logging**: Review logs to identify errors or unexpected behavior (e.g., `ERROR: Null pointer exception`).
+  - **Breakpoints**: Use a debugger to pause code execution and inspect variables (e.g., in Visual Studio Code or IntelliJ).
+  - **Stack Traces**: Analyze call stacks to trace the origin of an error.
+  - **Unit Testing**: Run tests to isolate faulty code.
+  - **Profiling**: Monitor performance to find slow or resource-intensive code.
+  - **Reproducing Issues**: Simulate the problem in a controlled environment.
+- **Tools**:
+  - Debuggers: Built into IDEs like VS Code, IntelliJ, or PyCharm.
+  - Logging tools: ELK Stack, Splunk, or language-specific loggers (e.g., Python’s `logging`).
+  - Monitoring: Prometheus, New Relic for real-time insights.
+  - Browser Developer Tools: For debugging client-server interactions.
+- **Benefits**:
+  - Resolves bugs to ensure correct functionality (e.g., fixing a broken API endpoint).
+  - Improves performance by identifying bottlenecks.
+  - Enhances user experience by preventing crashes or errors.
+- **Challenges**:
+  - Complex bugs may be hard to reproduce or trace (e.g., race conditions in concurrent code).
+  - Debugging in production requires caution to avoid downtime.
+  - Time-intensive for obscure or intermittent issues.
+
+In backend development, debugging is essential for maintaining a reliable TODO service, ensuring APIs (e.g., `POST /v1/tasks`) work as expected, and resolving issues like database errors, incorrect logic, or server crashes efficiently.
 
 ### What is an environment variable?
 
+An **environment variable** is a key-value pair set outside an application, typically at the operating system level, used to configure or provide dynamic information to a running process without hardcoding values in the code. It allows applications to adapt to different environments (e.g., development, testing, production) securely and flexibly.
+
+**Key Points**:
+
+- **Purpose**: Stores configuration settings, sensitive data, or system-specific values (e.g., database credentials, API keys, or port numbers) accessible to an application.
+- **How It Works**:
+  - Defined in the operating system, shell, or runtime environment (e.g., `.env` files, Docker configurations).
+  - Applications access environment variables at runtime using APIs provided by the programming language (e.g., `process.env` in Node.js).
+- **Example**: In a TODO service:
+  - Environment variable: `DATABASE_URL=postgres://user:pass@localhost:5432/todos`
+  - The backend reads `DATABASE_URL` to connect to the database without embedding credentials in the codebase.
+  - Code example (Node.js):
+    ```javascript title="Node.js"
+    const dbUrl = process.env.DATABASE_URL
+    // Use dbUrl to connect to the database
+    ```
+- **Common Uses**:
+  - **Configuration**: Set API endpoints, ports (e.g., `PORT=3000`), or database URLs.
+  - **Security**: Store sensitive data like API keys or passwords outside the codebase.
+  - **Environment-Specific Settings**: Adjust behavior for development, staging, or production (e.g., `NODE_ENV=production`).
+- **Setting Environment Variables**:
+  - **Shell**: `export API_KEY=xyz123` (Linux/Mac) or `set API_KEY=xyz123` (Windows).
+  - **.env Files**: Use libraries like `dotenv` to load variables (e.g., `API_KEY=xyz123` in `.env`).
+  - **Cloud Platforms**: Set via configuration in AWS, Azure, or Docker.
+- **Benefits**:
+  - **Security**: Keeps sensitive data out of source code, reducing exposure in version control.
+  - **Flexibility**: Easily change settings without modifying code.
+  - **Portability**: Supports different environments with minimal changes.
+- **Challenges**:
+  - Mismanagement can lead to missing or incorrect variables, causing runtime errors.
+  - Requires secure handling to prevent leaks (e.g., don’t commit `.env` files to Git).
+
+In backend development, environment variables are critical for configuring a TODO service API (e.g., `https://api.todo-service.com/v1/tasks`), enabling secure and flexible management of database connections, API keys, or server settings across different deployment environments.
+
 ### What is a configuration file?
+
+A **configuration file** is a file used to store settings, parameters, or options that control the behavior of an application or system. It provides a way to configure software without modifying the source code, making it easier to adapt the application to different environments or requirements.
+
+**Key Points**:
+
+- **Purpose**: Defines settings like database connections, API keys, server ports, or feature flags to customize how an application runs.
+- **How It Works**:
+  - The application reads the configuration file at startup or runtime to apply the specified settings.
+  - Stored in formats like JSON, YAML, XML, or INI, and often located in a predefined path (e.g., `/config/app.yml`).
+- **Example**: In a TODO service:
+  - A configuration file (`config.yml`) might contain:
+    ```yaml title="config.yml"
+    server:
+      port: 3000
+      host: api.todo-service.com
+    database:
+      url: postgres://user:pass@localhost:5432/todos
+    api:
+      key: xyz123
+    environment: production
+    ```
+  - The backend reads this file to set up the server port, database connection, and API key for handling `GET /v1/tasks` requests.
+- **Common Formats**:
+  - **JSON**: `{"port": 3000, "database": {"url": "postgres://..."}}`
+  - **YAML**: Structured, human-readable, often used in modern apps (e.g., Kubernetes configs).
+  - **XML**: Verbose, common in legacy systems (e.g., Java’s `web.xml`).
+  - **INI**: Simple key-value pairs (e.g., `[server] port=3000`).
+- **Use Cases**:
+  - Specify database credentials or URLs.
+  - Configure server settings (e.g., port, hostname).
+  - Store environment-specific settings (e.g., development vs. production).
+  - Manage feature toggles or logging levels.
+- **Benefits**:
+  - **Flexibility**: Change settings without altering code.
+  - **Reusability**: Use the same codebase across different environments.
+  - **Maintainability**: Centralizes configuration for easy updates.
+- **Challenges**:
+  - **Security**: Sensitive data (e.g., API keys) must be protected (often moved to environment variables).
+  - **Parsing Errors**: Incorrect syntax can cause application failures.
+  - **Versioning**: Should not be committed to version control if they contain sensitive data.
+- **Relation to Environment Variables**:
+  - Configuration files store settings in a file, while environment variables are set at the OS level.
+  - Often used together (e.g., a config file might reference environment variables for sensitive data).
+
+In backend development, configuration files are essential for managing settings in applications like a TODO service, enabling the API (`https://api.todo-service.com/v1/tasks`) to adapt to different environments (e.g., development, production) while keeping sensitive data secure and configurations organized.
 
 ### What is deployment?
 
+**Deployment** is the process of making a software application or system available for use by installing, configuring, and releasing it to a specific environment (e.g., production, staging, or development). In backend development, it involves setting up the application on a server or cloud platform so it can handle requests and serve users.
+
+**Key Points**:
+
+- **Purpose**: Transitions an application from development to a live environment where it can be accessed by users or clients.
+- **How It Works**:
+  - The application’s code, dependencies, and configuration are packaged and transferred to the target environment (e.g., a server, cloud, or container).
+  - The server is configured to run the application (e.g., setting up web servers, databases, or environment variables).
+  - The application is started, tested, and made accessible (e.g., via a URL like `https://api.todo-service.com`).
+- **Example**: In a TODO service:
+  - Deploying the API involves:
+    - Packaging the backend code (e.g., Node.js app for `GET /v1/tasks`).
+    - Uploading it to a cloud platform (e.g., AWS EC2, Heroku).
+    - Configuring the server with environment variables (e.g., `DATABASE_URL`).
+    - Starting the server to handle requests at `https://api.todo-service.com/v1/tasks`.
+- **Types of Deployment**:
+  - **Manual Deployment**: Copying files and configuring servers manually.
+  - **Automated Deployment**: Using CI/CD pipelines (e.g., Jenkins, GitHub Actions) to automate building, testing, and releasing.
+  - **Blue-Green Deployment**: Running two identical environments (blue and green) to switch traffic seamlessly for zero-downtime updates.
+  - **Canary Deployment**: Releasing to a small subset of users first to test stability.
+  - **Rolling Deployment**: Gradually updating servers to avoid downtime.
+- **Steps**:
+  - Build: Compile or package the application (e.g., create a Docker image).
+  - Test: Run automated tests to ensure functionality.
+  - Deploy: Transfer the application to the target environment.
+  - Configure: Set up databases, environment variables, or load balancers.
+  - Monitor: Verify the application runs correctly (e.g., using logs or monitoring tools).
+- **Benefits**:
+  - Makes the application accessible to users (e.g., API endpoints for a TODO service).
+  - Enables updates and new features to be rolled out.
+  - Supports scalability and reliability with proper deployment strategies.
+- **Challenges**:
+  - Downtime during deployment (mitigated by blue-green or rolling strategies).
+  - Configuration errors (e.g., incorrect `DATABASE_URL`).
+  - Compatibility issues between environments (e.g., dev vs. production).
+
+In backend development, deployment is critical for making a TODO service API (e.g., `https://api.todo-service.com/v1/tasks`) available to users, ensuring it runs reliably in production with proper configuration and minimal downtime.
+
 ### What is hosting?
+
+**Hosting** is the process of storing and serving an application, website, or service on a server or infrastructure, making it accessible over the internet or a network. In backend development, it involves providing the computational resources, storage, and network connectivity needed to run an application and handle client requests.
+
+**Key Points**:
+
+- **Purpose**: Enables applications (e.g., APIs, websites) to be available to users by running them on servers that are accessible via the internet.
+- **How It Works**:
+  - The application’s code, dependencies, and data are deployed to a hosting environment (e.g., a physical server, virtual machine, or cloud platform).
+  - The hosting provider ensures the server is online, secure, and capable of handling requests.
+  - Users access the application via a URL (e.g., `https://api.todo-service.com`).
+- **Example**: In a TODO service:
+  - The API (`GET /v1/tasks`) is hosted on a cloud platform like AWS EC2, Heroku, or Google Cloud.
+  - The hosting environment includes:
+    - A web server (e.g., Nginx, Node.js) to handle HTTP requests.
+    - A database (e.g., PostgreSQL) for storing tasks.
+    - Configuration for scaling, security, and networking.
+- **Types of Hosting**:
+  - **Shared Hosting**: Multiple applications share a single server (cost-effective but limited resources).
+  - **VPS Hosting**: Virtual Private Server provides dedicated resources on a shared physical server.
+  - **Dedicated Hosting**: A single physical server for one application (high performance, expensive).
+  - **Cloud Hosting**: Scalable, distributed hosting on virtualized infrastructure (e.g., AWS, Azure, Google Cloud).
+  - **Serverless Hosting**: Runs code in response to events without managing servers (e.g., AWS Lambda, Vercel).
+- **Key Components**:
+  - **Server**: Hardware or virtual machine running the application.
+  - **Storage**: For application files, databases, or logs.
+  - **Network**: DNS, IP addresses, and bandwidth for accessibility.
+  - **Security**: Firewalls, SSL/TLS for HTTPS, and access controls.
+- **Benefits**:
+  - Ensures availability of the application (e.g., `https://api.todo-service.com/v1/tasks`).
+  - Supports scalability through cloud or distributed hosting.
+  - Simplifies maintenance with managed hosting services.
+- **Challenges**:
+  - Cost increases with resource demands or traffic.
+  - Configuration errors can lead to downtime or security issues.
+  - Requires monitoring to ensure uptime and performance.
+- **Relation to Deployment**:
+  - **Deployment**: The act of installing and configuring the application on the hosting environment.
+  - **Hosting**: The ongoing provision of infrastructure to keep the application running and accessible.
+
+In backend development, hosting is critical for running a TODO service API, ensuring that endpoints like `POST /v1/tasks` are available to users with reliable performance, scalability, and security.
 
 ### What is a domain name?
 
+A **domain name** is a human-readable address used to identify and locate resources, such as websites or servers, on the internet. It serves as an easy-to-remember alias for an IP address, which is the numerical identifier of a device on a network.
+
+**Key Points**:
+
+- **Purpose**: Simplifies access to resources by replacing complex IP addresses (e.g., `192.168.1.1`) with memorable names (e.g., `todo-service.com`).
+- **Structure**:
+  - **Top-Level Domain (TLD)**: The rightmost part (e.g., `.com`, `.org`, `.net`).
+  - **Second-Level Domain**: The main name (e.g., `todo-service` in `todo-service.com`).
+  - **Subdomain** (optional): A prefix for specific services (e.g., `api` in `api.todo-service.com`).
+- **How It Works**:
+  - Domain names are resolved to IP addresses via the Domain Name System (DNS).
+  - When a user enters `https://api.todo-service.com`, DNS translates it to an IP address (e.g., `93.184.216.34`) to connect to the server.
+- **Example**: In a TODO service:
+  - The domain name `api.todo-service.com` points to the server hosting the API endpoints like `GET /v1/tasks`.
+- **Types**:
+  - **Generic TLDs (gTLDs)**: Like `.com`, `.org`, `.info`.
+  - **Country-Code TLDs (ccTLDs)**: Like `.uk`, `.ca`, `.br`.
+  - **Subdomains**: Used for organizing services (e.g., `www.todo-service.com`, `api.todo-service.com`).
+- **Registration**:
+  - Purchased through registrars (e.g., GoDaddy, Namecheap).
+  - Associated with DNS records (e.g., A, CNAME) to map to IP addresses.
+- **Benefits**:
+  - User-friendly and memorable.
+  - Enables branding (e.g., `todo-service.com` reflects the service identity).
+  - Supports multiple services under one domain via subdomains.
+- **Challenges**:
+  - Requires registration and renewal (usually annual).
+  - DNS misconfiguration can cause downtime.
+  - Domain squatting or typosquatting can pose security risks.
+
+In backend development, a domain name is critical for making a TODO service API (e.g., `https://api.todo-service.com/v1/tasks`) accessible to users, providing a recognizable and reliable way to reach the server.
+
 ### What is SSL?
+
+**SSL** (Secure Sockets Layer) is a cryptographic protocol designed to provide secure communication over a network, such as the internet, by encrypting data transmitted between a client (e.g., a browser or app) and a server. It ensures data confidentiality, integrity, and authentication, and has largely been succeeded by **TLS** (Transport Layer Security), though "SSL" is still commonly used to refer to both.
+
+**Key Points**:
+
+- **Purpose**: Secures data in transit to prevent eavesdropping, tampering, or impersonation, commonly used for HTTPS connections.
+- **How It Works**:
+  - Establishes an encrypted connection using a handshake process:
+    1. The client requests a secure connection.
+    2. The server presents an SSL/TLS certificate to prove its identity.
+    3. The client verifies the certificate with a trusted Certificate Authority (CA).
+    4. A shared encryption key is established (symmetric for speed, using asymmetric encryption for key exchange).
+  - Data is encrypted before transmission and decrypted by the recipient.
+- **Key Features**:
+  - **Encryption**: Protects data (e.g., API payloads, passwords) from interception.
+  - **Authentication**: Verifies the server’s identity using certificates.
+  - **Data Integrity**: Ensures data isn’t altered during transmission.
+- **Example**: In a TODO service:
+  - A client sends a `POST /v1/tasks` request to `https://api.todo-service.com`.
+  - SSL/TLS encrypts the request (e.g., task data like `{"title": "Buy groceries"}`) and response, ensuring secure communication over port 443 (HTTPS).
+- **Certificates**:
+  - Issued by trusted CAs (e.g., Let’s Encrypt, DigiCert).
+  - Contain the server’s public key and identity (e.g., domain `api.todo-service.com`).
+  - Browsers display a padlock icon for valid SSL/TLS connections.
+- **Contrast with TLS**:
+  - SSL is an older protocol (versions 1.0–3.0, now deprecated due to vulnerabilities).
+  - TLS is the modern, more secure successor (versions 1.0–1.3).
+  - In practice, “SSL” often refers to TLS in modern contexts (e.g., HTTPS uses TLS).
+- **Benefits**:
+  - Protects sensitive data (e.g., user credentials, task details).
+  - Builds user trust (padlock, HTTPS in browsers).
+  - Required for compliance with security standards (e.g., GDPR, PCI-DSS).
+- **Challenges**:
+  - Requires certificate management (e.g., renewal every 90 days with Let’s Encrypt).
+  - Slight performance overhead due to encryption (mitigated by modern hardware).
+  - Misconfiguration can lead to vulnerabilities.
+
+In backend development, SSL/TLS is critical for securing a TODO service API (e.g., `https://api.todo-service.com/v1/tasks`), ensuring that client-server communication is encrypted and protected from attacks like man-in-the-middle.
 
 ### What is a certificate?
 
+A **certificate**, in the context of backend development and network security, is a digital document used to verify the identity of a server, client, or entity and enable secure communication over a network. It is a core component of protocols like **SSL/TLS** (used in HTTPS) and contains cryptographic keys and metadata to establish trust and encryption.
+
+**Key Points**:
+
+- **Purpose**: Authenticates the identity of a server or client (e.g., ensuring `api.todo-service.com` is legitimate) and provides the public key for secure data exchange.
+- **How It Works**:
+  - Issued by a trusted **Certificate Authority (CA)** (e.g., Let’s Encrypt, DigiCert).
+  - Contains:
+    - **Public Key**: Used for encryption or verifying signatures.
+    - **Identity Information**: Domain name (e.g., `api.todo-service.com`), organization details.
+    - **Issuer**: The CA that issued the certificate.
+    - **Validity Period**: Start and end dates (e.g., valid for 90 days).
+    - **Signature**: A digital signature from the CA to prove authenticity.
+  - During an SSL/TLS handshake, the server presents the certificate to the client, which verifies it against trusted CAs.
+- **Example**: In a TODO service:
+  - A client accesses `https://api.todo-service.com/v1/tasks`.
+  - The server sends its SSL/TLS certificate, proving it is `api.todo-service.com`.
+  - The client (e.g., browser) verifies the certificate, ensuring a secure connection for API requests.
+- **Types**:
+  - **Domain Validated (DV)**: Verifies domain ownership (e.g., Let’s Encrypt certificates).
+  - **Organization Validated (OV)**: Verifies the organization’s identity.
+  - **Extended Validation (EV)**: Rigorous verification, often for high-trust sites (shows green bar in older browsers).
+  - **Self-Signed**: Not trusted by default, used for testing or internal systems.
+- **Use Cases**:
+  - Securing HTTPS connections for APIs or websites (e.g., `POST /v1/tasks`).
+  - Authenticating servers or clients in secure communication (e.g., VPNs, email servers).
+  - Signing software or messages to verify integrity.
+- **Benefits**:
+  - Ensures secure, encrypted communication (prevents eavesdropping).
+  - Builds trust by verifying server identity (e.g., padlock icon in browsers).
+  - Required for compliance with standards like GDPR or PCI-DSS.
+- **Challenges**:
+  - **Expiration**: Certificates must be renewed (e.g., every 90 days for Let’s Encrypt).
+  - **Misconfiguration**: Incorrect setup can cause errors (e.g., “certificate not trusted” warnings).
+  - **Cost**: Some CAs charge for certificates (though free options like Let’s Encrypt exist).
+- **Management**: Tools like Certbot automate certificate issuance and renewal for servers hosting APIs.
+
+In backend development, certificates are critical for securing a TODO service API (e.g., `https://api.todo-service.com/v1/tasks`), enabling HTTPS to protect data in transit and ensure users connect to the authentic server.
+
 ### What is OAuth?
+
+**OAuth** is an authorization framework that allows a third-party application to access a user's resources on a server without sharing the user's credentials. It enables secure, delegated access by issuing access tokens that grant limited permissions to specific resources for a defined period.
+
+**Key Points**:
+
+- **Purpose**: Facilitates secure access to user data (e.g., profiles, tasks) on a server (e.g., a TODO service API) by third-party apps, without exposing sensitive credentials like passwords.
+- **How It Works**:
+  - **Authorization Flow**:
+    1. The user is redirected to the resource server (e.g., a TODO service) to authenticate and grant permission.
+    2. The resource server issues an **authorization code** to the third-party app.
+    3. The third-party app exchanges the code for an **access token** (and optionally a **refresh token**) from the authorization server.
+    4. The third-party app uses the access token to make API requests on behalf of the user.
+  - **Tokens**:
+    - **Access Token**: A short-lived credential for accessing resources (e.g., `GET /v1/tasks`).
+    - **Refresh Token**: Used to obtain new access tokens when they expire.
+- **Example**: In a TODO service:
+  - A third-party app (e.g., a calendar app) wants to access a user’s tasks from `https://api.todo-service.com/v1/tasks`.
+  - The user logs into the TODO service via OAuth, granting the calendar app permission to read tasks.
+  - The calendar app receives an access token and uses it to fetch tasks via the API.
+- **Key Components**:
+  - **Resource Owner**: The user who owns the data (e.g., the TODO service user).
+  - **Client**: The third-party app requesting access (e.g., the calendar app).
+  - **Authorization Server**: Issues tokens after user approval (e.g., the TODO service’s auth server).
+  - **Resource Server**: Hosts the protected resources (e.g., the TODO service API).
+- **Benefits**:
+  - **Security**: Avoids sharing user credentials; tokens have limited scope and expiration.
+  - **Flexibility**: Supports various grant types (e.g., Authorization Code, Implicit, Client Credentials).
+  - **User Control**: Users can revoke access at any time.
+- **Challenges**:
+  - Complex setup compared to simple API keys.
+  - Token management (e.g., handling expiration, revocation) adds overhead.
+  - Requires secure token storage to prevent leaks.
+- **Use Cases**:
+  - “Login with Google/Facebook” for single sign-on (SSO).
+  - Allowing third-party apps to access user data (e.g., a calendar app syncing with a TODO service).
+  - Machine-to-machine authorization (e.g., Client Credentials flow for server-to-server communication).
+- **Contrast with Other Mechanisms**:
+  - **OAuth**: Focuses on authorization (what a client can do).
+  - **OpenID Connect**: Built on OAuth, focuses on authentication (who the user is).
+  - **API Keys**: Simpler but less secure, no user-specific access control.
+
+In backend development, OAuth is critical for securing APIs like a TODO service, enabling third-party apps to safely access user tasks (e.g., `POST /v1/tasks`) while maintaining user privacy and control.
 
 ### What is JWT?
 
+**JWT** (JSON Web Token) is a compact, self-contained token format used for securely transmitting information between parties, typically for authentication and authorization in web applications. It is encoded as a JSON object and digitally signed to ensure integrity, commonly used in APIs to verify user identity or permissions.
+
+**Key Points**:
+
+- **Purpose**: Enables secure, stateless authentication and authorization by passing user information (e.g., identity, roles) in a token that can be verified by the server.
+- **Structure**: A JWT consists of three parts, separated by dots (`.`):
+  - **Header**: Metadata about the token (e.g., algorithm used, like `HS256`).
+    ```json title="JWT Header"
+    { "alg": "HS256", "typ": "JWT" }
+    ```
+  - **Payload**: Claims or data (e.g., user ID, roles, expiration).
+    ```json title="JWT Payload"
+    { "sub": "user123", "role": "admin", "exp": 1696116663 }
+    ```
+  - **Signature**: A cryptographic signature to verify the token’s authenticity, created using a secret key or public/private key pair.
+  - Encoded as Base64 strings: `Header.Payload.Signature` (e.g., `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMTIzIn0.signature`).
+- **How It Works**:
+  - A client (e.g., a browser or app) authenticates with a server (e.g., via username/password).
+  - The server generates a JWT, signs it, and sends it to the client.
+  - The client includes the JWT in subsequent requests (e.g., in the `Authorization` header: `Bearer <token>`).
+  - The server verifies the token’s signature and checks claims (e.g., expiration) before granting access.
+- **Example**: In a TODO service:
+  - A user logs into `https://api.todo-service.com/v1/login` with credentials.
+  - The server responds with a JWT:
+    ```json title="JWT Response"
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTIzIiwicm9sZSI6InVzZXIiLCJleHAiOjE2OTYxMTY2NjN9.signature"
+    }
+    ```
+  - The client sends the JWT in the `Authorization` header for a `GET /v1/tasks` request to access tasks.
+  - The server verifies the token to ensure the user is authenticated and authorized.
+- **Benefits**:
+  - **Stateless**: No need to store session data on the server; the token contains all necessary information.
+  - **Scalable**: Works well in distributed systems (e.g., microservices).
+  - **Secure**: Signed tokens prevent tampering; encryption can be added for confidentiality.
+  - **Cross-Domain**: Suitable for single sign-on (SSO) across multiple services.
+- **Challenges**:
+  - **Token Size**: Larger than simple session IDs, increasing request overhead.
+  - **Security Risks**: Stolen tokens can be used until expiration; requires secure storage (e.g., HttpOnly cookies).
+  - **Revocation**: Difficult to revoke individual tokens without a server-side blacklist.
+  - **Expiration**: Must balance short-lived tokens (security) with user experience (avoid frequent logins).
+- **Use Cases**:
+  - Authenticating users in RESTful APIs (e.g., securing `POST /v1/tasks` in a TODO service).
+  - Authorizing access to specific resources based on claims (e.g., `role: admin`).
+  - Enabling SSO across applications or microservices.
+- **Contrast with Other Mechanisms**:
+  - **Session-Based Authentication**: Stores session data server-side; JWT is stateless.
+  - **OAuth**: Focuses on delegated authorization; JWT is a token format often used in OAuth.
+  - **API Keys**: Simpler but less secure, no user-specific claims or expiration.
+
+In backend development, JWTs are widely used in APIs like a TODO service to securely authenticate users and authorize access to endpoints (e.g., `https://api.todo-service.com/v1/tasks`), providing a scalable and stateless solution for managing user sessions.
+
 ### What is API key?
+
+An **API key** is a unique identifier, typically a string of characters, used to authenticate and control access to an API (Application Programming Interface). It acts as a simple security mechanism to verify that a client (e.g., an application or user) is authorized to make requests to the API.
+
+**Key Points**:
+
+- **Purpose**: Authenticates clients and tracks or restricts their API usage, ensuring only authorized users or applications can access protected endpoints.
+- **How It Works**:
+  - The API provider issues a unique key to a client (e.g., `xyz12345-abcd-6789-efgh`).
+  - The client includes the API key in requests, typically in the HTTP header (e.g., `Authorization: Bearer xyz12345`), query parameter (e.g., `?api_key=xyz12345`), or request body.
+  - The server validates the key before processing the request.
+- **Example**: In a TODO service:
+  - A client wants to access `GET https://api.todo-service.com/v1/tasks`.
+  - The request includes the API key: `GET https://api.todo-service.com/v1/tasks?api_key=xyz12345`.
+  - The server checks the key against a stored list to grant or deny access.
+- **Characteristics**:
+  - **Simple Authentication**: Less complex than OAuth or JWT, suitable for basic access control.
+  - **Stateless**: No session management; each request is validated independently.
+  - **Scoped**: Keys can be restricted to specific endpoints, methods, or usage limits (e.g., 1000 requests/day).
+- **Use Cases**:
+  - Restricting access to API endpoints (e.g., `POST /v1/tasks` in a TODO service).
+  - Tracking usage for billing or monitoring (e.g., rate limiting).
+  - Allowing third-party apps to integrate with the API.
+- **Benefits**:
+  - Easy to implement and use.
+  - Enables usage monitoring and rate limiting.
+  - Provides basic security for non-sensitive APIs.
+- **Challenges**:
+  - **Limited Security**: API keys are not tied to specific users and can be easily exposed if not handled securely (e.g., included in URLs or logs).
+  - **No Expiration**: Unlike JWTs, API keys often don’t expire unless explicitly revoked.
+  - **No Granular Permissions**: Less flexible than OAuth for controlling specific access scopes.
+- **Security Best Practices**:
+  - Use HTTPS to prevent key interception.
+  - Avoid embedding keys in client-side code or URLs.
+  - Regenerate or revoke keys periodically or if compromised.
+  - Combine with other mechanisms (e.g., OAuth, JWT) for sensitive operations.
+- **Contrast with Other Mechanisms**:
+  - **API Key**: Simple, static identifier for basic access control.
+  - **JWT**: Encodes user-specific claims, supports expiration, and is cryptographically signed.
+  - **OAuth**: Delegates authorization, allowing user-specific access with tokens.
+
+In backend development, API keys are commonly used in a TODO service to provide simple, secure access to endpoints like `https://api.todo-service.com/v1/tasks`, particularly for third-party integrations or low-security scenarios, but they should be paired with additional security measures for sensitive operations.
 
 ### What is rate limiting?
 
+**Rate limiting** is a technique used to control the number of requests a client (e.g., a user, application, or IP address) can make to an API or server within a specific time period. It helps prevent abuse, protect server resources, and ensure fair usage or availability of services.
+
+**Key Points**:
+
+- **Purpose**: Limits excessive or malicious requests to maintain system performance, prevent overload, and protect against denial-of-service (DoS) attacks.
+- **How It Works**:
+  - The server sets a threshold for requests (e.g., 100 requests per minute per client).
+  - Each request is tracked using identifiers like API keys, IP addresses, or user tokens.
+  - If the limit is exceeded, the server rejects further requests, typically returning an HTTP status code like `429 Too Many Requests`.
+- **Example**: In a TODO service:
+  - The API (`https://api.todo-service.com/v1/tasks`) allows 1000 requests per hour per API key.
+  - If a client sends 1001 requests in an hour, the server responds with:
+    ```json title="Rate Limit Exceeded"
+    {
+      "status": "error",
+      "message": "Rate limit exceeded. Try again in 60 seconds.",
+      "code": 429
+    }
+    ```
+- **Types**:
+  - **Fixed Window**: Counts requests in a fixed time window (e.g., 100 requests per minute).
+  - **Sliding Window**: Tracks requests over a rolling time period for smoother limits.
+  - **Token Bucket**: Allows bursts of requests up to a bucket size, refilled at a steady rate.
+  - **Leaky Bucket**: Processes requests at a constant rate, queuing excess requests.
+- **Implementation**:
+  - Use middleware or libraries (e.g., `express-rate-limit` in Node.js, `RateLimiter` in Spring).
+  - Store request counts in memory (e.g., Redis) or a database.
+  - Apply limits based on IP, API key, user ID, or endpoint.
+- **Benefits**:
+  - Prevents server overload and ensures availability for all users.
+  - Mitigates abuse or DoS attacks.
+  - Supports fair usage in multi-tenant systems (e.g., free vs. paid users).
+- **Challenges**:
+  - May frustrate legitimate users if limits are too strict.
+  - Complex to implement in distributed systems (e.g., coordinating limits across multiple servers).
+  - Requires monitoring to adjust limits based on usage patterns.
+- **Use Cases**:
+  - Restricting API usage in a TODO service (e.g., limiting `POST /v1/tasks` to prevent spam).
+  - Enforcing subscription plans (e.g., 500 requests/day for free users).
+  - Protecting against brute-force attacks on login endpoints.
+
+In backend development, rate limiting is critical for securing and optimizing APIs like a TODO service, ensuring that endpoints (e.g., `GET /v1/tasks`) remain available and performant under high traffic or malicious activity.
+
 ### What is throttling?
+
+**Throttling** is a technique used in computing and networking to limit the rate or frequency at which a system processes requests, executes tasks, or consumes resources. It is closely related to rate limiting but focuses on controlling the speed or volume of operations to prevent overloading a system, ensure fair resource allocation, or maintain performance stability.
+
+**Key Points**:
+
+- **Purpose**: Regulates the flow of requests or tasks to avoid overwhelming a server, database, or network, ensuring consistent performance and preventing abuse.
+- **How It Works**:
+  - Imposes a cap on the rate of requests or operations (e.g., requests per second, tasks per minute).
+  - Excess requests are either delayed (queued), rejected, or throttled to a slower processing rate.
+  - Often implemented using algorithms like token bucket or leaky bucket.
+- **Example**: In a TODO service:
+  - The API (`https://api.todo-service.com/v1/tasks`) is throttled to allow only 10 requests per second per user.
+  - If a client sends 15 requests in a second, the server delays or rejects the extra 5 requests, responding with a `429 Too Many Requests` status code.
+  - Response example:
+    ```json title="JSONRequest Throttled"
+    {
+      "status": "error",
+      "message": "Request throttled. Please try again in 1 second.",
+      "code": 429
+    }
+    ```
+- **Types**:
+  - **Request Throttling**: Limits API requests (similar to rate limiting).
+  - **CPU/Memory Throttling**: Restricts resource usage for a process or container (e.g., in Docker).
+  - **Network Throttling**: Controls bandwidth usage (e.g., limiting data transfer rates).
+  - **Task Throttling**: Limits the rate of task execution (e.g., background jobs in a queue).
+- **Implementation**:
+  - Middleware or libraries (e.g., `express-rate-limit` for Node.js, `Spring Boot RateLimiter`).
+  - Distributed systems use tools like Redis or Kafka to track and enforce throttling.
+  - Cloud providers (e.g., AWS API Gateway) offer built-in throttling features.
+- **Benefits**:
+  - Prevents server overload and maintains performance under high load.
+  - Protects against denial-of-service (DoS) attacks or abusive clients.
+  - Ensures fair resource distribution among users or services.
+- **Challenges**:
+  - Over-throttling can degrade user experience (e.g., slow responses).
+  - Requires careful tuning to balance performance and accessibility.
+  - Complex to manage in distributed systems with multiple servers.
+- **Contrast with Rate Limiting**:
+  - **Rate Limiting**: Strictly caps the number of requests in a time period (e.g., 1000 requests/hour), rejecting excess requests.
+  - **Throttling**: May allow excess requests but slows their processing or queues them, focusing on controlling the rate of execution.
+  - Example: Rate limiting rejects requests beyond a limit; throttling might delay them to maintain a steady processing rate.
+- **Use Cases**:
+  - Limiting API requests in a TODO service to prevent database overload (e.g., throttling `POST /v1/tasks`).
+  - Controlling background job execution (e.g., sending task reminders).
+  - Managing bandwidth for large file downloads from an API.
+
+In backend development, throttling is critical for maintaining the stability and performance of APIs like a TODO service, ensuring endpoints (e.g., `GET /v1/tasks`) handle high traffic efficiently while preventing system overload or abuse.
 
 ### What is pagination?
 
+**Pagination** is a technique used in web applications and APIs to divide a large dataset into smaller, manageable chunks (pages) that are delivered to the client incrementally. This improves performance, reduces server load, and enhances user experience by avoiding overwhelming amounts of data in a single response.
+
+**Key Points**:
+
+- **Purpose**: Efficiently handles large datasets by retrieving and displaying data in smaller portions, making it easier for clients to process and for servers to manage.
+- **How It Works**:
+  - The server splits the dataset into pages, each containing a fixed number of records.
+  - Clients request specific pages using parameters (e.g., page number, page size) in the API call.
+  - The server returns the requested page along with metadata (e.g., total pages, total records).
+- **Common Approaches**:
+  - **Offset-Based Pagination**: Uses `offset` (starting point) and `limit` (number of records) parameters.
+  - **Cursor-Based Pagination**: Uses a cursor (e.g., a unique ID or timestamp) to mark the position in the dataset.
+- **Example**: In a TODO service:
+  - A `GET /v1/tasks` request retrieves a list of tasks.
+  - Offset-based: `GET /v1/tasks?limit=10&offset=20` returns tasks 21–30.
+  - Response (JSON):
+    ```json title="JSON Response"
+    {
+      "data": [
+        { "id": 21, "title": "Task 21", "status": "pending" },
+        { "id": 22, "title": "Task 22", "status": "completed" }
+      ],
+      "meta": {
+        "total": 100,
+        "page": 3,
+        "limit": 10
+      }
+    }
+    ```
+  - Cursor-based: `GET /v1/tasks?cursor=123&limit=10` returns the next 10 tasks after task ID 123.
+- **Benefits**:
+  - Reduces server load and response time by fetching smaller datasets.
+  - Improves client performance (e.g., faster rendering in a UI).
+  - Enhances user experience by presenting data in manageable chunks.
+- **Challenges**:
+  - **Offset-Based**: Inefficient for large datasets (e.g., skipping 10,000 rows is slow).
+  - **Cursor-Based**: More complex to implement but better for dynamic datasets.
+  - **Consistency**: Data changes (e.g., new tasks added) can affect pagination results.
+- **Use Cases**:
+  - Displaying task lists in a TODO service API (`GET /v1/tasks`).
+  - Loading search results or social media feeds incrementally.
+  - Handling large database query results efficiently.
+
+In backend development, pagination is critical for optimizing APIs like a TODO service, ensuring that endpoints (e.g., `GET /v1/tasks`) efficiently deliver large lists of tasks while maintaining performance and usability.
+
 ### What is sorting in queries?
+
+**Sorting in queries** refers to the process of arranging the results of a database or API query in a specific order based on one or more columns or fields. It is used to organize data in a meaningful way, such as ascending (ASC) or descending (DESC) order, to meet application or user requirements.
+
+**Key Points**:
+
+- **Purpose**: Organizes query results to make data easier to understand, display, or process, improving usability and relevance.
+- **How It Works**:
+  - A query specifies the column(s) to sort by and the order (ascending or descending).
+  - The database or API processes the query and returns results sorted according to the specified criteria.
+- **Example**: In a TODO service:
+  - Query to retrieve tasks sorted by due date in ascending order:
+
+    ```sql title="SQL Sorting"
+    SELECT * FROM tasks ORDER BY due_date ASC;
+    ```
+
+    - Returns tasks with earlier due dates first.
+
+  - API request: `GET https://api.todo-service.com/v1/tasks?sort=due_date&order=asc`
+    - Response (JSON):
+      ```json title="JSON Response"
+      [
+        { "id": 1, "title": "Buy groceries", "due_date": "2025-10-01" },
+        { "id": 2, "title": "Finish report", "due_date": "2025-10-02" }
+      ]
+      ```
+  - Sorting by multiple fields:
+
+    ```sql title="SQL Sorting"
+    SELECT * FROM tasks ORDER BY status ASC, due_date DESC;
+    ```
+
+    - Sorts tasks by `status` (e.g., "completed" before "pending"), then by `due_date` (latest first within each status).
+
+- **Common Implementations**:
+  - **SQL**: Uses the `ORDER BY` clause (e.g., `ORDER BY title ASC`).
+  - **API**: Uses query parameters (e.g., `?sort=column&order=asc`).
+  - **NoSQL**: Databases like MongoDB use methods like `.sort({ due_date: 1 })` for ascending or `.sort({ due_date: -1 })` for descending.
+- **Use Cases**:
+  - Displaying tasks in a TODO app by priority, due date, or creation time.
+  - Sorting search results by relevance or price in e-commerce.
+  - Ordering user lists alphabetically by name.
+- **Benefits**:
+  - Improves user experience by presenting data in a logical order.
+  - Enables flexible data presentation (e.g., sort by newest or oldest tasks).
+- **Challenges**:
+  - **Performance**: Sorting large datasets can be slow without proper indexing.
+  - **Complexity**: Sorting on multiple fields or dynamic fields increases query complexity.
+  - **Consistency**: Sorting dynamic data (e.g., frequently updated tasks) may yield inconsistent results without pagination or cursors.
+- **Optimization**:
+  - Use database indexes on frequently sorted columns (e.g., `due_date`) to speed up queries.
+  - Combine with pagination to limit the number of sorted records.
+
+In backend development, sorting in queries is essential for a TODO service API (e.g., `GET /v1/tasks`) to deliver task data in a user-friendly order, enhancing usability and meeting specific application requirements.
 
 ### What is filtering in APIs?
 
+**Filtering in APIs** is the process of narrowing down the data returned by an API endpoint based on specific criteria or conditions provided in the request. It allows clients to retrieve only the subset of data that matches the specified parameters, improving efficiency and relevance of the response.
+
+**Key Points**:
+
+- **Purpose**: Enables clients to request specific data from an API, reducing the amount of data transferred and processed, and tailoring results to their needs.
+- **How It Works**:
+  - Clients include query parameters in the API request to define filtering conditions (e.g., field values, ranges, or patterns).
+  - The server processes these parameters, queries the database or data source, and returns only the matching records.
+- **Example**: In a TODO service:
+  - Request: `GET https://api.todo-service.com/v1/tasks?status=pending&due_date=2025-10-01`
+    - Filters tasks to return only those with `status="pending"` and `due_date="2025-10-01"`.
+    - Response (JSON):
+      ```json title="JSON Response"
+      [
+        { "id": 1, "title": "Buy groceries", "status": "pending", "due_date": "2025-10-01" },
+        { "id": 3, "title": "Call client", "status": "pending", "due_date": "2025-10-01" }
+      ]
+      ```
+  - Another example: `GET /v1/tasks?priority=high` returns only high-priority tasks.
+- **Common Implementations**:
+  - **Query Parameters**: Use key-value pairs in the URL (e.g., `?status=completed`).
+  - **SQL Backend**: Translated to `WHERE` clauses (e.g., `SELECT * FROM tasks WHERE status = 'completed'`).
+  - **NoSQL Backend**: Uses query methods (e.g., MongoDB’s `find({ status: 'completed' })`).
+  - **Complex Filters**: Support operators like `gt` (greater than), `lt` (less than), or `contains` (e.g., `?due_date_gt=2025-10-01`).
+- **Use Cases**:
+  - Retrieving tasks by status, date, or user in a TODO service API.
+  - Filtering products by category or price in an e-commerce API.
+  - Searching users by name or role in a user management system.
+- **Benefits**:
+  - Reduces data transfer by returning only relevant results.
+  - Improves performance by minimizing server processing and network load.
+  - Enhances user experience by providing precise data.
+- **Challenges**:
+  - **Complexity**: Supporting complex filters (e.g., multiple conditions) increases server-side logic.
+  - **Performance**: Poorly designed filters or missing database indexes can slow queries.
+  - **Security**: Must validate and sanitize filter inputs to prevent injection attacks (e.g., SQL injection).
+- **Best Practices**:
+  - Combine with pagination to handle large filtered datasets (e.g., `?status=pending&limit=10`).
+  - Use indexes on frequently filtered columns (e.g., `status`, `due_date`).
+  - Validate filter parameters to ensure security and correctness.
+
+In backend development, filtering is critical for optimizing APIs like a TODO service, enabling clients to efficiently retrieve specific data (e.g., `GET /v1/tasks?status=pending`) while reducing server load and improving usability.
+
 ### What is aggregation in databases?
+
+**Aggregation** in databases is the process of combining and summarizing data from multiple records to produce a single result, often to derive meaningful insights or metrics. It involves applying functions like counting, summing, averaging, or grouping to data, typically in relational or NoSQL databases.
+
+**Key Points**:
+
+- **Purpose**: Simplifies large datasets by computing summary statistics or grouping data based on specific criteria, making it easier to analyze or report.
+- **How It Works**:
+  - Aggregation functions process data across rows or documents to produce a single value or grouped results.
+  - Commonly used with queries to group, filter, or calculate data.
+- **Common Aggregation Functions**:
+  - **COUNT**: Counts the number of records (e.g., total tasks).
+  - **SUM**: Adds values in a column (e.g., total hours spent on tasks).
+  - **AVG**: Calculates the average of values (e.g., average task duration).
+  - **MIN/MAX**: Finds the smallest or largest value (e.g., earliest due date).
+  - **GROUP BY**: Groups records by a column and applies aggregation functions to each group.
+- **Example**: In a TODO service:
+  - SQL Query to count tasks by status:
+
+    ```sql title="SQL Aggregation"
+    SELECT status, COUNT(*) as task_count
+    FROM tasks
+    GROUP BY status;
+    ```
+
+    - Result:
+      ```json title="JSON Response"
+      [
+        { "status": "pending", "task_count": 50 },
+        { "status": "completed", "task_count": 30 }
+      ]
+      ```
+
+  - MongoDB Query to calculate average task duration:
+
+    ```javascript title="MongoDB Aggregation"
+    db.tasks.aggregate([{ $group: { _id: null, avg_duration: { $avg: '$duration' } } }])
+    ```
+
+    - Result: `{"_id": null, "avg_duration": 4.5}` (hours).
+
+- **Use Cases**:
+  - Generating reports (e.g., number of tasks per user in a TODO service).
+  - Calculating metrics (e.g., average completion time for tasks).
+  - Summarizing data for dashboards (e.g., tasks completed per day).
+- **Benefits**:
+  - Simplifies data analysis by reducing large datasets to meaningful summaries.
+  - Supports business intelligence and decision-making.
+  - Efficiently handles large volumes of data with proper indexing.
+- **Challenges**:
+  - **Performance**: Aggregations on large datasets can be slow without indexes or optimization.
+  - **Complexity**: Complex aggregations (e.g., multiple groups or joins) require careful query design.
+  - **Accuracy**: Must account for null or missing data to avoid skewed results.
+- **Implementation**:
+  - **Relational Databases**: Use SQL `GROUP BY` with functions like `COUNT`, `SUM` (e.g., MySQL, PostgreSQL).
+  - **NoSQL Databases**: Use aggregation pipelines (e.g., MongoDB’s `$group`, `$sum`).
+  - **APIs**: Expose aggregated data via endpoints (e.g., `GET /v1/tasks/stats?group_by=status`).
+
+In backend development, aggregation is critical for a TODO service to provide insights, such as summarizing task statuses or user activity, enabling efficient reporting and analytics while optimizing API performance.
 
 ### What is a join in SQL?
 
+A **JOIN** in SQL is a clause used to combine rows from two or more tables in a relational database based on a related column, typically a primary key or foreign key, to create a unified result set. It enables querying data from multiple tables that are related to each other.
+
+**Key Points**:
+
+- **Purpose**: Retrieves data from multiple tables by linking them on a common column, allowing complex queries that combine related information.
+- **How It Works**:
+  - The `JOIN` clause specifies the tables to combine and the condition (using `ON`) that defines how rows are matched.
+  - The database matches rows based on the condition and returns the combined results.
+- **Common Types of JOINs**:
+  - **INNER JOIN**: Returns only the rows where there is a match in both tables.
+
+    ```sql title="SQL Join"
+    SELECT tasks.id, tasks.title, users.name
+    FROM tasks
+    INNER JOIN users ON tasks.user_id = users.id;
+    ```
+
+    - Returns tasks with their associated user names, excluding tasks or users without matches.
+
+  - **LEFT (OUTER) JOIN**: Returns all rows from the left table and matching rows from the right table; non-matching rows from the right table return NULL.
+
+    ```sql title="SQL Join"
+    SELECT tasks.id, tasks.title, users.name
+    FROM tasks
+    LEFT JOIN users ON tasks.user_id = users.id;
+    ```
+
+    - Returns all tasks, even if no user is associated (e.g., `users.name` is NULL).
+
+  - **RIGHT (OUTER) JOIN**: Returns all rows from the right table and matching rows from the left table; non-matching rows from the left table return NULL.
+  - **FULL (OUTER) JOIN**: Returns all rows from both tables, with NULLs for non-matching rows.
+
+- **Example**: In a TODO service:
+  - Tables:
+    - `tasks`: Columns `id`, `title`, `user_id` (foreign key).
+    - `users`: Columns `id`, `name`.
+  - Query to get tasks with their user names:
+
+    ```sql title="SQL Join"
+    SELECT tasks.title, users.name
+    FROM tasks
+    INNER JOIN users ON tasks.user_id = users.id
+    WHERE tasks.status = 'pending';
+    ```
+
+    - Result:
+      ```json title="JSON Response"
+      [
+        { "title": "Buy groceries", "name": "John" },
+        { "title": "Finish report", "name": "Alice" }
+      ]
+      ```
+
+- **Use Cases**:
+  - Retrieving related data (e.g., tasks and their owners in a TODO service).
+  - Combining user profiles with their activity logs.
+  - Aggregating data across tables (e.g., counting tasks per user).
+- **Benefits**:
+  - Enables complex queries by linking related data.
+  - Supports normalized database designs by combining data from separate tables.
+- **Challenges**:
+  - **Performance**: JOINs on large tables can be slow without proper indexing.
+  - **Complexity**: Multiple or nested JOINs can make queries harder to write and maintain.
+  - **NULL Handling**: Requires careful handling of NULLs in OUTER JOINs.
+- **Optimization**:
+  - Use indexes on columns used in the `ON` clause (e.g., `user_id`, `id`).
+  - Limit the number of JOINs to reduce query complexity.
+  - Filter rows early with `WHERE` to minimize data processed.
+
+In backend development, JOINs are essential for a TODO service API (e.g., `GET /v1/tasks`) to fetch related data, such as tasks and their associated user details, enabling efficient and meaningful data retrieval from normalized databases.
+
 ### What is a view in databases?
+
+A **view** in a database is a virtual table created by a query that combines data from one or more tables, presenting it as if it were a single table. It does not store data physically but dynamically generates results when queried, based on the underlying tables.
+
+**Key Points**:
+
+- **Purpose**: Simplifies complex queries, enhances security, and provides a customized or simplified view of data for users or applications.
+- **How It Works**:
+  - Defined using a `CREATE VIEW` statement with an SQL query that specifies the data to include.
+  - Acts as a stored query that can be queried like a regular table.
+  - Updates to the underlying tables are reflected in the view, but views are read-only in most cases unless explicitly updatable.
+- **Example**: In a TODO service:
+  - Tables:
+    - `tasks`: Columns `id`, `title`, `user_id`, `status`, `due_date`.
+    - `users`: Columns `id`, `name`.
+  - Create a view to show pending tasks with user names:
+    ```sql title="SQL View"
+    CREATE VIEW pending_tasks AS
+    SELECT tasks.id, tasks.title, users.name, tasks.due_date
+    FROM tasks
+    INNER JOIN users ON tasks.user_id = users.id
+    WHERE tasks.status = 'pending';
+    ```
+  - Query the view:
+
+    ```sql title="SQL Query"
+    SELECT * FROM pending_tasks;
+    ```
+
+    - Result:
+      ```json title="JSON Response"
+      [
+        { "id": 1, "title": "Buy groceries", "name": "John", "due_date": "2025-10-01" },
+        { "id": 3, "title": "Call client", "name": "Alice", "due_date": "2025-10-02" }
+      ]
+      ```
+
+- **Types**:
+  - **Simple View**: Based on a single table, often updatable.
+  - **Complex View**: Involves multiple tables, joins, or aggregations, typically read-only.
+  - **Materialized View**: Stores data physically for performance, updated periodically (supported by some databases like PostgreSQL).
+- **Use Cases**:
+  - Simplifying complex queries for a TODO service API (e.g., `GET /v1/pending-tasks` using a view).
+  - Restricting access to specific columns or rows for security (e.g., hiding sensitive user data).
+  - Providing aggregated data (e.g., task counts per user).
+- **Benefits**:
+  - **Simplicity**: Abstracts complex queries into a single, reusable interface.
+  - **Security**: Limits access to specific data (e.g., only show `title` and `name`, not `user_id`).
+  - **Maintainability**: Centralizes query logic, making updates easier.
+- **Challenges**:
+  - **Performance**: Complex views with joins or aggregations can be slow without optimization.
+  - **Read-Only**: Most views are not updatable unless designed specifically (e.g., simple views with triggers).
+  - **Dependencies**: Changes to underlying tables can break views.
+- **Optimization**:
+  - Use indexes on underlying tables for faster query execution.
+  - Consider materialized views for frequently accessed, complex data.
+
+In backend development, views are valuable for a TODO service API to simplify data access (e.g., fetching pending tasks with user details), enhance security, and streamline query logic for endpoints like `GET /v1/tasks`.
 
 ### What is a stored procedure?
 
+A **stored procedure** is a precompiled set of SQL statements stored in a database under a specific name, which can be executed repeatedly as a single unit. It is used to encapsulate complex database operations, improve performance, and enhance security by centralizing logic on the database server.
+
+**Key Points**:
+
+- **Purpose**: Simplifies complex database tasks, ensures consistent execution, and reduces application-side logic by running predefined SQL code on the server.
+- **How It Works**:
+  - Defined using a `CREATE PROCEDURE` statement with SQL and optional parameters.
+  - Stored in the database and invoked by applications or other database processes using a `CALL` or `EXEC` command.
+  - Can include logic like loops, conditionals, or error handling, depending on the database system.
+- **Example**: In a TODO service:
+  - A stored procedure to create a task and log the action in an audit table:
+
+    ```sql title="SQL Procedure"
+    CREATE PROCEDURE AddTask(
+        IN p_user_id INT,
+        IN p_title VARCHAR(100),
+        IN p_status VARCHAR(20)
+    )
+    BEGIN
+        INSERT INTO tasks (user_id, title, status)
+        VALUES (p_user_id, p_title, p_status);
+
+        INSERT INTO audit_log (user_id, action, timestamp)
+        VALUES (p_user_id, 'Task Created', NOW());
+    END;
+    ```
+
+  - Call the procedure:
+    ```sql title="SQL Procedure Call"
+    CALL AddTask(123, 'Buy groceries', 'pending');
+    ```
+  - Result: A new task is added to the `tasks` table, and an entry is logged in the `audit_log` table.
+
+- **Use Cases**:
+  - Encapsulating complex operations (e.g., creating a task and updating related tables in a TODO service).
+  - Performing batch updates or data migrations.
+  - Enforcing business rules (e.g., validating task status before insertion).
+  - Reducing network traffic by executing logic server-side.
+- **Benefits**:
+  - **Performance**: Precompiled procedures execute faster than ad-hoc queries.
+  - **Security**: Restricts direct table access; users can execute procedures without table permissions.
+  - **Maintainability**: Centralizes logic, making updates easier without changing application code.
+  - **Reusability**: Can be called multiple times by different applications or users.
+- **Challenges**:
+  - **Complexity**: Writing and debugging complex procedures can be difficult.
+  - **Portability**: Syntax varies across databases (e.g., MySQL, PostgreSQL, SQL Server).
+  - **Version Control**: Managing procedures in source control can be challenging compared to application code.
+- **Support**: Available in relational databases like MySQL, PostgreSQL, SQL Server, and Oracle, but not in most NoSQL databases.
+
+In backend development, stored procedures are useful for a TODO service to handle complex operations (e.g., `POST /v1/tasks` triggering multiple table updates) efficiently and securely, reducing application complexity and improving database performance.
+
 ### What is a trigger?
+
+A **trigger** in a database is a stored procedure or set of SQL statements that automatically executes in response to specific events on a table, such as `INSERT`, `UPDATE`, or `DELETE` operations. It is used to enforce business rules, maintain data integrity, or automate tasks within the database.
+
+**Key Points**:
+
+- **Purpose**: Automatically performs actions (e.g., updating related tables, logging changes) when a specified database event occurs, reducing application-side logic.
+- **How It Works**:
+  - Defined using a `CREATE TRIGGER` statement, specifying the event, timing (before or after), and action.
+  - Executes automatically when the triggering event occurs on the specified table.
+  - Can access old and new data values for the affected rows.
+- **Types**:
+  - **BEFORE Trigger**: Executes before the event (e.g., to validate or modify data before insertion).
+  - **AFTER Trigger**: Executes after the event (e.g., to log changes or update related tables).
+  - **INSTEAD OF Trigger**: Replaces the triggering action (used with views).
+- **Example**: In a TODO service:
+  - A trigger to log task updates in an audit table:
+    ```sql title="SQL Trigger"
+    CREATE TRIGGER log_task_update
+    AFTER UPDATE ON tasks
+    FOR EACH ROW
+    BEGIN
+        INSERT INTO audit_log (user_id, action, timestamp, task_id)
+        VALUES (NEW.user_id, 'Task Updated', NOW(), NEW.id);
+    END;
+    ```
+  - When a task is updated (e.g., `UPDATE tasks SET status = 'completed' WHERE id = 1`), the trigger automatically logs the change in the `audit_log` table.
+- **Use Cases**:
+  - Enforcing data integrity (e.g., ensuring a task’s `due_date` is not in the past).
+  - Logging changes (e.g., tracking task status updates in a TODO service).
+  - Updating related tables (e.g., incrementing a user’s task count when a new task is added).
+  - Automating cascading actions (e.g., deleting related comments when a task is deleted).
+- **Benefits**:
+  - **Automation**: Executes logic automatically, reducing application code.
+  - **Consistency**: Ensures rules are enforced at the database level.
+  - **Security**: Runs with database privileges, bypassing application vulnerabilities.
+- **Challenges**:
+  - **Complexity**: Hard to debug or trace, especially with cascading triggers.
+  - **Performance**: Can slow down operations if triggers are complex or numerous.
+  - **Portability**: Syntax varies across databases (e.g., MySQL, PostgreSQL, SQL Server).
+- **Support**: Available in relational databases like MySQL, PostgreSQL, SQL Server, and Oracle, but not in most NoSQL databases.
+
+In backend development, triggers are valuable for a TODO service to automate tasks like logging or updating related data when actions occur (e.g., `POST /v1/tasks` or `PUT /v1/tasks/123`), ensuring data consistency and reducing application logic complexity.
 
 ### What is NoSQL?
 
+**NoSQL** (Not Only SQL) refers to a category of database management systems designed to handle large-scale, unstructured, semi-structured, or structured data, offering flexibility, scalability, and performance advantages over traditional relational (SQL) databases for certain use cases. Unlike SQL databases, NoSQL databases are not strictly tied to tabular structures or fixed schemas.
+
+**Key Points**:
+
+- **Purpose**: Provides a flexible, scalable way to store and retrieve data, especially for big data, real-time, or dynamic applications.
+- **How It Works**:
+  - Stores data in various formats (e.g., key-value, document, column-family, graph) rather than fixed tables with rows and columns.
+  - Typically schema-less or schema-flexible, allowing easier adaptation to changing data structures.
+  - Optimized for horizontal scaling across distributed systems (e.g., adding more servers).
+- **Types of NoSQL Databases**:
+  - **Key-Value Stores**: Simple key-value pairs (e.g., Redis, DynamoDB).
+    - Example: `task_id:123 -> {"title": "Buy groceries"}`
+  - **Document Stores**: Store semi-structured JSON or BSON documents (e.g., MongoDB, CouchDB).
+    - Example: `{id: 123, title: "Buy groceries", status: "pending"}`
+  - **Column-Family Stores**: Organize data in columns for analytics (e.g., Cassandra, HBase).
+  - **Graph Databases**: Store relationships as nodes and edges (e.g., Neo4j).
+- **Example**: In a TODO service:
+  - Using MongoDB (document store):
+    ```javascript title="MongoDB Document Store"
+    db.tasks.insertOne({
+      id: 123,
+      title: 'Buy groceries',
+      status: 'pending',
+      tags: ['urgent', 'personal'],
+      due_date: '2025-10-01',
+    })
+    ```
+  - Query: `db.tasks.find({ status: "pending" })` retrieves all pending tasks.
+  - API: `GET https://api.todo-service.com/v1/tasks?status=pending` returns matching documents.
+- **Benefits**:
+  - **Scalability**: Easily scales horizontally across multiple servers.
+  - **Flexibility**: Handles diverse data types and schema changes without migrations.
+  - **Performance**: Optimized for specific workloads (e.g., high read/write throughput).
+  - **Big Data**: Suits large-scale, unstructured data (e.g., social media, IoT).
+- **Challenges**:
+  - **Consistency**: Often prioritizes availability and partition tolerance over immediate consistency (CAP theorem).
+  - **Complexity**: Requires understanding different data models and query languages.
+  - **Less Mature**: Fewer standardization and tooling compared to SQL databases.
+- **Contrast with SQL**:
+  - **SQL**: Fixed schemas, tabular data, ACID transactions, vertical scaling, suited for structured data.
+  - **NoSQL**: Flexible schemas, diverse data models, eventual consistency (often), horizontal scaling, suited for unstructured or semi-structured data.
+- **Use Cases**:
+  - Storing tasks in a TODO service with flexible fields (e.g., variable task attributes).
+  - Real-time analytics, caching, or content management.
+  - Handling high-traffic or large-scale data in microservices.
+
+In backend development, NoSQL databases like MongoDB or Redis are used in a TODO service to store and query tasks flexibly, supporting scalable APIs (e.g., `POST /v1/tasks`) for dynamic or high-traffic applications, though they may require careful design to ensure data consistency.
+
 ### What is a key-value store?
+
+A **key-value store** is a type of NoSQL database that stores data as a collection of key-value pairs, where each key is a unique identifier associated with a specific value. It is designed for simplicity, high performance, and scalability, particularly for fast data retrieval and storage.
+
+**Key Points**:
+
+- **Purpose**: Provides a straightforward way to store, retrieve, and manage data using unique keys, ideal for high-speed, simple lookups.
+- **How It Works**:
+  - Data is stored as pairs: a key (e.g., a string or ID) maps to a value (e.g., a string, number, JSON object, or binary data).
+  - Operations include `get` (retrieve value by key), `set` (store a key-value pair), and `delete` (remove a key-value pair).
+  - Typically operates in memory or with persistent storage for durability.
+- **Example**: In a TODO service:
+  - Store a task:
+    ```plaintext title="Key-Value Store"
+    Key: task:123
+    Value: {"id": 123, "title": "Buy groceries", "status": "pending"}
+    ```
+  - Retrieve: `GET task:123` returns the task’s JSON data.
+  - API: A `GET https://api.todo-service.com/v1/tasks/123` request might fetch the value from a key-value store like Redis.
+- **Characteristics**:
+  - **Simple Data Model**: No complex schemas or relationships like relational databases.
+  - **High Performance**: Fast read/write operations, especially for in-memory stores like Redis.
+  - **Scalability**: Easily scales horizontally across distributed systems (e.g., DynamoDB).
+  - **Eventual Consistency**: Many key-value stores prioritize availability over immediate consistency (CAP theorem).
+- **Common Implementations**:
+  - **Redis**: In-memory store for caching, sessions, or real-time data.
+  - **DynamoDB**: Managed, distributed key-value store by AWS.
+  - **Memcached**: In-memory caching for simple key-value pairs.
+  - **Riak, etcd**: Distributed key-value stores for specific use cases.
+- **Use Cases**:
+  - Caching API responses in a TODO service (e.g., caching `GET /v1/tasks` results in Redis).
+  - Storing user sessions (e.g., `session:abc123 -> {user_id: 456}`).
+  - Real-time analytics or configuration storage.
+- **Benefits**:
+  - Extremely fast for simple lookups and writes.
+  - Flexible values (can store strings, JSON, or binary data).
+  - Scales well for high-traffic applications.
+- **Challenges**:
+  - Limited query capabilities (no complex joins or aggregations like SQL).
+  - No built-in relationships (not ideal for complex data models).
+  - Consistency trade-offs in distributed setups.
+- **Contrast with Other Databases**:
+  - **Key-Value Store**: Simple, key-based access, no schema (e.g., Redis).
+  - **Relational (SQL)**: Structured tables, supports joins and complex queries.
+  - **Document Store**: Stores structured documents (e.g., MongoDB), supports richer queries.
+
+In backend development, a key-value store like Redis is ideal for a TODO service to cache task data, manage user sessions, or store temporary states, enhancing performance for API endpoints like `GET /v1/tasks` in high-traffic scenarios.
 
 ### What is a document database?
 
+A **document database** is a type of NoSQL database that stores data as semi-structured documents, typically in formats like JSON or BSON (Binary JSON), rather than in tables like relational databases. Each document is a self-contained unit with its own data structure, allowing for flexible and schema-less storage.
+
+**Key Points**:
+
+- **Purpose**: Stores and retrieves data in a flexible, hierarchical format, ideal for applications with dynamic or complex data structures.
+- **How It Works**:
+  - Data is stored as collections of documents, where each document is a key-value structure (e.g., JSON).
+  - Documents can have different fields and structures within the same collection, unlike the fixed schemas of SQL databases.
+  - Supports queries based on document fields, including nested fields, and often provides indexing for faster retrieval.
+- **Example**: In a TODO service using a document database like MongoDB:
+  - A document in the `tasks` collection:
+    ```json title="JSON Document"
+    {
+      "_id": 123,
+      "title": "Buy groceries",
+      "status": "pending",
+      "due_date": "2025-10-01",
+      "tags": ["urgent", "personal"],
+      "user": {
+        "user_id": 456,
+        "name": "John"
+      }
+    }
+    ```
+  - Query to find pending tasks:
+    ```javascript title="JavaScript Query"
+    db.tasks.find({ status: 'pending' })
+    ```
+  - API: `GET https://api.todo-service.com/v1/tasks?status=pending` returns matching documents.
+- **Characteristics**:
+  - **Schema-less**: Documents can vary in structure (e.g., some tasks may have `tags`, others may not).
+  - **Hierarchical**: Supports nested data (e.g., `user` object within a task).
+  - **Scalability**: Designed for horizontal scaling across distributed systems.
+  - **Query Flexibility**: Supports queries on any field, aggregations, and indexing.
+- **Common Implementations**:
+  - **MongoDB**: Popular document database with rich query support and BSON storage.
+  - **CouchDB**: Focuses on replication and offline support.
+  - **Firestore**: Managed document database by Google Cloud.
+- **Use Cases**:
+  - Storing tasks with variable fields in a TODO service (e.g., some tasks have due dates, others have priorities).
+  - Managing user profiles, content management systems, or e-commerce product catalogs.
+  - Real-time applications with dynamic data (e.g., event logging).
+- **Benefits**:
+  - **Flexibility**: Adapts to changing data structures without schema migrations.
+  - **Scalability**: Easily scales horizontally for high-traffic applications.
+  - **Intuitive**: JSON-like documents align with modern application data formats.
+- **Challenges**:
+  - **Consistency**: Often prioritizes availability over immediate consistency (CAP theorem).
+  - **Complex Queries**: Joins are less straightforward than in SQL databases.
+  - **Storage Overhead**: Nested documents can increase storage needs compared to normalized tables.
+- **Contrast with Other Databases**:
+  - **Document Database**: Stores flexible JSON/BSON documents (e.g., MongoDB).
+  - **Relational (SQL)**: Uses fixed-schema tables with rows/columns and supports joins.
+  - **Key-Value Store**: Simple key-value pairs, limited query capabilities (e.g., Redis).
+
+In backend development, document databases like MongoDB are ideal for a TODO service to store tasks with varying attributes, supporting flexible and scalable APIs (e.g., `POST /v1/tasks`) for dynamic applications, though they require careful design for consistency and complex queries.
+
 ### What is a graph database?
+
+A **graph database** is a type of NoSQL database that uses graph structures to store, manage, and query data, focusing on relationships between entities. It represents data as nodes (entities), edges (relationships), and properties (attributes), making it ideal for applications where relationships are as important as the data itself.
+
+**Key Points**:
+
+- **Purpose**: Efficiently stores and queries complex relationships between data, enabling fast traversal and analysis of interconnected data.
+- **How It Works**:
+  - **Nodes**: Represent entities (e.g., users, tasks).
+  - **Edges**: Represent relationships between nodes (e.g., "created by," "depends on").
+  - **Properties**: Attributes of nodes or edges (e.g., task title, user name).
+  - Queries traverse the graph to find patterns, relationships, or paths (e.g., shortest path between nodes).
+- **Example**: In a TODO service:
+  - Nodes: `User` (e.g., "John"), `Task` (e.g., "Buy groceries").
+  - Edges: `CREATED` (John created the task), `DEPENDS_ON` (Task A depends on Task B).
+  - Sample data in a graph database (e.g., Neo4j):
+    ```cypher title="Cypher Query Language"
+    CREATE (u:User {id: 123, name: "John"})
+    CREATE (t:Task {id: 456, title: "Buy groceries", status: "pending"})
+    CREATE (u)-[:CREATED]->(t);
+    ```
+  - Query to find tasks created by a user:
+
+    ```cypher title="Cypher Query Language"
+    MATCH (u:User {id: 123})-[:CREATED]->(t:Task)
+    RETURN t.title, t.status;
+    ```
+
+    - Result: `{"title": "Buy groceries", "status": "pending"}`
+
+  - API: `GET https://api.todo-service.com/v1/users/123/tasks` could leverage this query.
+
+- **Common Implementations**:
+  - **Neo4j**: Popular graph database with Cypher query language.
+  - **ArangoDB**: Multi-model database supporting graphs.
+  - **Amazon Neptune**: Managed graph database in AWS.
+- **Use Cases**:
+  - Managing task dependencies in a TODO service (e.g., Task A must be completed before Task B).
+  - Social networks (e.g., friend connections).
+  - Recommendation systems (e.g., suggesting related tasks).
+  - Fraud detection or network analysis.
+- **Benefits**:
+  - **Relationship-Focused**: Optimized for querying complex relationships (e.g., multi-level task dependencies).
+  - **Performance**: Fast traversals for interconnected data, even with large datasets.
+  - **Flexibility**: Easily adapts to evolving relationships without schema changes.
+- **Challenges**:
+  - **Complexity**: Graph query languages (e.g., Cypher) have a learning curve.
+  - **Scalability**: Less straightforward to scale horizontally compared to other NoSQL databases.
+  - **Not Universal**: Best for relationship-heavy data, less efficient for simple key-value or tabular data.
+- **Contrast with Other Databases**:
+  - **Graph Database**: Excels at relationship queries (e.g., Neo4j).
+  - **Relational (SQL)**: Uses tables and joins, less efficient for complex relationships.
+  - **Document Store**: Stores JSON-like documents, not optimized for relationships (e.g., MongoDB).
+  - **Key-Value Store**: Simple key-value pairs, no relationship support (e.g., Redis).
+
+In backend development, a graph database is ideal for a TODO service when managing complex relationships, such as task dependencies or user-task interactions, enabling efficient queries for APIs (e.g., `GET /v1/tasks/dependencies`) but may be overkill for simple CRUD operations.
 
 ### What is a relational database?
 
+A **relational database** is a type of database that organizes data into structured tables, where each table contains rows and columns, and relationships between tables are established using keys (e.g., primary and foreign keys). It uses a fixed schema to define the structure of data and relies on SQL (Structured Query Language) for querying and managing data.
+
+**Key Points**:
+
+- **Purpose**: Stores and manages structured data with clear relationships, enabling efficient querying, data integrity, and consistency for applications.
+- **How It Works**:
+  - Data is stored in **tables**, each representing an entity (e.g., users, tasks).
+  - Each table has **columns** (attributes, e.g., `id`, `title`) and **rows** (individual records).
+  - **Primary Key**: A unique identifier for each row in a table (e.g., `task_id`).
+  - **Foreign Key**: A column that links to the primary key of another table, establishing relationships.
+  - Queries use SQL to retrieve, insert, update, or delete data, often combining tables with `JOIN` operations.
+- **Example**: In a TODO service:
+  - Tables:
+    - `users`: Columns `id` (primary key), `name`, `email`.
+    - `tasks`: Columns `task_id` (primary key), `title`, `status`, `user_id` (foreign key referencing `users.id`).
+  - Query to get tasks with user names:
+
+    ```sql title="SQL Query"
+    SELECT tasks.title, users.name
+    FROM tasks
+    JOIN users ON tasks.user_id = users.id
+    WHERE tasks.status = 'pending';
+    ```
+
+    - Result:
+      ```json title="JSON Response"
+      [
+        { "title": "Buy groceries", "name": "John" },
+        { "title": "Finish report", "name": "Alice" }
+      ]
+      ```
+
+  - API: `GET https://api.todo-service.com/v1/tasks?status=pending` could use this query.
+
+- **Characteristics**:
+  - **Fixed Schema**: Tables have predefined columns and data types.
+  - **ACID Compliance**: Ensures Atomicity, Consistency, Isolation, Durability for reliable transactions.
+  - **Relationships**: Supports complex queries using joins to link related data.
+  - **Standardized**: Uses SQL for consistent querying across databases (e.g., MySQL, PostgreSQL).
+- **Common Implementations**:
+  - **MySQL**: Open-source, widely used for web applications.
+  - **PostgreSQL**: Advanced features, strong standards compliance.
+  - **SQL Server**: Microsoft’s enterprise solution.
+  - **Oracle**: Robust for large-scale enterprise systems.
+- **Use Cases**:
+  - Managing structured data in a TODO service (e.g., tasks, users, and their relationships).
+  - Financial systems, inventory management, or CRM applications requiring strong consistency.
+  - Applications needing complex queries (e.g., reporting or analytics).
+- **Benefits**:
+  - **Data Integrity**: Enforces relationships and constraints (e.g., foreign keys).
+  - **Powerful Queries**: Supports joins, aggregations, and filtering.
+  - **Mature Ecosystem**: Extensive tools and community support.
+- **Challenges**:
+  - **Scalability**: Vertical scaling is common; horizontal scaling is complex compared to NoSQL.
+  - **Schema Rigidity**: Changes to schema (e.g., adding columns) require migrations.
+  - **Performance**: Complex joins on large datasets can be slow without optimization.
+- **Contrast with NoSQL**:
+  - **Relational (SQL)**: Fixed schemas, tables, strong consistency, suited for structured data.
+  - **NoSQL**: Flexible schemas, diverse data models (e.g., document, key-value), suited for unstructured or scalable data.
+
+In backend development, relational databases are ideal for a TODO service to manage structured data (e.g., tasks and users) with strong consistency, supporting APIs (e.g., `POST /v1/tasks`) and complex queries, though they may require careful optimization for high-scale scenarios.
+
 ### What is ORM?
+
+**ORM** (Object-Relational Mapping) is a programming technique that allows developers to interact with a relational database using object-oriented programming constructs instead of writing raw SQL queries. It maps database tables to classes, rows to objects, and columns to object attributes, simplifying database operations in application code.
+
+**Key Points**:
+
+- **Purpose**: Abstracts database interactions, enabling developers to work with database records as objects in their programming language, reducing the need for manual SQL and improving productivity.
+- **How It Works**:
+  - An ORM library or framework defines a mapping between database tables and application classes.
+  - Developers use object-oriented methods (e.g., `save()`, `find()`) to perform CRUD operations (Create, Read, Update, Delete).
+  - The ORM translates these operations into SQL queries executed against the database.
+- **Example**: In a TODO service using an ORM like Sequelize (Node.js):
+  - Define a `Task` model mapping to the `tasks` table:
+
+    ```javascript title="JavaScript Query"
+    const { Sequelize, DataTypes } = require('sequelize')
+    const sequelize = new Sequelize('sqlite::memory:')
+
+    const Task = sequelize.define('Task', {
+      id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+      title: { type: DataTypes.STRING },
+      status: { type: DataTypes.STRING },
+    })
+    ```
+
+  - Create a task:
+    ```javascript title="JavaScript Query"
+    await Task.create({ title: 'Buy groceries', status: 'pending' })
+    ```
+  - Query tasks:
+    ```javascript title="JavaScript Query"
+    const tasks = await Task.findAll({ where: { status: 'pending' } })
+    // Returns: [{ id: 1, title: 'Buy groceries', status: 'pending' }]
+    ```
+  - API: Maps to `POST /v1/tasks` or `GET /v1/tasks?status=pending`.
+
+- **Common ORM Frameworks**:
+  - **Python**: Django ORM, SQLAlchemy.
+  - **JavaScript**: Sequelize, TypeORM.
+  - **Java**: Hibernate.
+  - **Ruby**: ActiveRecord (Rails).
+- **Use Cases**:
+  - Simplifying database operations in a TODO service API (e.g., creating or fetching tasks).
+  - Managing complex relationships (e.g., tasks linked to users via foreign keys).
+  - Rapid application development with less focus on SQL.
+- **Benefits**:
+  - **Productivity**: Reduces boilerplate SQL code, allowing focus on application logic.
+  - **Abstraction**: Shields developers from database-specific SQL syntax.
+  - **Portability**: Works across different databases (e.g., MySQL, PostgreSQL) with minimal code changes.
+  - **Security**: Helps prevent SQL injection by using parameterized queries.
+- **Challenges**:
+  - **Performance**: Generated queries may be less optimized than hand-written SQL.
+  - **Learning Curve**: Requires understanding the ORM’s conventions and limitations.
+  - **Abstraction Overhead**: Can hide database details, making complex queries harder to optimize.
+  - **Limited Flexibility**: May not support all database-specific features.
+- **Contrast with Raw SQL**:
+  - **ORM**: Object-oriented, abstracts SQL, easier for simple CRUD but less control.
+  - **Raw SQL**: Direct database queries, more control but requires manual query writing.
+
+In backend development, an ORM is critical for a TODO service to streamline database interactions for APIs (e.g., `GET /v1/tasks`), enabling developers to manage tasks and users efficiently while maintaining clean, maintainable code, though it requires careful optimization for complex or high-performance scenarios.
+
+## Conclusion
+
+This series of 100 basic backend interview questions provides a comprehensive foundation for understanding key concepts essential for backend development roles. Covering topics such as HTTP methods, database fundamentals, networking, security, concurrency, APIs, and system architecture, these questions span critical areas like REST, SQL, NoSQL, and version control. Each question, from the role of a backend server to the intricacies of database normalization and synchronization mechanisms, is designed to prepare candidates for discussing core backend principles concisely and effectively. Whether you're preparing for a backend developer interview or seeking to solidify your knowledge, this series offers a structured starting point to grasp the essentials of building robust, scalable, and secure backend systems, such as those powering a TODO service API.
