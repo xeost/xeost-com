@@ -798,45 +798,653 @@ In backend development, cookies are critical for managing sessions and user stat
 
 ### What is caching?
 
+**Caching** is the process of storing frequently accessed data or computed results in a temporary, fast-access storage layer (cache) to reduce latency, decrease server load, and improve performance in a system or application. Instead of repeatedly fetching or computing data from a slower source (e.g., database, disk, or network), the cache provides quick access to the stored copy.
+
+**Key Points**:
+
+- **Purpose**: Speeds up data retrieval, reduces resource usage, and enhances user experience.
+- **How It Works**:
+  - Data is stored in a cache (e.g., memory, Redis, or browser) after its first retrieval or computation.
+  - Subsequent requests check the cache first; if the data is found (cache hit), it’s returned quickly; if not (cache miss), the data is fetched from the source and stored in the cache.
+- **Types**:
+  - **In-Memory Cache**: Stores data in RAM (e.g., Redis, Memcached) for fast access.
+  - **Database Cache**: Stores query results to avoid redundant database queries.
+  - **Client-Side Cache**: Stores data in the browser (e.g., HTTP caching with cookies or local storage).
+  - **Distributed Cache**: Shared cache across multiple servers (e.g., in microservices).
+- **Example**: In a TODO service:
+  - A `GET /v1/tasks` request fetches a user’s task list from the database and stores it in a Redis cache with a key like `user:123:tasks`.
+  - Future requests for the same user’s tasks check Redis first, avoiding a database query unless the cache expires or is invalidated.
+- **Cache Management**:
+  - **Expiration**: Data is removed after a set time (TTL, time-to-live) to ensure freshness.
+  - **Invalidation**: Cache is updated or cleared when data changes (e.g., a task is updated).
+  - **Eviction Policies**: Remove old data (e.g., LRU - Least Recently Used) when the cache is full.
+- **Benefits**:
+  - Reduces latency (faster responses).
+  - Lowers database or server load.
+  - Improves scalability for high-traffic applications.
+- **Challenges**:
+  - Cache staleness (outdated data).
+  - Memory usage (caches can consume significant resources).
+  - Consistency management (ensuring cache aligns with source data).
+
+In backend development, caching is critical for optimizing API performance in applications like a TODO service, especially for frequently accessed data like task lists or user profiles.
+
 ### What is load time?
+
+**Load time** is the duration it takes for a system, application, or resource (e.g., a webpage, API response, or database query) to fully process a request and deliver the requested data to the client. In the context of backend development, it typically refers to the time taken for a server to handle a request, including processing, querying databases, and returning a response.
+
+**Key Points**:
+
+- **Definition**: The total time from when a client sends a request (e.g., clicking a link or calling an API) to when the response is fully received and usable.
+- **Components**:
+  - **Network Latency**: Time for data to travel between client and server.
+  - **Server Processing**: Time to execute backend logic, query databases, or fetch cached data.
+  - **Data Transfer**: Time to send the response back to the client.
+- **Example**: In a TODO service, the load time for a `GET /v1/tasks` request might include:
+  - 50ms for network round-trip.
+  - 100ms for the server to query the database and process the request.
+  - 20ms to transfer the response (e.g., a JSON list of tasks).
+  - Total load time: ~170ms.
+- **Importance**: Affects user experience; faster load times improve responsiveness and satisfaction.
+- **Optimization Techniques**:
+  - Use caching (e.g., Redis) to reduce database query time.
+  - Optimize database queries (e.g., indexing, avoiding unnecessary joins).
+  - Implement content delivery networks (CDNs) for static assets.
+  - Minimize payload size (e.g., compress JSON responses).
+
+**Load Time** vs. **Latency**:
+
+- **Scope**:
+  - **Latency**: Measures the initial delay (time to first byte).
+  - **Load Time**: Measures the entire process (request to complete response).
+- **Focus**:
+  - **Latency**: Focuses on network and initial server response speed.
+  - **Load Time**: Includes latency plus server processing and data transfer.
+- **Impact**:
+  - High latency delays the start of a response, affecting perceived responsiveness.
+  - High load time affects the overall user experience, especially for large responses.
+
+In backend development, minimizing load time is critical for ensuring efficient API performance and a smooth user experience in applications like a TODO service.
 
 ### What is throughput?
 
+**Throughput** is the rate at which a system processes or completes tasks, requests, or data transfers over a given period, typically measured in units like requests per second, transactions per second, or bytes per second. In backend development, it indicates the system’s capacity to handle workload efficiently.
+
+**Key Points**:
+
+- **Definition**: The number of operations or amount of data processed within a specific time frame.
+- **Purpose**: Measures system performance and scalability under load, showing how many requests or tasks a server can handle.
+- **Example**: In a TODO service:
+  - If the server processes 100 `GET /v1/tasks` requests per second, the throughput is 100 requests/second.
+  - For data transfer, if it sends 10 MB of task data per second, the throughput is 10 MB/s.
+- **Factors Affecting Throughput**:
+  - Server resources (CPU, memory, disk I/O).
+  - Network bandwidth and latency.
+  - Database performance (e.g., query efficiency).
+  - Application optimization (e.g., caching, load balancing).
+- **Difference from Latency**:
+  - **Latency**: Time for a single request to get a response (e.g., 50ms for one `GET /v1/tasks`).
+  - **Throughput**: Number of requests handled in a time period (e.g., 100 requests/second).
+- **Importance**: High throughput indicates a system can handle many users or requests, critical for scalability in high-traffic applications.
+
+In backend development, optimizing throughput (e.g., via caching, efficient queries, or load balancing) is key to ensuring a TODO service API can handle multiple users accessing tasks simultaneously without performance degradation.
+
 ### What is response time?
+
+**Response time** is the total duration it takes for a system to process a request and return a complete response to the client. It measures the end-to-end time from when a client initiates a request (e.g., clicking a link or sending an API call) to when the client receives the full response, ready for use or rendering.
+
+**Key Points**:
+
+- **Definition**: The time elapsed from sending a request to receiving and processing the entire response.
+- **Components**:
+  - **Network Latency**: Time for the request to travel to the server and the response to return.
+  - **Server Processing Time**: Time for the server to execute logic, query databases, or fetch data.
+  - **Data Transfer Time**: Time to send the response data back to the client.
+  - **Client-Side Processing** (optional): Time to render or process the response (e.g., in a browser).
+- **Example**: In a TODO service, for a `GET /v1/tasks` request:
+  - Network latency: 50ms (round-trip time).
+  - Server processing: 100ms (database query and logic).
+  - Data transfer: 20ms (sending JSON response).
+  - Total response time: ~170ms.
+- **Difference from Related Terms**:
+  - **Latency**: Time to receive the first byte of the response (e.g., 50ms in the example above).
+  - **Load Time**: Often synonymous with response time in backend contexts, but may include client-side rendering for web pages.
+  - **Throughput**: Number of requests handled per unit time (e.g., 100 requests/second), not the time for a single request.
+- **Importance**: Low response time improves user experience and application performance, especially for interactive systems like APIs.
+- **Optimization**: Use caching (e.g., Redis), optimize database queries, reduce payload size, or leverage CDNs to lower response time.
+
+In backend development, minimizing response time is critical for ensuring fast and efficient API interactions, such as retrieving task lists in a TODO service, enhancing user satisfaction and system scalability.
 
 ### What is scalability?
 
+**Scalability** is the ability of a system, application, or infrastructure to handle increasing amounts of work (e.g., more users, requests, or data) or to be expanded to accommodate that growth without compromising performance or reliability.
+
+**Key Points**:
+
+- **Purpose**: Ensures a system can grow to meet rising demand while maintaining efficiency and user experience.
+- **Types**:
+  - **Vertical Scalability (Scaling Up)**: Adding more resources (e.g., CPU, RAM) to a single server to handle more load.
+  - **Horizontal Scalability (Scaling Out)**: Adding more servers or instances to distribute the load across multiple machines.
+- **Example**: In a TODO service:
+  - **Vertical**: Upgrading the server’s CPU or memory to handle more `GET /v1/tasks` requests.
+  - **Horizontal**: Adding more servers behind a load balancer to distribute API requests across multiple instances.
+- **Factors Affecting Scalability**:
+  - Architecture design (e.g., microservices vs. monolithic).
+  - Efficient use of resources (e.g., caching, optimized queries).
+  - Load balancing and distributed systems.
+  - Database performance (e.g., sharding, replication).
+- **Importance**: Critical for handling traffic spikes, user growth, or large datasets without slowdowns or downtime.
+- **Challenges**: Increased complexity, cost, and potential for issues like data consistency in distributed systems.
+
+In backend development, scalability ensures a TODO service API can support thousands of users accessing tasks concurrently, using techniques like load balancing, caching, or database sharding to maintain performance.
+
 ### What is vertical scaling?
+
+**Vertical scaling**, also known as _scaling up_, is the process of increasing the capacity of a single server or system by adding more resources, such as CPU, RAM, storage, or network bandwidth, to handle increased workload or improve performance.
+
+**Key Points**:
+
+- **Purpose**: Enhances the ability of a single machine to process more requests, data, or computations without changing the system architecture.
+- **How It Works**: Upgrade hardware or allocate more resources to the existing server (e.g., increasing from 4GB to 16GB RAM or from 2 to 8 CPU cores).
+- **Example**: In a TODO service:
+  - A server handling `GET /v1/tasks` requests struggles with 1,000 concurrent users.
+  - Adding more RAM or a faster CPU to the server allows it to process more requests efficiently.
+- **Advantages**:
+  - Simple to implement (no architectural changes needed).
+  - Minimal changes to application code or configuration.
+  - Suitable for smaller-scale applications or quick performance boosts.
+- **Disadvantages**:
+  - Limited by hardware constraints (e.g., maximum CPU or RAM a server can support).
+  - Expensive due to high-cost hardware upgrades.
+  - Single point of failure (no redundancy if the server fails).
+- **Contrast with Horizontal Scaling**: Vertical scaling adds power to one server, while horizontal scaling adds more servers to distribute the load.
+
+In backend development, vertical scaling is a straightforward way to improve performance for applications like a TODO service API, but it’s less flexible than horizontal scaling for handling massive or unpredictable traffic growth.
 
 ### What is horizontal scaling?
 
+**Horizontal scaling**, also known as _scaling out_, is the process of increasing a system's capacity by adding more servers or instances to distribute the workload across multiple machines, rather than upgrading a single server.
+
+**Key Points**:
+
+- **Purpose**: Enhances system performance and capacity by sharing the load across multiple nodes, improving scalability and reliability.
+- **How It Works**: Additional servers or instances are added, and a load balancer distributes incoming requests (e.g., API calls) across them. Each server handles a portion of the workload.
+- **Example**: In a TODO service:
+  - A single server struggles with 10,000 concurrent `GET /v1/tasks` requests.
+  - Adding three more servers and using a load balancer to distribute requests allows the system to handle the increased traffic efficiently.
+- **Advantages**:
+  - Virtually unlimited scalability (add as many servers as needed).
+  - Improved fault tolerance (if one server fails, others continue to operate).
+  - Cost-effective for large-scale systems (uses commodity hardware or cloud instances).
+- **Disadvantages**:
+  - Increased complexity (requires load balancing, distributed systems, and data consistency management).
+  - May need application redesign (e.g., to handle stateless operations or distributed databases).
+  - Potential for higher latency in some cases due to coordination overhead.
+- **Contrast with Vertical Scaling**: Horizontal scaling adds more machines, while vertical scaling upgrades a single machine’s resources (e.g., CPU, RAM).
+- **Technologies**: Often uses cloud platforms (e.g., AWS, Azure), containerization (e.g., Docker), and orchestration (e.g., Kubernetes) to manage multiple instances.
+
+In backend development, horizontal scaling is critical for handling high traffic in applications like a TODO service API, ensuring performance and availability as user demand grows, especially in distributed systems.
+
 ### What is a bottleneck?
+
+A **bottleneck** is a point in a system where the flow of data, requests, or processes is limited, causing reduced performance, slower response times, or decreased throughput. It occurs when a component (e.g., hardware, software, or network) cannot handle the workload efficiently, restricting the overall system's capacity.
+
+**Key Points**:
+
+- **Definition**: A bottleneck is like a narrow section of a pipe that restricts flow, slowing down the entire system.
+- **Causes**:
+  - **Hardware**: Insufficient CPU, RAM, or disk I/O capacity.
+  - **Database**: Slow queries, lack of indexing, or high contention.
+  - **Network**: Limited bandwidth or high latency.
+  - **Software**: Inefficient code, single-threaded processes, or poor resource management.
+- **Example**: In a TODO service:
+  - A database query for `GET /v1/tasks` takes 500ms due to a missing index, slowing down API responses despite a fast server. The database is the bottleneck.
+  - A server with limited CPU struggles to handle 10,000 concurrent requests, causing delays.
+- **Impact**:
+  - Increased response times or latency.
+  - Reduced throughput (fewer requests processed per second).
+  - Poor user experience or system failures under load.
+- **Identification**: Use monitoring tools (e.g., Prometheus, New Relic) to detect slow components via metrics like CPU usage, query times, or request queues.
+- **Solutions**:
+  - Optimize code or queries (e.g., add database indexes).
+  - Scale resources (vertical or horizontal scaling).
+  - Implement caching (e.g., Redis for frequent queries).
+  - Use load balancing to distribute traffic.
+
+In backend development, identifying and resolving bottlenecks is critical for maintaining performance and scalability in applications like a TODO service, ensuring efficient handling of API requests and data processing.
 
 ### What is optimization?
 
+**Optimization** is the process of improving a system, application, or process to enhance its performance, efficiency, or resource utilization while maintaining or improving functionality. It aims to reduce latency, increase throughput, minimize resource consumption (e.g., CPU, memory, or bandwidth), or improve scalability and reliability.
+
+**Key Points**:
+
+- **Purpose**: To make a system faster, more cost-effective, or capable of handling higher loads with better user experience.
+- **Areas of Optimization**:
+  - **Code**: Refactor inefficient algorithms or reduce complexity (e.g., from O(n²) to O(n log n)).
+  - **Database**: Optimize queries (e.g., add indexes, reduce joins), use caching (e.g., Redis), or implement sharding.
+  - **Network**: Minimize latency with CDNs, compress responses, or use efficient protocols (e.g., HTTP/2).
+  - **Resources**: Optimize CPU, memory, or disk usage (e.g., via load balancing or vertical scaling).
+  - **Scalability**: Design for horizontal scaling or use asynchronous processing.
+- **Example**: In a TODO service:
+  - Unoptimized: A `GET /v1/tasks` request takes 500ms due to a slow database query scanning an entire table.
+  - Optimized: Adding an index to the `tasks` table reduces query time to 50ms, improving response time.
+  - Caching the task list in Redis further reduces database load, boosting throughput.
+- **Techniques**:
+  - Caching frequently accessed data.
+  - Indexing databases for faster queries.
+  - Compressing data (e.g., Gzip for API responses).
+  - Using asynchronous operations to handle concurrent requests.
+  - Load balancing to distribute traffic across servers.
+- **Trade-offs**: Optimization may increase complexity, development time, or maintenance costs (e.g., caching introduces consistency challenges).
+
+In backend development, optimization is critical for ensuring a TODO service API delivers fast responses, handles high traffic, and uses resources efficiently, ultimately improving user satisfaction and system scalability.
+
 ### What is indexing in databases?
+
+**Indexing** in databases is a technique used to improve the speed and efficiency of data retrieval by creating a data structure (an index) that allows the database to quickly locate and access records without scanning the entire table.
+
+**Key Points**:
+
+- **Purpose**: Reduces query execution time for operations like `SELECT`, `WHERE`, `JOIN`, or `ORDER BY` by providing a faster lookup mechanism.
+- **How It Works**:
+  - An index is a separate data structure (e.g., B-tree or hash table) that stores a subset of the table’s data, typically the values of one or more columns, along with pointers to the corresponding rows.
+  - When a query is executed, the database uses the index to find matching rows instead of scanning the entire table.
+- **Example**: In a TODO service:
+  - Table: `tasks` with columns `task_id`, `title`, `status`, `due_date`.
+  - Without an index, a query like `SELECT * FROM tasks WHERE status = 'pending'` scans all rows.
+  - With an index on `status`, the database quickly locates rows where `status = 'pending'`, reducing query time (e.g., from 500ms to 50ms).
+- **Types of Indexes**:
+  - **Primary Index**: Automatically created for the primary key (e.g., `task_id`).
+  - **Unique Index**: Ensures unique values in a column (e.g., `email` in a `users` table).
+  - **Secondary Index**: Created on non-key columns to speed up queries (e.g., `due_date`).
+  - **Composite Index**: Indexes multiple columns for complex queries (e.g., `status` and `due_date`).
+  - **Clustered Index**: Determines the physical order of data in the table (usually one per table).
+  - **Non-Clustered Index**: Separate from the table’s data, pointing to rows (can have multiple).
+- **Benefits**:
+  - Faster query performance (especially for large datasets).
+  - Efficient filtering, sorting, and joining.
+- **Trade-offs**:
+  - Increased storage (indexes consume disk space).
+  - Slower write operations (e.g., `INSERT`, `UPDATE`, `DELETE`) as indexes must be updated.
+  - Maintenance overhead (indexes need to be rebuilt or optimized).
+- **Use Case**: In a TODO service, indexing the `user_id` column in the `tasks` table speeds up queries like `SELECT * FROM tasks WHERE user_id = 123`, improving API response times for user-specific task lists.
+
+In backend development, indexing is critical for optimizing database performance in applications like a TODO service, ensuring fast data retrieval while balancing write performance and storage costs.
 
 ## Concurrency
 
 ### What is a thread?
 
+A **thread** is the smallest unit of execution within a process in a computer's operating system, allowing a program to perform multiple tasks concurrently. It represents a sequence of instructions that can be executed independently, sharing the same memory space and resources as other threads within the same process.
+
+**Key Points**:
+
+- **Purpose**: Enables concurrent execution of tasks, improving performance and responsiveness in applications.
+- **How It Works**:
+  - A process (e.g., a running application) can have multiple threads, each executing a specific task.
+  - Threads share the process’s memory, file handles, and other resources, but each has its own stack and program counter.
+- **Example**: In a TODO service:
+  - A backend server handling `GET /v1/tasks` requests might use one thread to process incoming HTTP requests, another to query the database, and another to handle response formatting, all within the same server process.
+- **Characteristics**:
+  - **Lightweight**: Threads are less resource-intensive than processes, as they share resources.
+  - **Concurrency**: Multiple threads can run simultaneously (on multi-core CPUs) or be scheduled by the OS.
+  - **Context Switching**: The OS switches between threads, which is faster than switching between processes.
+- **Use Cases**:
+  - Handling multiple client requests in a web server (e.g., Node.js with async threads or Java with thread pools).
+  - Parallel processing of tasks, like generating reports or processing task updates in a TODO service.
+- **Challenges**:
+  - **Race Conditions**: Multiple threads accessing shared data can cause inconsistencies.
+  - **Deadlocks**: Threads waiting for each other to release resources can halt execution.
+  - **Synchronization**: Requires mechanisms like mutexes or locks to manage shared resources safely.
+- **Contrast with Process**:
+  - A process is an independent program with its own memory space.
+  - Threads within a process share memory and resources, making them more efficient for multitasking.
+
+In backend development, threads are critical for building responsive and efficient systems, such as handling concurrent API requests in a TODO service, but they require careful management to avoid issues like race conditions or deadlocks.
+
 ### What is a process?
+
+A **process** is an instance of a program that is actively running on a computer, managed by the operating system. It represents a self-contained execution environment with its own memory space, resources, and state, capable of performing tasks independently.
+
+**Key Points**:
+
+- **Purpose**: Executes a program’s instructions, handling tasks like computation, I/O operations, or network communication.
+- **Components**:
+  - **Code**: The program’s instructions (e.g., a web server application).
+  - **Data**: Variables and memory allocated for the program.
+  - **Stack**: Temporary storage for function calls and variables.
+  - **Heap**: Dynamic memory allocation.
+  - **Resources**: File handles, network sockets, and CPU time.
+- **Example**: In a TODO service:
+  - A web server (e.g., Node.js or Apache) runs as a process to handle API requests like `GET /v1/tasks`.
+  - A database server (e.g., MySQL) runs as a separate process to manage queries.
+- **Characteristics**:
+  - **Isolation**: Each process has its own memory space, preventing interference with other processes.
+  - **Heavyweight**: Processes require more resources than threads due to separate memory and resource allocation.
+  - **Multitasking**: The OS schedules multiple processes to run concurrently, switching between them.
+- **Contrast with Thread**:
+  - A **process** is an independent program with its own memory and resources.
+  - A **thread** is a lightweight unit of execution within a process, sharing the process’s memory and resources.
+- **Use Cases**:
+  - Running a backend server (e.g., for a TODO service API).
+  - Executing a database instance or a background job (e.g., task scheduler).
+- **Challenges**:
+  - **Resource Usage**: Processes consume more memory and CPU than threads.
+  - **Inter-Process Communication (IPC)**: Processes need mechanisms like pipes or message queues to communicate, which can be slower than thread communication.
+  - **Context Switching**: Switching between processes is slower than switching between threads.
+
+In backend development, processes are fundamental for running applications like a TODO service’s web server or database, enabling isolated and robust execution of tasks, while threads within a process handle concurrent subtasks for efficiency.
 
 ### What is multitasking?
 
+**Multitasking** is the ability of a computer system or operating system to execute multiple tasks or processes concurrently, allowing multiple operations to appear to run simultaneously. It enables efficient use of system resources by rapidly switching between tasks or executing them in parallel, depending on the system's capabilities.
+
+**Key Points**:
+
+- **Purpose**: Improves system efficiency and responsiveness by allowing multiple activities (e.g., running applications, handling requests) to share CPU time.
+- **How It Works**:
+  - The operating system schedules tasks (processes or threads) using techniques like time-sharing or prioritization.
+  - On a single-core CPU, multitasking is achieved through **context switching**, where the CPU rapidly alternates between tasks.
+  - On multi-core CPUs, true parallel execution of tasks is possible.
+- **Types**:
+  - **Preemptive Multitasking**: The OS controls task switching, allocating time slices to each task (used in modern OS like Windows, Linux).
+  - **Cooperative Multitasking**: Tasks voluntarily yield control to others (less common, used in older systems).
+- **Example**: In a TODO service:
+  - A backend server process handles multiple `GET /v1/tasks` API requests concurrently by using threads or asynchronous tasks.
+  - Simultaneously, a database process runs queries, and a background process sends reminder emails, all managed by the OS.
+- **Benefits**:
+  - Improved responsiveness (e.g., users can interact with a TODO app while the server processes other requests).
+  - Efficient resource utilization (CPU, memory).
+- **Challenges**:
+  - **Overhead**: Context switching consumes CPU time.
+  - **Resource Contention**: Tasks competing for resources (e.g., CPU, memory) can cause bottlenecks.
+  - **Synchronization**: Requires mechanisms like locks to prevent conflicts in shared resources.
+- **Contrast with Related Terms**:
+  - **Multithreading**: Multiple threads within a single process share the same memory and resources.
+  - **Parallelism**: Simultaneous execution of tasks on multiple CPU cores.
+
+In backend development, multitasking is critical for handling concurrent API requests, database operations, and background jobs in applications like a TODO service, ensuring the system remains responsive under load.
+
 ### What is parallelism?
+
+**Parallelism** is the simultaneous execution of multiple tasks or processes on multiple processing units (e.g., CPU cores, processors, or machines) to improve performance and reduce processing time. Unlike multitasking, which may involve rapid switching between tasks on a single processor, parallelism involves true concurrent execution.
+
+**Key Points**:
+
+- **Purpose**: Increases efficiency by dividing a workload across multiple resources to process tasks at the same time, reducing overall execution time.
+- **How It Works**:
+  - Tasks are split into smaller, independent subtasks that can run concurrently on separate CPU cores, threads, or servers.
+  - Requires hardware support (e.g., multi-core CPUs, GPUs, or distributed systems) and software designed to leverage parallelism.
+- **Types**:
+  - **Task Parallelism**: Different tasks run simultaneously (e.g., one thread handles API requests while another processes database queries).
+  - **Data Parallelism**: The same operation is applied to different data chunks simultaneously (e.g., processing a large dataset across multiple cores).
+- **Example**: In a TODO service:
+  - A server with a multi-core CPU handles multiple `GET /v1/tasks` requests simultaneously, with each core processing a different request.
+  - A batch job to update the status of thousands of tasks splits the workload across multiple threads or servers, each processing a subset of tasks in parallel.
+- **Benefits**:
+  - Faster execution for computationally intensive tasks.
+  - Improved throughput for high-load systems.
+  - Efficient use of multi-core or distributed systems.
+- **Challenges**:
+  - **Coordination Overhead**: Managing parallel tasks requires synchronization (e.g., locks, semaphores) to avoid conflicts.
+  - **Complexity**: Writing parallel code is harder due to issues like race conditions or deadlocks.
+  - **Resource Limits**: Dependent on available hardware (e.g., number of CPU cores).
+- **Contrast with Multitasking**:
+  - **Multitasking**: Tasks share a single processor via time-slicing, appearing to run concurrently.
+  - **Parallelism**: Tasks run simultaneously on multiple processors or cores for true concurrency.
+- **Technologies**: Supported by multi-threading (e.g., Java’s ThreadPool), task queues (e.g., Celery), or distributed frameworks (e.g., Apache Spark).
+
+In backend development, parallelism is critical for scaling applications like a TODO service, enabling faster processing of API requests, database operations, or background jobs by leveraging multiple cores or servers.
 
 ### What is concurrency?
 
+**Concurrency** is the ability of a system to manage multiple tasks or processes at the same time, allowing them to make progress without necessarily executing simultaneously. It focuses on handling multiple operations in an overlapping manner, often by interleaving their execution, to improve responsiveness and resource utilization.
+
+**Key Points**:
+
+- **Purpose**: Enables efficient handling of multiple tasks (e.g., user requests, computations) by allowing them to run in a coordinated way, even on a single processor.
+- **How It Works**:
+  - Tasks are executed in small chunks, with the system switching between them (e.g., via time-slicing in multitasking or asynchronous operations).
+  - Concurrency does not require simultaneous execution (unlike parallelism); tasks may share a single CPU core.
+- **Example**: In a TODO service:
+  - A backend server handles multiple `GET /v1/tasks` requests concurrently by processing one request while waiting for a database query for another, using asynchronous I/O or threads.
+  - A single-threaded Node.js server uses an event loop to concurrently manage API requests without blocking.
+- **Types**:
+  - **Thread-Based Concurrency**: Multiple threads within a process share resources and take turns executing (e.g., Java threads).
+  - **Asynchronous Concurrency**: Tasks are managed using async operations (e.g., JavaScript’s `async/await` or Python’s `asyncio`), allowing non-blocking I/O.
+  - **Event-Driven Concurrency**: Uses an event loop to handle tasks triggered by events (e.g., HTTP requests).
+- **Benefits**:
+  - Improved responsiveness (e.g., handling multiple API requests without waiting for each to complete).
+  - Better resource utilization (e.g., CPU can work while waiting for I/O operations like database queries).
+- **Challenges**:
+  - **Race Conditions**: Multiple tasks accessing shared resources can cause inconsistencies.
+  - **Deadlocks**: Tasks waiting for each other can halt progress.
+  - **Complexity**: Requires synchronization mechanisms (e.g., locks, semaphores) to manage shared resources.
+- **Contrast with Parallelism**:
+  - **Concurrency**: Focuses on managing multiple tasks at once, interleaving their execution (e.g., on a single core).
+  - **Parallelism**: Focuses on executing multiple tasks simultaneously on multiple cores or machines.
+- **Example in Context**:
+  - Concurrency: A TODO service API handles 100 simultaneous `POST /v1/tasks` requests by interleaving database writes and response preparation on a single CPU.
+  - Parallelism: The same API uses multiple CPU cores to process those 100 requests simultaneously.
+
+In backend development, concurrency is critical for building responsive and scalable systems like a TODO service, allowing efficient handling of multiple API requests or background tasks, especially in high-traffic scenarios.
+
 ### What is a mutex?
+
+A **mutex** (short for mutual exclusion) is a synchronization mechanism used in concurrent programming to prevent multiple threads or processes from simultaneously accessing or modifying a shared resource, thereby avoiding race conditions and ensuring data consistency.
+
+**Key Points**:
+
+- **Purpose**: Ensures that only one thread or process can access a critical section of code or shared resource (e.g., memory, file, or database) at a time, preventing conflicts.
+- **How It Works**:
+  - A mutex acts like a lock: a thread must acquire the mutex before entering the critical section and release it when done.
+  - If another thread tries to acquire the mutex while it’s held, it waits (blocks) until the mutex is released.
+- **Example**: In a TODO service:
+  - Multiple threads handle `POST /v1/tasks` requests to add tasks to a shared database.
+  - A mutex ensures only one thread updates the `tasks` table at a time, preventing duplicate or inconsistent task IDs.
+  - Code example (pseudocode):
+    ```pseudo title="pseudo"
+    mutex.lock()
+    try {
+        database.insert(new_task)
+    } finally {
+        mutex.unlock()
+    }
+    ```
+- **Characteristics**:
+  - **Exclusive Access**: Only one thread holds the mutex at a time.
+  - **Blocking**: Threads attempting to acquire a locked mutex wait until it’s free.
+  - **Scope**: Typically used within a single process, but can be extended to inter-process synchronization.
+- **Use Cases**:
+  - Protecting shared data structures (e.g., a counter for task IDs).
+  - Synchronizing access to shared resources like files or network connections.
+- **Challenges**:
+  - **Deadlocks**: Occur if threads lock multiple mutexes in conflicting orders.
+  - **Performance Overhead**: Locking/unlocking can slow down execution if overused.
+  - **Starvation**: A thread may wait indefinitely if others keep acquiring the mutex.
+- **Contrast with Other Mechanisms**:
+  - **Semaphore**: Allows a fixed number of threads to access a resource (not just one like a mutex).
+  - **Read-Write Lock**: Allows multiple readers or one writer, unlike a mutex’s single access.
+
+In backend development, mutexes are critical for ensuring thread-safe operations in applications like a TODO service, especially when multiple threads handle concurrent API requests or database updates, preventing data corruption or inconsistencies.
 
 ### What is a semaphore?
 
+A **semaphore** is a synchronization mechanism used in concurrent programming to control access to a shared resource or coordinate multiple threads or processes. It maintains a counter that regulates how many threads can access a resource simultaneously, preventing race conditions and ensuring orderly execution.
+
+**Key Points**:
+
+- **Purpose**: Manages access to a limited number of resources or synchronizes tasks in concurrent environments.
+- **How It Works**:
+  - A semaphore is initialized with a non-negative integer (the counter), representing the number of available resources or allowed concurrent accesses.
+  - Threads perform two primary operations:
+    - **Acquire/Wait (P)**: Decrements the counter if positive; if zero, the thread waits (blocks) until the counter is incremented.
+    - **Release/Signal (V)**: Increments the counter, allowing waiting threads to proceed.
+- **Types**:
+  - **Binary Semaphore**: Counter is 0 or 1, functioning like a mutex (single access).
+  - **Counting Semaphore**: Counter can be any non-negative integer, allowing multiple threads to access a resource pool (e.g., 5 database connections).
+- **Example**: In a TODO service:
+  - A server has a pool of 5 database connections shared by multiple threads handling `POST /v1/tasks` requests.
+  - A semaphore with a count of 5 ensures only 5 threads can access a connection at a time.
+  - Pseudocode:
+    ```pseudo title="pseudo"
+    semaphore.acquire()  // Wait if no connections available
+    try {
+        database.insert(new_task)
+    } finally {
+        semaphore.release()  // Return connection to pool
+    }
+    ```
+- **Use Cases**:
+  - Limiting concurrent access to a resource (e.g., database connections, file handles).
+  - Coordinating task execution (e.g., ensuring a task processor waits for data to be ready).
+- **Advantages**:
+  - Flexible for controlling multiple resource accesses (unlike a mutex, which allows only one).
+  - Supports resource pools and task synchronization.
+- **Challenges**:
+  - **Deadlocks**: Possible if semaphores are mismanaged (e.g., acquiring without releasing).
+  - **Complexity**: Requires careful design to avoid starvation or priority inversion.
+  - **Overhead**: Managing the counter adds slight performance cost.
+- **Contrast with Mutex**:
+  - **Mutex**: Locks a single resource for exclusive access by one thread.
+  - **Semaphore**: Controls access to multiple resources or allows multiple threads (if counter > 1).
+
+In backend development, semaphores are crucial for managing concurrent access to limited resources in applications like a TODO service, ensuring efficient and safe handling of API requests or database operations in high-traffic scenarios.
+
 ### What is deadlock?
+
+A **deadlock** is a situation in concurrent programming where two or more threads or processes are unable to proceed because each is waiting for a resource that another holds, creating a cycle of dependencies that prevents progress.
+
+**Key Points**:
+
+- **Definition**: A state where threads/processes are stuck, each holding a resource and waiting for another resource that is held by another thread/process in the group.
+- **Conditions for Deadlock** (Coffman Conditions):
+  - **Mutual Exclusion**: Resources involved are held in a non-shareable mode (e.g., a mutex or lock).
+  - **Hold and Wait**: A thread holding a resource is waiting to acquire another resource.
+  - **No Preemption**: Resources cannot be forcibly taken from a thread; they must be released voluntarily.
+  - **Circular Wait**: A cycle exists where each thread waits for a resource held by the next thread.
+- **Example**: In a TODO service:
+  - Thread 1 locks the `tasks` table to update a task and waits to lock the `users` table.
+  - Thread 2 locks the `users` table to update a user and waits to lock the `tasks` table.
+  - Result: Thread 1 waits for Thread 2 to release `users`, and Thread 2 waits for Thread 1 to release `tasks`, causing a deadlock.
+  - Pseudocode:
+    ```pseudo title="pseudo"
+    Thread 1:
+        lock(tasks_table)
+        lock(users_table)  // Waits for Thread 2
+    Thread 2:
+        lock(users_table)
+        lock(tasks_table)  // Waits for Thread 1
+    ```
+- **Impact**:
+  - System hangs or becomes unresponsive.
+  - Degraded performance or complete failure of affected operations (e.g., API requests stall).
+- **Prevention**:
+  - **Avoid Circular Wait**: Enforce a consistent order for acquiring locks (e.g., always lock `tasks` before `users`).
+  - **Timeouts**: Set a timeout for acquiring resources, releasing locks if the wait is too long.
+  - **Resource Preemption**: Allow the system to forcibly release resources (though complex).
+  - **Deadlock Detection**: Monitor for cycles and resolve them (e.g., terminate a thread).
+  - **Use Higher-Level Constructs**: Use database transactions or frameworks that manage concurrency.
+- **Resolution**:
+  - Terminate one or more threads/processes.
+  - Roll back transactions in databases.
+  - Restart the affected system components.
+- **Use Case**: In a TODO service, deadlocks can occur when multiple threads handle concurrent `POST /v1/tasks` and `PUT /v1/users` requests that lock shared database tables.
+
+In backend development, preventing and detecting deadlocks is critical for ensuring reliable and responsive systems like a TODO service API, especially when handling concurrent database operations or shared resources.
 
 ### What is race condition?
 
+A **race condition** is a situation in concurrent programming where the outcome of a program depends on the unpredictable order or timing of execution of multiple threads or processes accessing shared resources without proper synchronization. This can lead to inconsistent or incorrect results, such as data corruption or unexpected behavior.
+
+**Key Points**:
+
+- **Definition**: Occurs when two or more threads/processes access a shared resource (e.g., memory, database, file) concurrently, and at least one performs a write operation, causing the result to depend on which thread executes first.
+- **Cause**: Lack of proper synchronization mechanisms (e.g., mutexes, locks) when accessing shared resources.
+- **Example**: In a TODO service:
+  - Two threads handle `POST /v1/tasks` requests to increment a shared `task_counter` (e.g., to assign a new task ID).
+  - Without synchronization:
+    - Thread 1 reads `task_counter = 100`, intends to set it to 101.
+    - Thread 2 reads `task_counter = 100`, intends to set it to 101.
+    - Both threads write `101`, resulting in only one increment instead of two, causing a task ID collision.
+  - Pseudocode (vulnerable):
+    ```pseudo title="pseudo"
+    task_counter = read_counter()  // Both threads read 100
+    task_counter += 1              // Both increment to 101
+    write_counter(task_counter)    // Both write 101, losing one increment
+    ```
+- **Impact**:
+  - Data corruption (e.g., duplicate task IDs).
+  - Inconsistent application state (e.g., incorrect task counts).
+  - Unpredictable behavior or crashes.
+- **Prevention**:
+  - **Mutexes/Locks**: Use mutual exclusion to ensure only one thread accesses the resource at a time (e.g., lock `task_counter` during increment).
+  - **Atomic Operations**: Use atomic instructions (e.g., `compare-and-swap`) to update shared variables safely.
+  - **Semaphores**: Control access to shared resources.
+  - **Database Transactions**: Use transactions with proper isolation levels to ensure consistent updates.
+  - **Avoid Shared State**: Design systems to minimize shared resources (e.g., use message queues).
+- **Example Fix** (using a mutex):
+  ```pseudo title="pseudo"
+  mutex.lock()
+  try {
+      task_counter = read_counter()
+      task_counter += 1
+      write_counter(task_counter)
+  } finally {
+      mutex.unlock()
+  }
+  ```
+- **Use Case**: In a TODO service, race conditions can occur when multiple API requests concurrently update shared resources like task counters, user balances, or task statuses.
+
+In backend development, preventing race conditions is critical for ensuring data integrity and reliability in applications like a TODO service, especially in high-concurrency environments with multiple API requests or database operations.
+
 ### What is synchronization?
+
+**Synchronization** in concurrent programming is the coordination of multiple threads or processes to ensure orderly access to shared resources, preventing issues like race conditions, data inconsistencies, or deadlocks. It ensures that operations on shared data are executed in a controlled and predictable manner.
+
+**Key Points**:
+
+- **Purpose**: Guarantees that only one thread/process (or a controlled number) accesses a shared resource at a time, maintaining data integrity and consistency.
+- **How It Works**: Uses mechanisms to control access, coordinate execution, or signal events between threads/processes.
+- **Common Synchronization Mechanisms**:
+  - **Mutex (Mutual Exclusion)**: Locks a resource so only one thread can access it at a time (e.g., preventing concurrent writes to a task counter).
+  - **Semaphore**: Controls access to a resource pool, allowing a set number of threads to proceed (e.g., limiting database connections).
+  - **Monitors**: Combine mutexes with condition variables to manage access and wait/notify mechanisms.
+  - **Read-Write Locks**: Allow multiple readers or one writer to access a resource concurrently.
+  - **Condition Variables**: Enable threads to wait for specific conditions (e.g., a task queue is non-empty).
+  - **Atomic Operations**: Perform single, indivisible operations (e.g., incrementing a counter) without locks.
+- **Example**: In a TODO service:
+  - Multiple threads handle `POST /v1/tasks` requests that increment a shared `task_id` counter.
+  - A mutex ensures only one thread increments the counter at a time:
+    ```pseudo title="pseudo"
+    mutex.lock()
+    try {
+        task_id = read_counter()
+        task_id += 1
+        write_counter(task_id)
+    } finally {
+        mutex.unlock()
+    }
+    ```
+  - This prevents a race condition where two threads might assign the same `task_id`.
+- **Use Cases**:
+  - Ensuring thread-safe database updates (e.g., adding tasks in a TODO service).
+  - Coordinating access to shared memory, files, or network resources.
+  - Managing task dependencies (e.g., waiting for a background job to complete).
+- **Benefits**:
+  - Prevents race conditions and data corruption.
+  - Ensures consistent application state.
+  - Enables safe concurrent execution.
+- **Challenges**:
+  - **Overhead**: Synchronization mechanisms (e.g., locks) can slow down performance.
+  - **Deadlocks**: Improper use can cause threads to wait indefinitely.
+  - **Complexity**: Designing correct synchronization logic is error-prone.
+- **Contrast with Asynchrony**:
+  - **Synchronization**: Threads/processes coordinate explicitly, often blocking until conditions are met.
+  - **Asynchrony**: Tasks proceed independently, often using callbacks or events to handle completion.
+
+In backend development, synchronization is critical for applications like a TODO service to manage concurrent API requests or database operations, ensuring data integrity and reliable performance in multi-threaded or distributed environments.
 
 ## APIs and Services
 
