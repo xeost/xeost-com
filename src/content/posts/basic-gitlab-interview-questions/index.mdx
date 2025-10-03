@@ -1,0 +1,1493 @@
+---
+title: '100 Basic GitLab Interview Questions'
+description: 'A comprehensive list of 100 basic GitLab interview questions and answers for developers and DevOps engineers.'
+pubDate: 2025-08-27
+author: 'Xeost'
+# cover: assets/cover.png
+recommend: false
+tags: ['Interview Q&A', 'GitLab']
+draft: false
+---
+
+Preparing for a GitLab-related interview? This guide covers essential questions on GitLab's features, workflows, and best practices to boost your confidence.
+
+## What is GitLab?
+
+**Definition of GitLab**
+
+GitLab is an open-source, web-based DevOps lifecycle tool that provides a Git repository manager providing version control, CI/CD pipelines, issue tracking, and collaboration features, all in a single platform. It allows teams to manage code, automate builds, tests, and deployments, and collaborate efficiently. GitLab supports both self-hosted and cloud-based options, offering flexibility for organizations. Its integrated approach streamlines development workflows, enhancing productivity and code quality.
+
+## How does GitLab differ from GitHub?
+
+**Overview**
+
+GitLab and GitHub are Git-based platforms for version control, but they differ in focus and features.
+
+**Key Differences**
+
+GitLab provides an integrated DevOps platform with built-in CI/CD, issue tracking, and monitoring, ideal for end-to-end development. It offers self-hosted and SaaS options, with a fully open-source core and unlimited free CI/CD minutes. GitHub emphasizes social coding, with strong community features and integrations via GitHub Actions. It’s primarily SaaS, with limited free CI/CD minutes and some proprietary features.
+
+**Use Cases**
+
+GitLab suits enterprises needing comprehensive DevOps tools and compliance features like SAST/DAST. GitHub excels for open-source projects and developers leveraging its ecosystem of third-party integrations.
+
+**Summary**
+
+Choose GitLab for integrated DevOps workflows or GitHub for community-driven collaboration, based on project needs.
+
+## What is a repository in GitLab?
+
+**Definition of a Repository in GitLab**
+
+A repository in GitLab is a storage location for a project’s files, code, and version history, managed using Git. It acts as a central hub where teams can collaborate, track changes, create branches, and merge code. GitLab repositories integrate with features like issue tracking, CI/CD pipelines, and wikis, streamlining development workflows. They support public, private, or internal access levels, offering flexible permissions for team collaboration and secure code management across projects.
+
+## How do you create a new project in GitLab?
+
+**Creating a New Project in GitLab**
+
+To create a new project in GitLab, log into your account and click "New project" on the dashboard. Select a project type: blank, from a template, or import. Enter a project name, description, and choose visibility (public, private, or internal). Optionally, initialize with a README for instant setup. Click "Create project" to finalize. The project is now ready for code, issues, or CI/CD configuration, with access controls set based on your preferences.
+
+## What is GitLab CI/CD?
+
+**Definition of GitLab CI/CD**
+
+GitLab CI/CD is an integrated tool within GitLab for automating the software development lifecycle. It enables continuous integration (CI) by automating code builds, testing, and validation, and continuous deployment (CD) by streamlining code delivery to production. Configured via a `.gitlab-ci.yml` file in the repository, it defines pipelines with stages like build, test, and deploy. GitLab CI/CD supports parallel job execution, reusable templates, and integration with Kubernetes, ensuring efficient, scalable automation for development workflows.
+
+## Explain the purpose of a .gitlab-ci.yml file.
+
+**Definition and Location**
+
+The `.gitlab-ci.yml` file is a YAML configuration file placed in the root directory of a GitLab repository. It defines the structure and behavior of CI/CD pipelines.
+
+**Purpose**
+
+Its primary purpose is to automate the continuous integration and continuous deployment (CI/CD) process. It instructs GitLab Runners on how to build, test, and deploy code whenever changes are pushed to the repository. This ensures code quality, reduces manual errors, and accelerates delivery by defining workflows like testing on every commit or deploying to staging/production automatically.
+
+**Key Components**
+
+- **Stages**: Sequential phases (e.g., build, test, deploy).
+- **Jobs**: Tasks within stages, including scripts, artifacts, and dependencies.
+- **Variables**: Environment-specific settings.
+- **Rules/Only/Except**: Conditions for job execution.
+
+**Benefits**
+
+It enables scalable, reproducible pipelines with GitLab's built-in features like caching and parallel execution, making DevOps workflows efficient and consistent.
+
+## What are merge requests in GitLab?
+
+**Definition of Merge Requests**
+
+Merge requests (MRs) in GitLab are a feature for proposing, reviewing, and integrating code changes from one branch to another, typically into the main branch. They facilitate collaboration by allowing team members to review code, discuss changes, and ensure quality before merging.
+
+**Key Features**
+
+MRs include a diff view of changes, inline comments for feedback, and approval rules to enforce review policies. They integrate with CI/CD pipelines to run automated tests, ensuring code stability. Users can assign reviewers, set milestones, and track discussions.
+
+**Purpose**
+
+Merge requests streamline code integration, improve collaboration, and maintain code quality by enforcing reviews and automated checks. They’re essential for managing contributions in team projects or open-source repositories.
+
+## How do you fork a project in GitLab?
+
+**Forking a Project in GitLab**
+
+To fork a project in GitLab, navigate to the project you want to fork. Click the "Fork" button on the project’s main page. GitLab creates a copy of the repository under your namespace, preserving the original project’s code, branches, and history. Once forked, you can clone the repository to your local machine, make changes, and push them to your fork. To contribute back, create a merge request from your fork to the original project, allowing the maintainers to review and integrate your changes.
+
+**Purpose**
+
+Forking enables independent development while maintaining the ability to contribute to the original project, ideal for open-source or collaborative workflows.
+
+## What is GitLab Pages?
+
+**Definition of GitLab Pages**
+
+GitLab Pages is a feature that allows users to host static websites directly from a GitLab repository. It’s ideal for hosting project documentation, portfolios, or static web apps.
+
+**How It Works**
+
+You store static site content (HTML, CSS, JavaScript) in a repository, configure a `.gitlab-ci.yml` file to build the site using a static site generator (e.g., Jekyll, Hugo), and GitLab Pages deploys the output to a unique URL (e.g., `username.gitlab.io/project`). It supports custom domains and SSL for secure hosting.
+
+**Key Benefits**
+
+GitLab Pages integrates with CI/CD pipelines for automatic builds and deployments, offers free hosting, and simplifies publishing static content. It’s perfect for developers needing quick, reliable web hosting within the GitLab ecosystem.
+
+## Describe GitLab's issue tracking system.
+
+**Overview of GitLab's Issue Tracking System**
+
+GitLab’s issue tracking system is a built-in tool for managing tasks, bugs, and feature requests within a project. It centralizes issue creation, assignment, and tracking to streamline collaboration.
+
+**Key Features**
+
+Users can create issues with titles, descriptions, labels, and assignees. Issues support milestones for release planning, weight for effort estimation, and comments for discussions. They integrate with merge requests and CI/CD pipelines, linking code changes to issues. Features like issue boards provide Kanban-style visualization, while epics (in premium tiers) group related issues for larger projects. Issues can be public, private, or internal, with customizable permissions.
+
+**Purpose and Benefits**
+
+The system enhances project management by organizing tasks, improving team communication, and ensuring traceability. It’s flexible for agile workflows, supporting developers in tracking progress and resolving issues efficiently within the GitLab platform.
+
+## What are labels in GitLab issues?
+
+**Definition of Labels in GitLab Issues**
+
+Labels in GitLab issues are tags used to categorize, prioritize, and organize issues within a project. They help teams manage workflows by visually grouping and filtering tasks.
+
+**Key Features**
+
+Labels are customizable with names, colors, and descriptions, allowing teams to define categories like “bug,” “feature,” “urgent,” or custom workflows (e.g., “frontend,” “backend”). They can be applied to issues and merge requests, supporting filtering on issue boards or searches. Scoped labels (e.g., “status::in-progress”) ensure mutual exclusivity for specific attributes. Labels integrate with GitLab’s reporting tools, aiding in tracking progress.
+
+**Purpose and Benefits**
+
+Labels enhance issue tracking by improving organization, enabling quick prioritization, and facilitating agile workflows. They streamline communication and task management, making it easier to focus on specific issue types or project needs within GitLab’s ecosystem.
+
+## How do you add a collaborator to a GitLab project?
+
+**Adding a Collaborator in GitLab**
+
+To add a collaborator to a GitLab project, navigate to the project’s main page. Go to the left sidebar, select **Settings** > **Members**. Click **Invite member**, then enter the collaborator’s GitLab username or email address. Choose a role (e.g., Guest, Developer, Maintainer) to define their permissions. Optionally, set an expiration date for access. Click **Invite** to send the invitation. The collaborator receives a notification and, once accepted, can access the project based on the assigned role.
+
+**Purpose**
+
+Adding collaborators enables team members to contribute to code, issues, or merge requests, with roles ensuring appropriate access control for secure and efficient collaboration.
+
+## What is a milestone in GitLab?
+
+**Definition of a Milestone in GitLab**
+
+A milestone in GitLab is a project management tool used to group issues and merge requests into a specific timeframe or goal, such as a release or sprint. It helps track progress toward completing a set of tasks.
+
+**Key Features**
+
+Milestones have a title, description, start date, and due date. You can assign issues and merge requests to a milestone, view progress via a percentage completion bar, and use burndown charts (in premium tiers) to monitor work. Milestones can be project-specific or group-wide, enabling coordination across multiple repositories.
+
+**Purpose and Benefits**
+
+Milestones organize tasks for better planning and tracking, aligning teams on deadlines and deliverables. They enhance visibility into project progress, making them essential for managing releases or agile workflows in GitLab.
+
+## Explain GitLab's branching model.
+
+**Overview of GitLab's Branching Model**
+
+GitLab’s branching model, often based on Git Flow or similar strategies, uses branches to manage code changes efficiently. It’s flexible, supporting various workflows for collaboration and deployment.
+
+**Key Components**
+
+- **Main Branch**: Typically `main` or `master`, it holds production-ready code.
+- **Feature Branches**: Created for new features (e.g., `feature/login`), branched from `main`, and merged back via merge requests after review.
+- **Release Branches**: Used for preparing releases (e.g., `release/v1.0`), allowing final tweaks and bug fixes.
+- **Hotfix Branches**: Branched from `main` for urgent fixes (e.g., `hotfix/bug-123`), merged back quickly.
+- **Develop Branch**: Optional, used as an integration branch for ongoing development.
+
+**Purpose and Benefits**
+
+GitLab’s branching model, configured via merge requests and CI/CD pipelines, ensures clean code integration, automated testing, and controlled deployments. It supports parallel development, reduces conflicts, and maintains code stability, making it ideal for teams practicing agile or DevOps workflows.
+
+## What are protected branches?
+
+**Definition of Protected Branches**
+
+Protected branches in GitLab are branches restricted from unauthorized changes to ensure code stability and security, typically used for critical branches like `main` or `release`.
+
+**Key Features**
+
+Admins can designate a branch as protected under **Settings** > **Repository** > **Protected branches**. You can set permissions to control who can push, merge, or force-push to the branch, often limiting these actions to Maintainers or specific roles. Protected branches support rules like requiring merge request approvals or passing CI/CD pipelines before merging.
+
+**Purpose and Benefits**
+
+Protected branches safeguard critical code from accidental or unauthorized changes, enforce code reviews, and ensure quality through automated checks. They’re essential for maintaining stable production environments and supporting secure, collaborative development workflows in GitLab projects.
+
+## How do you clone a GitLab repository?
+
+**Cloning a GitLab Repository**
+
+To clone a GitLab repository, navigate to the project’s main page. Copy the repository’s URL (HTTPS or SSH) from the **Clone** button. On your local machine, open a terminal and run `git clone <repository-URL>`, replacing `<repository-URL>` with the copied link. If using SSH, ensure your SSH key is configured in GitLab. The command downloads the repository, including all branches and history, to your local system. Navigate to the cloned directory using `cd <repository-name>` to start working.
+
+**Purpose**
+
+Cloning creates a local copy of the repository, enabling you to edit code, create branches, and push changes while maintaining version control and collaboration with the remote project.
+
+## What is GitLab Runner?
+
+**Definition of GitLab Runner**
+
+GitLab Runner is an open-source application that executes CI/CD jobs defined in a project’s `.gitlab-ci.yml` file. It automates tasks like building, testing, and deploying code in GitLab’s CI/CD pipelines.
+
+**Key Features**
+
+Runners can be installed on local machines, servers, or containers and registered with GitLab to process jobs. They support multiple executors (e.g., Docker, Kubernetes, shell) for flexibility. Runners can be shared across projects or specific to one, with options to run jobs concurrently or sequentially based on configuration.
+
+**Purpose and Benefits**
+
+GitLab Runner enables scalable automation of development workflows, ensuring consistent builds and deployments. It integrates seamlessly with GitLab, supports parallel job execution, and allows customization, making it essential for efficient CI/CD processes in development and DevOps environments.
+
+## Describe the GitLab dashboard.
+
+**Overview of GitLab Dashboard**
+
+The GitLab dashboard is the central interface for managing projects and activities after logging into GitLab. It provides a personalized overview of your work.
+
+**Key Components**
+
+- **Projects List**: Displays your projects, starred projects, and group activities, with quick access to repositories.
+- **Issues**: Shows issues assigned to you or created by you, with filters for status and priority.
+- **Merge Requests**: Lists merge requests you’re involved in, including those needing review or authored by you.
+- **To-Do List**: Tracks pending actions like issue assignments or merge request reviews.
+- **Activity Feed**: Summarizes recent project events, such as commits or comments.
+- **Navigation Sidebar**: Offers links to projects, groups, issues, and settings for easy access.
+
+**Purpose and Benefits**
+
+The dashboard streamlines project management by centralizing tasks, issues, and merge requests. It enhances productivity by providing quick insights into your responsibilities and project updates, making it essential for efficient collaboration and workflow tracking in GitLab.
+
+## What are snippets in GitLab?
+
+**Definition of Snippets in GitLab**
+
+Snippets in GitLab are small, shareable pieces of code or text stored in a project or personal namespace. They allow users to save and share scripts, configurations, or notes without creating a full repository.
+
+**Key Features**
+
+Snippets can be public, private, or internal, with optional expiration dates. They support syntax highlighting for various languages, version control for tracking changes, and comments for collaboration. Users can create snippets via the GitLab UI under **Your work** > **Snippets** or via API, and share them with specific users or groups.
+
+**Purpose and Benefits**
+
+Snippets are ideal for sharing quick code samples, scripts, or documentation outside a project’s main repository. They enhance collaboration by providing a lightweight, accessible way to share and review small pieces of content, streamlining communication and knowledge sharing within teams.
+
+## How do you set up two-factor authentication in GitLab?
+
+**Setting Up Two-Factor Authentication in GitLab**
+
+To enable two-factor authentication (2FA) in GitLab, log into your account and click your profile icon, then select **Edit profile**. Navigate to the **Account** section and click **Enable Two-Factor Authentication**. Scan the displayed QR code with an authenticator app (e.g., Google Authenticator, Authy). Enter the verification code generated by the app and save the provided recovery codes securely. Confirm the setup by submitting the code. GitLab will now require a 2FA code alongside your password for login.
+
+**Purpose and Benefits**
+
+2FA adds an extra layer of security, protecting your account from unauthorized access. It ensures only verified users can log in, safeguarding sensitive project data and enhancing overall account security in GitLab.
+
+## What is GitLab's access levels?
+
+**Overview of GitLab Access Levels**
+
+GitLab access levels define permissions for users in a project or group, controlling what actions they can perform.
+
+**Access Levels**
+
+- **Guest**: View issues, wikis, and snippets; no code access (except for reporters in public/internal projects).
+- **Reporter**: View code, issues, and merge requests; create issues and snippets; no push access.
+- **Developer**: Push to non-protected branches, create merge requests, run CI/CD pipelines, manage issues.
+- **Maintainer**: Manage branches, push to protected branches, approve merge requests, edit project settings.
+- **Owner**: Full control, including project deletion, adding members, and managing all settings.
+
+**Purpose and Benefits**
+
+Access levels ensure secure and organized collaboration by assigning roles based on responsibilities. They prevent unauthorized changes, protect sensitive code, and streamline team workflows, making them critical for project management and security in GitLab.
+
+## Explain public vs. private projects.
+
+**Overview of Public vs. Private Projects**
+
+In GitLab, project visibility determines who can access a project’s repository, issues, and other resources.
+
+**Public Projects**
+
+Public projects are accessible to anyone, even without a GitLab account. Anyone can view, clone, or fork the repository, and access issues, wikis, or merge requests (if enabled). They’re ideal for open-source projects, community collaboration, or sharing code publicly. Guests can view but cannot contribute unless granted permissions.
+
+**Private Projects**
+
+Private projects are restricted to invited members only. Only users with explicit access (e.g., Developer, Maintainer) can view or interact with the repository, issues, or other features. They’re suited for proprietary or sensitive projects requiring strict access control and confidentiality.
+
+**Purpose and Benefits**
+
+Public projects foster transparency and community contributions, while private projects ensure security and controlled collaboration. Choosing the right visibility aligns with project goals, balancing openness for collaboration or privacy for sensitive work in GitLab’s ecosystem.
+
+## What are webhooks in GitLab?
+
+**Definition of Webhooks in GitLab**
+
+Webhooks in GitLab are automated HTTP callbacks that send real-time notifications to external services when specific events occur in a project, such as pushes, merge requests, or issue updates.
+
+**Key Features**
+
+You configure webhooks in **Settings** > **Webhooks**, specifying a URL, events to trigger (e.g., push, merge request), and optional secrets for security. GitLab sends a JSON payload with event details to the URL. They support SSL verification and can be enabled for projects or groups.
+
+**Purpose and Benefits**
+
+Webhooks enable seamless integration with tools like Slack, Jira, or CI systems, automating workflows without polling. They enhance collaboration by delivering instant updates, triggering actions, and reducing manual monitoring, making GitLab more extensible for DevOps and team processes.
+
+## How do you push code to GitLab?
+
+**Pushing Code to GitLab**
+
+To push code to a GitLab repository, first clone or navigate to the local repository. Ensure you have the correct remote URL (`git remote -v`). Make changes to your files, then stage them with `git add .` or specific files. Commit changes using `git commit -m "commit message"`. Push to the remote repository with `git push origin <branch-name>`, replacing `<branch-name>` with your branch (e.g., `main`). If authentication is required, use your GitLab credentials or SSH key. For protected branches, create a merge request instead of direct pushing.
+
+**Purpose**
+
+Pushing code updates the remote repository, enabling collaboration and triggering CI/CD pipelines. It ensures changes are securely stored and accessible to team members, maintaining version control in GitLab projects.
+
+## What is GitLab's search functionality?
+
+**Overview of GitLab's Search Functionality**
+
+GitLab’s search functionality allows users to find content across projects, groups, and repositories quickly. It’s accessible via the search bar at the top of the GitLab interface.
+
+**Key Features**
+
+- **Global Search**: Searches across all projects, issues, merge requests, and users you have access to.
+- **Project Search**: Finds files, code, issues, or merge requests within a specific project.
+- **Advanced Search**: Supports filters like `in:issues`, `author:username`, or `label:bug` for precise results.
+- **Code Search**: Scans repository content, including file names and code snippets.
+- **Elasticsearch (Premium)**: Enhances search speed and accuracy for large instances.
+
+**Purpose and Benefits**
+
+Search streamlines navigation, helping users locate code, issues, or team members efficiently. It saves time, improves collaboration, and supports debugging or project management by providing quick access to relevant resources across GitLab’s ecosystem.
+
+## Describe GitLab groups.
+
+**Overview of GitLab Groups**
+
+GitLab groups are collections of projects and users organized under a single namespace to streamline collaboration and management.
+
+**Key Features**
+
+Groups allow multiple projects to share settings, members, and permissions. You can create subgroups for hierarchical organization. Group members are assigned roles (e.g., Developer, Maintainer) to control access across all projects in the group. Features include group-level issue boards, epics (premium), and shared runners for CI/CD. Groups support visibility settings (public, private, internal) and can integrate with webhooks or external tools.
+
+**Purpose and Benefits**
+
+Groups simplify managing related projects, centralize access control, and enhance team coordination. They enable efficient permission management, shared workflows, and visibility into group-wide activities, making them ideal for teams, departments, or organizations to collaborate seamlessly within GitLab’s ecosystem.
+
+## How do you transfer a project in GitLab?
+
+**Transferring a Project in GitLab**
+
+To transfer a project in GitLab, navigate to the project’s main page. Go to **Settings** > **General**, then expand the **Advanced** section. Click **Transfer project**. Enter the name or path of the target namespace (user or group) where the project will be moved. Confirm you have sufficient permissions (Owner role) in both the source and target namespaces. Click **Confirm** to complete the transfer. The project, including its repository, issues, and settings, moves to the new namespace.
+
+**Purpose**
+
+Transferring a project reassigns ownership to another user or group, maintaining all data and history. It’s useful for reorganizing projects, handing off responsibilities, or aligning with new team structures while preserving collaboration and version control in GitLab.
+
+## What are epics in GitLab?
+
+**Definition of Epics in GitLab**
+
+Epics in GitLab are a premium feature used to group related issues and merge requests across multiple projects within a group. They represent high-level initiatives or themes, like a product feature or sprint goal.
+
+**Key Features**
+
+Epics have titles, descriptions, start/end dates, and can include issues from different projects in the same group. They support hierarchical organization with child epics (Ultimate tier) and provide progress tracking via issue completion. Epics integrate with issue boards and roadmaps for visual planning. Access is controlled by group permissions.
+
+**Purpose and Benefits**
+
+Epics streamline large-scale project management by organizing related tasks, tracking progress, and aligning teams on overarching goals. They enhance visibility and coordination for complex initiatives, making them essential for agile workflows and strategic planning in GitLab’s group-level ecosystem.
+
+## Explain GitLab's notification settings.
+
+**Overview of GitLab's Notification Settings**
+
+GitLab's notification settings allow users to customize alerts for activities like mentions, assignments, merge requests, and issue updates, ensuring timely awareness without overload.
+
+**Key Features**
+
+- **Global Settings**: In **User Settings** > **Notifications**, choose delivery methods (email, in-app, browser push) and levels (on mention, watching, global).
+- **Project/Group-Specific**: Override globals via **Settings** > **Notifications** in projects or groups; select events (e.g., new issues, CI failures).
+- **Options**: "Watch" for all activity, "Participating" for interactions, or mute specific items. Supports RSS feeds and custom frequencies.
+
+**Purpose and Benefits**
+
+Notifications keep teams informed and responsive, reducing missed updates. Customizable settings minimize noise, enhance productivity, and support remote collaboration by delivering relevant alerts across GitLab’s ecosystem.
+
+## What is a wiki in GitLab?
+
+**Definition of a Wiki in GitLab**
+
+A wiki in GitLab is a built-in feature for creating and managing documentation within a project or group. It provides a collaborative space to store and organize information like project guides, FAQs, or technical docs.
+
+**Key Features**
+
+Wikis use Markdown for formatting, support version control for tracking changes, and allow multiple users to edit pages. They can be public, private, or internal, based on project visibility. Wikis are accessible via the project’s sidebar under **Wiki**, with options to create, edit, or link pages.
+
+**Purpose and Benefits**
+
+Wikis centralize project documentation, making it easy to maintain and access knowledge. They enhance collaboration by allowing team members to contribute and update content, ensuring up-to-date information and streamlining onboarding or reference processes within GitLab’s ecosystem.
+
+## How do you archive a project?
+
+**Archiving a Project in GitLab**
+
+To archive a project in GitLab, navigate to the project’s main page. Go to **Settings** > **General**, then expand the **Advanced** section. Click **Archive project** and confirm the action. Only project Owners or Maintainers can perform this. Archiving makes the project read-only, hiding it from the dashboard and disabling new commits, issues, or merge requests. The project remains accessible for viewing and can be unarchived later via the same settings.
+
+**Purpose**
+
+Archiving preserves completed or inactive projects while preventing further changes, keeping the workspace organized. It’s useful for maintaining historical data without cluttering active project lists, ensuring clean management and focus on current work in GitLab.
+
+## What are variables in GitLab CI?
+
+**Definition of Variables in GitLab CI**
+
+Variables in GitLab CI are key-value pairs used to store and manage configuration data for CI/CD pipelines, defined in the `.gitlab-ci.yml` file or project settings.
+
+**Key Features**
+
+- **Types**: Predefined (e.g., `CI_COMMIT_SHA`), custom (user-defined), or protected (for sensitive data like API keys).
+- **Scope**: Global (all jobs), job-specific, or environment-specific.
+- **Usage**: Accessed in scripts (e.g., `echo $VARIABLE_NAME`) for dynamic configuration, such as credentials or build parameters.
+- **Management**: Set in **Settings** > **CI/CD** > **Variables** or in `.gitlab-ci.yml` under `variables`.
+
+**Purpose and Benefits**
+
+Variables enable secure, reusable, and flexible pipeline configurations, reducing hardcoding and enhancing security for sensitive data. They simplify automation, support environment-specific deployments, and streamline CI/CD workflows in GitLab.
+
+## Describe GitLab's activity feed.
+
+**Overview of GitLab's Activity Feed**
+
+GitLab’s activity feed displays a chronological list of events and actions within a project, group, or user’s dashboard, providing a quick overview of recent activities.
+
+**Key Features**
+
+The feed shows events like commits, merge requests, issue updates, comments, and pipeline statuses. It’s accessible via the **Activity** tab in a project or group, or on the user dashboard for personal activity. Filters allow focusing on specific event types, and links provide direct access to related resources (e.g., issues or commits).
+
+**Purpose and Benefits**
+
+The activity feed enhances transparency and collaboration by keeping teams informed about project progress and changes. It simplifies tracking contributions, monitoring updates, and staying aligned, making it a valuable tool for managing workflows and ensuring team awareness in GitLab’s ecosystem.
+
+## How do you revert a commit in GitLab?
+
+**Reverting a Commit in GitLab**
+
+To revert a commit in GitLab, navigate to the project’s **Commits** page and locate the commit. Click its SHA to view details, then select **Options** > **Revert**. Choose to create a merge request (recommended for collaboration) or revert directly (if permitted). GitLab generates a new commit undoing the changes. Alternatively, use Git locally: run `git revert <commit-SHA>` to create a revert commit, then push with `git push origin <branch>`. For protected branches, submit a merge request.
+
+**Purpose**
+
+Reverting a commit undoes unwanted changes while preserving history, ensuring code stability. It’s useful for fixing errors without manual edits, maintaining collaboration and traceability in GitLab’s version control system.
+
+## What is GitLab's merge method options?
+
+**Overview of GitLab's Merge Methods**
+
+GitLab offers configurable merge methods in project settings (**Settings** > **Merge requests**) to control how code is integrated during a merge request approval. These methods affect commit history and branching.
+
+**Merge Commit**
+
+Creates a new merge commit combining branches, preserving full history. Ideal for detailed traceability in non-linear workflows.
+
+**Fast-Forward Merge**
+
+Merges only if no diverging commits, appending changes linearly without a new commit. Maintains a clean, linear history; fails if conflicts exist.
+
+**Squash and Merge**
+
+Squashes all branch commits into one before merging, simplifying history by removing intermediate commits. Useful for feature branches to keep main clean.
+
+**Semi-Linear Merge (Premium)**
+
+Squashes branch commits then merges with a merge commit, balancing history preservation and cleanliness.
+
+**Purpose and Benefits**
+
+These options ensure flexible integration, maintainable history, and compliance with team workflows, reducing conflicts and enhancing code quality in collaborative GitLab projects.
+
+## Explain GitLab's SSH keys.
+
+**Overview of GitLab's SSH Keys**
+
+GitLab’s SSH keys enable secure, passwordless authentication for Git operations like cloning, pushing, or pulling from repositories.
+
+**Key Features**
+
+SSH keys are public-private key pairs. The public key is added to GitLab under **User Settings** > **SSH Keys**, while the private key stays on your local machine. Generate keys using `ssh-keygen` and upload the public key (e.g., `id_rsa.pub`). SSH URLs (e.g., `git@gitlab.com:user/repo.git`) use these keys for authentication. Keys can have expiration dates for security.
+
+**Purpose and Benefits**
+
+SSH keys provide secure, convenient access to repositories, eliminating repetitive password entry. They ensure encrypted communication, enhance security for automated scripts, and support seamless integration with GitLab’s CI/CD and version control, making them essential for efficient and safe development workflows.
+
+## What are tags in GitLab?
+
+**Definition of Tags in GitLab**
+
+Tags in GitLab are Git references that mark specific commits, typically used to denote release points or versions (e.g., `v1.0.0`). They’re stored in the repository and visible under **Repository** > **Tags**.
+
+**Key Features**
+
+- **Lightweight Tags**: Simple pointers to a commit.
+- **Annotated Tags**: Include metadata like tagger name, date, and message, useful for releases.
+- **Creation**: Create via Git (`git tag -a v1.0 -m "Release v1.0"`) or GitLab UI, with options to protect tags.
+- **Usage**: Tags trigger CI/CD pipelines for releases and can be linked to release notes.
+
+**Purpose and Benefits**
+
+Tags provide a way to mark stable project milestones, facilitating version tracking and deployment. Protected tags ensure critical versions remain unchanged, enhancing stability and collaboration in GitLab’s version control system.
+
+## How do you create a release in GitLab?
+
+**Creating a Release in GitLab**
+
+To create a release in GitLab, navigate to the project’s **Repository** > **Tags**. Click **New tag**, enter a tag name (e.g., `v1.0.0`), and select a commit or branch. Add a release message and optional release notes in Markdown. Optionally, attach assets like binaries via the UI or API. Click **Create tag** to finalize. The release appears under **Deployments** > **Releases**, with a dedicated page for notes and assets.
+
+**Purpose**
+
+Releases mark specific project versions, linking tags to release notes and artifacts. They enhance traceability, streamline deployment, and provide clear documentation for stakeholders, making them essential for managing software versions and updates in GitLab’s ecosystem.
+
+## What is GitLab's container registry?
+
+**Definition of GitLab's Container Registry**
+
+GitLab’s container registry is a built-in feature for storing and managing Docker container images within a project or group. It integrates with GitLab’s CI/CD pipelines for seamless image building and deployment.
+
+**Key Features**
+
+Accessible via **Packages & Registries** > **Container Registry**, it supports pushing, pulling, and managing Docker images using GitLab’s UI or CLI. Images are stored securely with project visibility settings (public, private, internal). It integrates with `.gitlab-ci.yml` for automated builds and deployments, and supports tagging and cleanup policies to manage storage.
+
+**Purpose and Benefits**
+
+The container registry streamlines containerized workflows by centralizing image storage and management. It enhances DevOps efficiency, ensures secure access control, and simplifies deployment processes, making it ideal for teams building and deploying container-based applications in GitLab.
+
+## Describe GitLab's pipeline triggers.
+
+**Overview of GitLab's Pipeline Triggers**
+
+GitLab pipeline triggers are mechanisms to initiate CI/CD pipelines manually or automatically, separate from standard Git events like pushes or merge requests.
+
+**Key Features**
+
+- **Trigger Tokens**: Created in **Settings** > **CI/CD** > **Pipeline triggers**. Use the token in API calls (`curl`) or scripts to start pipelines remotely.
+- **Manual Triggers**: Defined in `.gitlab-ci.yml` with `when: manual`, allowing users to run specific jobs via the GitLab UI.
+- **Scheduled Pipelines**: Set up in **CI/CD** > **Schedules** to run pipelines at specific times or intervals.
+- **Webhooks/External Triggers**: Integrate with external systems to trigger pipelines on events like code updates.
+
+**Purpose and Benefits**
+
+Pipeline triggers enable flexible automation, allowing pipelines to run on demand, on schedule, or via external tools. They support complex workflows, improve integration with third-party systems, and enhance DevOps efficiency in GitLab’s CI/CD ecosystem.
+
+## How do you comment on a merge request?
+
+**Commenting on a Merge Request in GitLab**
+
+To comment on a merge request in GitLab, navigate to the project’s **Merge Requests** section and select the desired merge request. In the **Overview** tab, use the comment box at the bottom to add a general comment about the merge request. For code-specific feedback, go to the **Changes** tab, hover over a line of code, and click the comment icon to add an inline comment. Submit comments by clicking **Comment** or **Start a review** for threaded feedback. You can also mention users with `@username` to notify them.
+
+**Purpose**
+
+Comments facilitate collaboration by allowing team members to discuss changes, suggest improvements, or request clarifications. They ensure code quality through peer review and keep discussions organized within the merge request, streamlining the approval process in GitLab.
+
+## What are assignees in issues?
+
+**Definition of Assignees in GitLab Issues**
+
+Assignees in GitLab issues are users assigned to work on or take responsibility for resolving a specific issue within a project. They are designated to track who is handling the task.
+
+**Key Features**
+
+You can assign one or multiple users to an issue via the issue’s sidebar under **Assignees** in the GitLab UI. Assignees receive notifications for issue updates and can be filtered in issue boards or searches. Only users with appropriate project permissions (e.g., Developer or higher) can be assigned. Assignments can be updated or removed as needed.
+
+**Purpose and Benefits**
+
+Assignees clarify task ownership, improving accountability and collaboration. They help teams track progress, prioritize work, and ensure issues are addressed by the right people, streamlining project management and communication within GitLab’s ecosystem.
+
+## Explain GitLab's due dates for issues.
+
+**Overview of Due Dates in GitLab Issues**
+
+Due dates in GitLab issues specify deadlines for completing tasks or resolving issues, helping teams manage timelines and prioritize work.
+
+**Key Features**
+
+You can set a due date in the issue’s sidebar under **Due date** in the GitLab UI. Select a date from the calendar, and it will be visible on the issue page, issue boards, and filters. Due dates are optional and can be edited or removed by users with appropriate permissions (e.g., Developer or higher). Overdue issues are highlighted for visibility.
+
+**Purpose and Benefits**
+
+Due dates enhance project management by providing clear deadlines, aiding in task prioritization, and tracking progress. They align teams on schedules, improve accountability, and integrate with milestones to support agile workflows, ensuring timely delivery within GitLab’s ecosystem.
+
+## What is GitLab's time tracking?
+
+**Overview of GitLab's Time Tracking**
+
+GitLab’s time tracking allows users to log and monitor time spent on issues and merge requests, aiding in project management and resource allocation.
+
+**Key Features**
+
+Users can add time estimates and time spent using quick actions in comments (e.g., `/estimate 2h` or `/spend 1h 30m`). Time tracking data appears in the issue or merge request sidebar. It supports cumulative time logging and integrates with issue boards and reports. Available to all users with appropriate permissions (e.g., Developer or higher).
+
+**Purpose and Benefits**
+
+Time tracking helps teams estimate workloads, monitor progress, and manage resources effectively. It provides insights into task duration, improves planning accuracy, and supports agile workflows by ensuring transparency and accountability in GitLab’s project management ecosystem.
+
+## How do you export a project?
+
+**Exporting a Project in GitLab**
+
+To export a project, ensure you have Owner or Maintainer role. Go to the project's **Settings** > **General**, expand **Advanced**, and select **Export project**. GitLab generates an export file (NDJSON format) including repositories, issues, merge requests, comments, and more. You'll receive an email with a download link or refresh the page to click **Download export**. The file is temporary and deleted after 24 hours.
+
+**Limitations**
+
+Not all data exports, like CI/CD artifacts, variables, webhooks, or container images. User mappings may require admin tokens for accuracy, especially self-managed to GitLab.com. Use for migration, not backups; direct transfer is preferred for most cases.
+
+**Purpose**
+
+Exports enable migrating projects to another GitLab instance while preserving key data for offline or specific transfers.
+
+## Describe GitLab's import options.
+
+**Overview of GitLab's Import Options**
+
+GitLab provides tools to import projects from other platforms or GitLab instances, preserving data like code, issues, and merge requests.
+
+**Key Import Methods**
+
+- **GitHub**: Import repositories, issues, pull requests, wikis, and milestones via **New Project** > **Import project** > **GitHub**. Authenticate with a GitHub token.
+- **Bitbucket**: Import repositories and issues using Bitbucket credentials or API token.
+- **GitLab.com/self-managed**: Use project export/import or group migration for repositories, issues, and settings.
+- **Other Platforms**: Supports Gitea, Phabricator, and more via API or manual repository import.
+- **Manual Git Import**: Clone external repositories and push to GitLab with `git push --all`.
+
+**Key Features**
+
+Imports are initiated from **New Project** > **Import project**. Data like commits, branches, and issues are preserved, but some elements (e.g., CI/CD artifacts, webhooks) may not transfer. Progress is trackable in the UI.
+
+**Purpose and Benefits**
+
+Import options simplify migration to GitLab, ensuring continuity of project data. They save time, maintain history, and support seamless transitions for teams adopting GitLab’s DevOps platform.
+
+## What are badges in GitLab?
+
+**Definition of Badges in GitLab**
+
+Badges in GitLab are visual indicators displayed on a project or group’s main page to show dynamic information, such as pipeline status, code coverage, or release versions.
+
+**Key Features**
+
+Badges are configured in **Settings** > **General** > **Badges** for projects or groups. You define a name, image URL (e.g., from CI/CD pipelines or external services), and link URL. Placeholders like `%{commit_sha}` or `%{branch}` dynamically insert project data. Common uses include showing build status, test coverage, or external tool metrics.
+
+**Purpose and Benefits**
+
+Badges provide quick insights into project health or status, enhancing transparency for team members and visitors. They integrate with CI/CD and external tools, streamlining monitoring and communication, and are particularly useful for showcasing project metrics in GitLab’s ecosystem.
+
+## How do you set up email notifications?
+
+**Setting Up Email Notifications in GitLab**
+
+To configure email notifications, go to **User Settings** > **Notifications**. Select a notification level: **Global** (all accessible projects), **Watch** (all activity in specific projects), **Participating** (only mentions or assignments), **On mention** (only @mentions), or **Disabled**. Choose email delivery under **Notification email**. For project-specific settings, navigate to a project’s **Settings** > **Notifications**, select events (e.g., issues, merge requests), and override global settings. Group-level notifications can also be customized similarly.
+
+**Purpose and Benefits**
+
+Email notifications keep users informed about relevant project activities, ensuring timely responses to tasks or mentions. Customizable settings reduce noise, focusing alerts on critical events, enhancing collaboration and productivity in GitLab’s ecosystem.
+
+## What is GitLab's API?
+
+**Definition of GitLab's API**
+
+GitLab’s API is a RESTful interface that allows programmatic interaction with GitLab resources, such as projects, issues, merge requests, and pipelines.
+
+**Key Features**
+
+Accessible via HTTPS endpoints (e.g., `https://gitlab.com/api/v4/`), it supports CRUD operations (create, read, update, delete) for managing repositories, users, CI/CD configurations, and more. Authentication uses personal access tokens, OAuth, or project-specific tokens. The API supports pagination, webhooks, and event-driven automation, with detailed documentation for endpoints and parameters.
+
+**Purpose and Benefits**
+
+The API enables automation of tasks like creating issues, triggering pipelines, or managing users, streamlining workflows. It integrates with external tools, enhances DevOps efficiency, and supports custom scripts or applications, making it essential for extending GitLab’s functionality in development and operations.
+
+## Explain GitLab's keyboard shortcuts.
+
+**Overview of GitLab's Keyboard Shortcuts**
+
+GitLab’s keyboard shortcuts are quick key combinations that enhance navigation and productivity within the GitLab UI, streamlining common tasks.
+
+**Key Shortcuts**
+
+- **Global**: `?` opens the shortcut help menu; `g p` goes to the project homepage; `g i` navigates to issues.
+- **Issues/Merge Requests**: `n` creates a new issue; `r` starts a reply; `e` edits the description.
+- **Navigation**: `s` focuses the search bar; `p` toggles the project sidebar; `up/down` navigates lists.
+- **Code Review**: `]`/`[` jumps between files in merge requests; `c` adds a comment.
+- **Enable**: Shortcuts are enabled by default but can be toggled in **User Settings** > **Preferences**.
+
+**Purpose and Benefits**
+
+Keyboard shortcuts speed up navigation and task execution, reducing reliance on mouse clicks. They improve efficiency for frequent users, enhance workflow fluidity, and support power users in managing projects, issues, and code reviews effectively within GitLab’s interface.
+
+## What are environments in GitLab CI?
+
+**Definition of Environments in GitLab CI**
+
+Environments in GitLab CI represent deployment targets, such as staging, production, or testing, defined in the `.gitlab-ci.yml` file to manage and track deployments.
+
+**Key Features**
+
+Environments are specified in CI/CD jobs using the `environment` keyword (e.g., `environment: production`). They support dynamic creation, deployment tracking, and rollback capabilities. The **Deployments** > **Environments** page in GitLab shows deployment history, pipeline status, and environment-specific logs. Features like review apps and protected environments (for sensitive targets) enhance control.
+
+**Purpose and Benefits**
+
+Environments organize and monitor deployment workflows, ensuring traceability and clarity across development stages. They support automated deployments, reduce errors, and provide visibility into where code is deployed, making them essential for managing CI/CD pipelines and DevOps processes in GitLab.
+
+## How do you schedule pipelines?
+
+**Scheduling Pipelines in GitLab**
+
+To schedule pipelines in GitLab, go to the project’s **CI/CD** > **Schedules** section. Click **New schedule**, then define the pipeline details: select a branch, set a schedule using cron syntax (e.g., `0 0 * * *` for daily at midnight), and optionally add variables. Choose the timezone and save. The pipeline will run automatically based on the schedule, using the `.gitlab-ci.yml` configuration from the specified branch.
+
+**Purpose and Benefits**
+
+Scheduled pipelines automate recurring tasks like nightly builds, tests, or deployments, saving manual effort. They ensure consistent execution, support maintenance tasks, and integrate with GitLab’s CI/CD, enhancing efficiency and reliability in DevOps workflows.
+
+## Describe GitLab's review apps.
+
+**Overview of GitLab's Review Apps**
+
+Review apps in GitLab are temporary, dynamic environments automatically created for each branch or merge request to preview changes before merging. They’re defined in the `.gitlab-ci.yml` file.
+
+**Key Features**
+
+Using the `environment` keyword with `dynamic` settings, review apps spin up isolated instances (e.g., via Docker or Kubernetes) for testing UI, APIs, or features. They’re linked to merge requests, accessible via the **Deployments** > **Environments** page. Jobs can include scripts to deploy and destroy apps, with URLs auto-generated for access. Protected environments ensure secure usage.
+
+**Purpose and Benefits**
+
+Review apps enable teams to test changes in a production-like setting, improving code quality and collaboration. They reduce merge conflicts, streamline QA, and integrate with GitLab’s CI/CD, making them ideal for agile development and feature validation.
+
+## What is GitLab's auto DevOps?
+
+**Definition of GitLab's Auto DevOps**
+
+GitLab Auto DevOps is a feature that automates the entire DevOps lifecycle, from code to deployment, by providing a pre-configured CI/CD pipeline for projects.
+
+**Key Features**
+
+Enabled in **Settings** > **CI/CD** > **Auto DevOps**, it automatically detects, builds, tests, and deploys applications using best practices. It includes stages for building, testing (unit, code quality), security scanning (SAST, DAST), and deploying to environments like Kubernetes. It supports auto-scaling, monitoring, and review apps, with customizable `.gitlab-ci.yml` overrides.
+
+**Purpose and Benefits**
+
+Auto DevOps simplifies setup for teams by automating repetitive tasks, ensuring consistent workflows, and reducing configuration time. It enhances code quality with built-in testing and security scans, supports rapid deployment, and is ideal for teams adopting DevOps without extensive CI/CD expertise in GitLab’s ecosystem.
+
+## How do you enable HTTPS for GitLab?
+
+**Enabling HTTPS for GitLab**
+
+To enable HTTPS for a self-managed GitLab instance, obtain an SSL/TLS certificate (e.g., from Let’s Encrypt or a trusted CA). Place the certificate and private key in `/etc/gitlab/ssl/` (e.g., `gitlab.example.com.crt` and `gitlab.example.com.key`). Edit the GitLab configuration file at `/etc/gitlab/gitlab.rb`, setting `external_url 'https://gitlab.example.com'` and ensuring `nginx['redirect_http_to_https'] = true`. Run `sudo gitlab-ctl reconfigure` to apply changes. Verify the SSL setup by accessing the GitLab URL via HTTPS. For GitLab.com, HTTPS is enabled by default.
+
+**Purpose**
+
+HTTPS secures communication between users and the GitLab server, protecting sensitive data like credentials and code. It ensures compliance with security standards and builds trust for users accessing the platform.
+
+## What are artifacts in GitLab CI?
+
+**Definition of Artifacts in GitLab CI**
+
+Artifacts in GitLab CI are files or directories generated by a CI/CD job, such as build outputs, test reports, or binaries, stored for later use or deployment.
+
+**Key Features**
+
+Defined in the `.gitlab-ci.yml` file using the `artifacts` keyword, you specify paths to files/folders (e.g., `artifacts: paths: [build/, reports/]`). Artifacts are uploaded after a job completes and can be downloaded from the GitLab UI (**Pipelines** > **Jobs**). They support expiration settings and can be passed between pipeline stages or used in deployments.
+
+**Purpose and Benefits**
+
+Artifacts enable sharing of job outputs, like compiled code or test results, across jobs or for review. They enhance traceability, support debugging, and streamline deployments, making them essential for efficient CI/CD workflows in GitLab’s ecosystem.
+
+## Explain GitLab's cache in CI.
+
+**Definition of Cache in GitLab CI**
+
+GitLab CI cache stores files or dependencies between pipeline runs to speed up job execution, defined in the `.gitlab-ci.yml` file.
+
+**Key Features**
+
+Using the `cache` keyword, you specify paths to cache (e.g., `node_modules/`, `vendor/`). Cache is shared across jobs in the same pipeline or branch, unlike artifacts, which are job-specific outputs. You can set cache policies (`pull`, `push`, `pull-push`) to control behavior and use keys (e.g., `key: $CI_COMMIT_REF_NAME`) for branch-specific caching. Cache is stored on the runner’s file system.
+
+**Purpose and Benefits**
+
+Cache reduces build times by reusing dependencies, improving efficiency for repetitive tasks like package installations. It optimizes CI/CD pipelines, saves resources, and ensures consistency across jobs, making it a key feature for fast, scalable workflows in GitLab’s ecosystem.
+
+## What is GitLab's job logs?
+
+**Definition of GitLab's Job Logs**
+
+GitLab’s job logs are detailed records of the output generated by CI/CD jobs during pipeline execution, capturing commands, errors, and results.
+
+**Key Features**
+
+Logs are accessible in the GitLab UI under **CI/CD** > **Pipelines** > **Jobs**, showing real-time or completed job output. They include script execution details, error messages, and environment information. Users can download logs, search within them, or view raw output. Logs are stored temporarily (configurable duration) and can be secured with protected runners for sensitive data.
+
+**Purpose and Benefits**
+
+Job logs provide visibility into pipeline execution, aiding in debugging and troubleshooting. They help identify failures, verify job behavior, and ensure traceability, making them essential for maintaining reliable and efficient CI/CD workflows in GitLab’s ecosystem.
+
+## How do you retry a failed job?
+
+**Retrying a Failed Job in GitLab**
+
+To retry a failed CI/CD job, navigate to the project’s **CI/CD** > **Pipelines** section. Select the pipeline containing the failed job, then click on the job under the pipeline details. Click the **Retry** button (circular arrow icon) in the job’s log page. This restarts the job using the same configuration and environment as the original run. Alternatively, use the GitLab API or trigger a new pipeline manually to rerun the job.
+
+**Purpose**
+
+Retrying a failed job helps resolve transient issues, like network errors, without modifying the `.gitlab-ci.yml`. It saves time, ensures pipeline continuity, and supports debugging, making it a key feature for maintaining reliable CI/CD workflows in GitLab.
+
+## Describe GitLab's pipeline graphs.
+
+**Overview of GitLab's Pipeline Graphs**
+
+GitLab’s pipeline graphs visually represent the structure and status of CI/CD pipelines, showing how jobs and stages are organized and executed.
+
+**Key Features**
+
+Accessible under **CI/CD** > **Pipelines**, the graph displays stages (e.g., build, test, deploy) as columns and jobs as nodes, with lines indicating dependencies. It shows job statuses (success, failed, running) with color coding and allows clicking nodes to view logs. Directed Acyclic Graph (DAG) support optimizes parallel job execution. Graphs can be filtered by branch or tag.
+
+**Purpose and Benefits**
+
+Pipeline graphs provide a clear, visual overview of pipeline workflows, helping teams understand job relationships and identify bottlenecks or failures. They enhance debugging, improve pipeline management, and support efficient DevOps processes by offering transparency into CI/CD execution in GitLab’s ecosystem.
+
+## What are stages in .gitlab-ci.yml?
+
+**Definition of Stages in .gitlab-ci.yml**
+
+Stages in GitLab CI/CD are logical phases in a pipeline, defined in the `.gitlab-ci.yml` file to organize jobs sequentially or in parallel.
+
+**Key Features**
+
+Stages are declared globally using the `stages` keyword (e.g., `stages: [build, test, deploy]`). Jobs specify a stage with the `stage` keyword, determining their execution order. Jobs in the same stage run concurrently, while stages execute sequentially. Default stages can be overridden, and dependencies between jobs can be set using `needs` for faster execution.
+
+**Purpose and Benefits**
+
+Stages structure pipelines for clarity and efficiency, ensuring tasks like building, testing, and deploying occur in the correct order. They support flexible workflows, optimize resource use, and enhance pipeline management, making them critical for organized and scalable CI/CD processes in GitLab.
+
+## How do you define jobs in CI?
+
+**Defining Jobs in GitLab CI**
+
+Jobs in GitLab CI are tasks defined in the `.gitlab-ci.yml` file to automate processes like building, testing, or deploying code. Each job is a named entry with specific configurations.
+
+**Key Features**
+
+Jobs are defined with a unique name and include parameters like:
+
+- `stage`: Assigns the job to a pipeline stage (e.g., `build`, `test`).
+- `script`: Specifies commands to execute (e.g., `npm install`).
+- `rules` or `only/except`: Controls when the job runs (e.g., specific branches).
+- `artifacts`: Defines output files to store.
+- `needs`: Sets dependencies for faster parallel execution.
+  Example:
+
+```yaml
+test_job:
+  stage: test
+  script:
+    - npm test
+```
+
+**Purpose and Benefits**
+
+Jobs automate specific CI/CD tasks, enabling modular and reusable pipelines. They ensure consistent execution, support parallel processing, and integrate with GitLab’s ecosystem, streamlining development and deployment workflows for efficient DevOps.
+
+## What is GitLab's dependency proxy?
+
+**Definition of GitLab's Dependency Proxy**
+
+GitLab's dependency proxy is a pull-through cache for container images and packages from upstream registries like Docker Hub. It acts as a local proxy, caching frequently accessed images to reduce pulls from external sources.
+
+**Key Features**
+
+Enabled by default at the group level, it requires authentication via personal access tokens with scopes like `read_registry`. In CI/CD, use variables like `CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX` to pull images (e.g., `${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:latest`).
+
+**How It Works**
+
+On first request, it fetches and caches the image; subsequent pulls serve from cache after checking for updates via HEAD requests, minimizing rate limit hits.
+
+**Purpose and Benefits**
+
+It speeds up pipelines, avoids Docker Hub rate limits, and enhances performance by serving local caches, making it ideal for efficient DevOps workflows in GitLab.
+
+## Explain GitLab's package registry.
+
+**Definition of GitLab's Package Registry**
+
+GitLab’s package registry is a built-in repository for storing and managing software packages, such as npm, Maven, PyPI, or Docker images, within projects or groups.
+
+**Key Features**
+
+Accessible via **Packages & Registries** > **Package Registry**, it supports multiple package formats, including npm, Maven, PyPI, NuGet, and Conan. You publish packages using CI/CD pipelines or manually via the GitLab UI/API. Packages inherit project visibility (public, private, internal) and can be tagged or versioned. Integration with `.gitlab-ci.yml` enables automated publishing and dependency management.
+
+**Purpose and Benefits**
+
+The package registry centralizes dependency storage, simplifying package distribution and version control. It enhances DevOps workflows by integrating with CI/CD, reduces reliance on external registries, and ensures secure, efficient package management, making it ideal for teams building and deploying applications in GitLab’s ecosystem.
+
+## What are metrics in GitLab?
+
+**Definition of Metrics in GitLab**
+
+Metrics in GitLab are data points and visualizations that track project performance, CI/CD pipeline efficiency, and system health, primarily available in premium tiers.
+
+**Key Features**
+
+- **Pipeline Metrics**: Monitor success rates, duration, and frequency of CI/CD pipelines, accessible under **CI/CD** > **Analytics**.
+- **Code Quality Metrics**: Track test coverage and code quality reports generated by CI jobs.
+- **Project Metrics**: Include issue resolution times, merge request throughput, and cycle time, viewable in **Analytics** > **Value Stream**.
+- **System Metrics (Self-Managed)**: Monitor instance performance (e.g., CPU, memory) via Prometheus integration.
+- **Custom Dashboards**: Use Grafana or GitLab’s dashboards to visualize metrics.
+
+**Purpose and Benefits**
+
+Metrics provide insights into development efficiency, code quality, and system performance, enabling data-driven decisions. They help identify bottlenecks, optimize workflows, and improve productivity, making them essential for teams managing complex projects and DevOps processes in GitLab’s ecosystem.
+
+## How do you monitor pipelines?
+
+**Monitoring Pipelines in GitLab**
+
+To monitor pipelines, navigate to the project’s **CI/CD** > **Pipelines** section. View a list of pipelines with statuses (success, failed, running). Click a pipeline to see its stages, jobs, and graph. Check job logs for real-time output or errors via the job details page. Use **CI/CD** > **Analytics** for metrics like pipeline success rates and duration. Enable notifications for pipeline events under **Settings** > **Notifications**. For advanced monitoring, integrate Prometheus/Grafana (premium) to track pipeline performance.
+
+**Purpose and Benefits**
+
+Monitoring pipelines ensures visibility into CI/CD execution, helping identify failures or bottlenecks quickly. It supports debugging, optimizes workflows, and maintains deployment reliability, making it critical for efficient DevOps in GitLab’s ecosystem.
+
+## Describe GitLab's value stream analytics.
+
+**Overview of GitLab's Value Stream Analytics**
+
+GitLab’s Value Stream Analytics (VSA), available in premium tiers, is a tool for measuring and optimizing the software development lifecycle by tracking key metrics across project workflows.
+
+**Key Features**
+
+Accessible under **Analytics** > **Value Stream**, VSA visualizes the time taken from ideation to production (cycle time). It tracks stages like planning, coding, testing, and deployment, using data from issues, merge requests, and pipelines. Metrics include lead time, cycle time, and throughput. Custom stages can be defined, and filters allow analysis by project, group, or time range. It integrates with issue boards and CI/CD data.
+
+**Purpose and Benefits**
+
+VSA identifies bottlenecks, improves process efficiency, and provides data-driven insights into development workflows. It helps teams optimize delivery speed, enhance collaboration, and align with agile practices, making it essential for managing and improving DevOps performance in GitLab’s ecosystem.
+
+## What is GitLab's cycle analytics?
+
+**Overview of GitLab's Cycle Analytics**
+
+GitLab’s Cycle Analytics, now part of Value Stream Analytics in premium tiers, measures the efficiency of the software development lifecycle by tracking time spent across key stages.
+
+**Key Features**
+
+Accessible under **Analytics** > **Value Stream**, it tracks metrics like lead time (idea to production) and cycle time (work in progress). Stages include issue creation, planning, coding, testing, review, and deployment. It uses data from issues, merge requests, and pipelines, offering visualizations and filters by project or time range. Custom stages can be defined for tailored analysis.
+
+**Purpose and Benefits**
+
+Cycle Analytics identifies bottlenecks, optimizes workflows, and provides insights into development speed and efficiency. It supports data-driven decisions, enhances team productivity, and aligns with agile practices, making it a vital tool for improving DevOps processes within GitLab’s ecosystem.
+
+## How do you create a subgroup?
+
+**Creating a Subgroup in GitLab**
+
+To create a subgroup, navigate to the group’s main page. Click **New subgroup** in the **Subgroups** tab. Enter a name, description, and visibility level (public, private, or internal). Optionally, set an avatar or parent group settings. Click **Create subgroup**. You must have Owner or Maintainer permissions in the parent group. The subgroup inherits some settings but can have its own members, projects, and permissions.
+
+**Purpose**
+
+Subgroups organize related projects hierarchically within a group, simplifying access control and management. They enhance collaboration for teams or departments, streamline workflows, and maintain structure in large organizations, making them essential for scalable project organization in GitLab’s ecosystem.
+
+## What are permissions in groups?
+
+**Overview of Permissions in GitLab Groups**
+
+Permissions in GitLab groups define what actions members can perform across all projects and subgroups within a group, ensuring controlled access and collaboration.
+
+**Key Features**
+
+Permissions are assigned via roles: **Guest** (view issues, wikis), **Reporter** (view code, create issues), **Developer** (push to non-protected branches, manage issues), **Maintainer** (manage branches, settings), and **Owner** (full control, including group deletion). Set permissions in **Group Settings** > **Members** by inviting users or subgroups. Permissions cascade to projects unless overridden. Group visibility (public, private, internal) further restricts access.
+
+**Purpose and Benefits**
+
+Group permissions streamline access management for multiple projects, ensuring security and role-based collaboration. They simplify administration, align with team structures, and enhance efficiency in managing workflows within GitLab’s ecosystem.
+
+## Explain GitLab's LDAP integration.
+
+**Overview of GitLab's LDAP Integration**
+
+GitLab integrates with LDAP for centralized user authentication, supporting servers like Active Directory and OpenLDAP. It enables users to sign in with LDAP credentials, automatically creating or linking GitLab accounts.
+
+**Configuration Steps**
+
+For self-managed instances, edit `/etc/gitlab/gitlab.rb`: Enable LDAP with `gitlab_rails['ldap_enabled'] = true`. Define servers under `gitlab_rails['ldap_servers']` with keys like `label`, `host`, `port`, `uid`, `base`, and `encryption`. Run `sudo gitlab-ctl reconfigure` to apply. Test via Rake tasks.
+
+**Authentication Process**
+
+Users sign in via LDAP tab; GitLab verifies credentials against the server, syncing attributes like email. Inactive users (e.g., deleted in LDAP) are blocked after checks (hourly/daily).
+
+**Group Sync**
+
+In premium tiers, syncs group membership hourly using `group_base`. Supports admin groups and SSH key sync for access control.
+
+**Limitations and Benefits**
+
+Limitations: No AD Trusts support; risks if users alter emails. Benefits: Simplifies management, auto-provisions users, enhances security via central auth.
+
+## What is GitLab's SAML support?
+
+**Overview of GitLab's SAML Support**
+
+GitLab’s SAML (Security Assertion Markup Language) support enables single sign-on (SSO) integration with identity providers like Okta, Azure AD, or OneLogin for secure user authentication.
+
+**Key Features**
+
+Configured in **Settings** > **SAML SSO** (group-level, premium tiers) or instance-wide for self-managed GitLab. Requires setting the IdP’s metadata URL, entity ID, and certificate. Users log in via the IdP, and GitLab syncs user attributes (e.g., email, name). Supports group membership sync, auto-provisioning, and JIT (Just-In-Time) user creation. Admins can enforce SSO and restrict access to SAML-authenticated users.
+
+**Purpose and Benefits**
+
+SAML simplifies user management by centralizing authentication, enhancing security with SSO. It streamlines access for teams, reduces password fatigue, and ensures compliance with enterprise security policies, making it ideal for large organizations integrating GitLab into their identity management systems.
+
+## How do you back up GitLab data?
+
+**Backing Up GitLab Data**
+
+For self-managed GitLab, create a backup by running `sudo gitlab-backup create` on the server. This generates a tar file (e.g., `TIMESTAMP_gitlab_backup.tar`) in `/var/opt/gitlab/backups`, capturing the database, repositories, and configurations. Configure backup settings in `/etc/gitlab/gitlab.rb` (e.g., `gitlab_rails['backup_path']` for custom paths). Schedule automated backups using cron jobs. To restore, use `sudo gitlab-backup restore BACKUP=<timestamp>`. Exclude artifacts or uploads if needed to reduce size. For GitLab.com, backups are managed by GitLab, and users can export projects manually.
+
+**Purpose**
+
+Backups ensure data recovery in case of server failure or data loss, preserving repositories, issues, and settings. They support business continuity and compliance, making them critical for maintaining a secure and reliable GitLab instance.
+
+## Describe GitLab's restore process.
+
+**Restoring Data in GitLab**
+
+GitLab’s restore process recovers data from a backup file for self-managed instances. Ensure the backup tar file is in `/var/opt/gitlab/backups`.
+
+**Steps**
+
+1. Stop GitLab services: `sudo gitlab-ctl stop`.
+2. Run the restore command: `sudo gitlab-backup restore BACKUP=<timestamp>_gitlab_backup.tar` (replace `<timestamp>` with the backup’s date/time).
+3. Confirm prompts; it restores the database, repositories, uploads, and configurations sequentially.
+4. Reconfigure: `sudo gitlab-ctl reconfigure` to apply changes.
+5. Start services: `sudo gitlab-ctl start`.
+6. Verify: Check repositories, issues, and pipelines in the UI.
+
+For GitLab.com, contact support; user exports are limited to project data.
+
+**Purpose and Benefits**
+
+The process ensures quick recovery from failures, minimizing downtime. It preserves integrity of repositories, issues, and settings, supporting disaster recovery and compliance in GitLab’s ecosystem.
+
+## What are runners' tags?
+
+**Definition of Runners' Tags in GitLab**
+
+Runners’ tags in GitLab are labels assigned to GitLab Runners to match them with specific CI/CD jobs defined in the `.gitlab-ci.yml` file, ensuring jobs run on appropriate runners.
+
+**Key Features**
+
+Tags are set when registering a runner in **Settings** > **CI/CD** > **Runners** or via the runner’s configuration. In `.gitlab-ci.yml`, jobs specify tags (e.g., `tags: [docker, linux]`) to select runners with matching tags. Tags can represent environments, capabilities, or locations (e.g., `aws`, `gpu`). Multiple tags can be assigned, and jobs only run on runners with all specified tags.
+
+**Purpose and Benefits**
+
+Runners’ tags enable precise job allocation, ensuring tasks run on suitable infrastructure (e.g., Docker-enabled runners). They optimize resource use, enhance pipeline efficiency, and support complex workflows, making them critical for scalable CI/CD in GitLab’s ecosystem.
+
+## How do you register a runner?
+
+**Registering a Runner in GitLab**
+
+To register a GitLab Runner, install the Runner binary on your server or machine (download from GitLab’s official site). Run `gitlab-runner register`. Enter the GitLab instance URL (e.g., `https://gitlab.com`), the registration token from **Settings** > **CI/CD** > **Runners**, and a description. Choose an executor (e.g., `docker`, `shell`). Optionally, add tags (e.g., `linux`, `test`) for job matching. Complete the setup, and the runner appears in the project or group’s runner list, ready to process CI/CD jobs.
+
+**Purpose**
+
+Registering a runner enables automated execution of CI/CD pipelines, supporting tasks like building, testing, and deploying. It ensures scalable, efficient workflows tailored to project needs in GitLab’s ecosystem.
+
+## What is GitLab's omnibus package?
+
+**Definition of GitLab's Omnibus Package**
+
+GitLab’s Omnibus package is an all-in-one installation method for self-managed GitLab instances, bundling all necessary components into a single package for easy deployment.
+
+**Key Features**
+
+The Omnibus package includes GitLab’s core application, web server (Nginx), database (PostgreSQL), Redis, and other dependencies. It’s available for Linux distributions like Ubuntu and CentOS. Install via a single command (e.g., `sudo apt-get install gitlab-ee`). Configuration is managed through `/etc/gitlab/gitlab.rb`, and updates or reconfigurations are applied with `sudo gitlab-ctl reconfigure`. It supports backup, restore, and monitoring tools.
+
+**Purpose and Benefits**
+
+The Omnibus package simplifies GitLab installation, upgrades, and maintenance, reducing setup complexity. It ensures consistent, optimized deployments, making it ideal for teams managing their own GitLab instances with minimal overhead.
+
+## Explain GitLab's helm chart.
+
+**Definition of GitLab's Helm Chart**
+
+GitLab’s Helm chart is a pre-configured package for deploying GitLab on Kubernetes clusters using Helm, a Kubernetes package manager, simplifying installation and management.
+
+**Key Features**
+
+The Helm chart deploys GitLab components (e.g., GitLab Runner, web server, database) as Kubernetes resources. Install it by adding the GitLab Helm repository (`helm repo add gitlab https://charts.gitlab.io`) and running `helm install gitlab gitlab/gitlab` with custom values (e.g., `values.yaml` for domain, storage). It supports scaling, upgrades, and configuration for CI/CD, registry, and Pages. Official documentation provides detailed setup steps.
+
+**Purpose and Benefits**
+
+The Helm chart streamlines GitLab deployment on Kubernetes, enabling scalable, cloud-native setups. It simplifies configuration, supports automated updates, and integrates with Kubernetes for resilient DevOps workflows, making it ideal for teams leveraging containerized environments in GitLab’s ecosystem.
+
+## What are GitLab's system hooks?
+
+**Definition of GitLab's System Hooks**
+
+GitLab’s system hooks are instance-wide webhooks that trigger HTTP callbacks for administrative events across all projects and groups in a self-managed GitLab instance, unlike project-specific webhooks.
+
+**Key Features**
+
+Configured in **Admin Area** > **System Hooks**, they send JSON payloads to a specified URL when events like project creation, user addition, or group deletion occur. Events include repository updates, user management, and push events. Hooks support secret tokens for security and can be tested via the UI. They require admin privileges to set up.
+
+**Purpose and Benefits**
+
+System hooks enable centralized monitoring and automation of instance-wide events, integrating with external tools for logging, auditing, or workflows. They enhance administrative oversight, streamline system management, and ensure real-time notifications, making them critical for large-scale GitLab deployments.
+
+## How do you integrate Slack with GitLab?
+
+**Integrating Slack with GitLab**
+
+To integrate Slack with GitLab, use the official GitLab for Slack app for notifications and slash commands. On GitLab.com or self-managed (with admin enablement), go to project or group **Settings** > **Integrations** > **GitLab for Slack app**. Install the app, authorize in Slack, and select events (e.g., merge requests, pipelines) for notifications to Slack channels.
+
+For CI/CD-specific alerts, add Slack webhook URL in **Settings** > **CI/CD** > **Variables** (e.g., `SLACK_WEBHOOK`), then use curl in `.gitlab-ci.yml` scripts to post messages.
+
+Note: Traditional Slack notifications are deprecated; prefer the app.
+
+This enables real-time updates, slash commands like `/gitlab issue create`, and streamlined collaboration without leaving Slack.
+
+## Describe GitLab's Jira integration.
+
+**Overview of GitLab's Jira Integration**
+
+GitLab’s Jira integration connects GitLab projects with Jira for seamless issue tracking and project management, syncing data between the two platforms.
+
+**Key Features**
+
+Configure in **Settings** > **Integrations** > **Jira**. Provide Jira’s URL, API token, and credentials. Enable features like:
+
+- **Issue Sync**: Create or reference Jira issues from GitLab commits or merge requests using issue keys (e.g., `PROJECT-123`).
+- **Comment Sync**: GitLab comments or mentions appear in Jira issues.
+- **Transitions**: Trigger Jira issue status changes from GitLab actions.
+- **Jira Service Desk**: Create Jira tickets from GitLab issues (premium).
+  Supports Jira Cloud and Server, with webhooks for real-time updates.
+
+**Purpose and Benefits**
+
+Jira integration bridges development and project management, allowing teams to use GitLab for code and Jira for issue tracking. It reduces context switching, improves traceability, and enhances collaboration, making it ideal for teams combining GitLab’s DevOps tools with Jira’s robust issue management.
+
+## What is GitLab's Mattermost integration?
+
+**Overview of GitLab's Mattermost Integration**
+
+GitLab's Mattermost integration connects GitLab with Mattermost, an open-source messaging platform, for real-time notifications and collaboration. It supports self-managed GitLab instances where Mattermost can run on the same server via Omnibus package.
+
+**Key Features**
+
+- **Notifications**: Send alerts for GitLab events (e.g., issues, merge requests, pipelines) to Mattermost channels using incoming webhooks. Configure in project **Settings** > **Integrations** > **Mattermost notifications**.
+- **Slash Commands**: Enable commands in Mattermost (e.g., `/gitlab issue create`) for creating issues or triggering actions. Set up via admin console and GitLab's **Settings** > **Integrations**.
+- **SSO**: GitLab acts as OAuth provider for Mattermost login.
+- **Plugin**: Mattermost's GitLab plugin allows subscribing to repos, managing pipelines, and two-way interactions.
+
+**Setup**
+
+Edit `/etc/gitlab/gitlab.rb` to set `mattermost_external_url`, reconfigure with `sudo gitlab-ctl reconfigure`, and authorize SSO.
+
+**Purpose and Benefits**
+
+Enhances team communication by integrating DevOps workflows with chat, reducing context switching and improving efficiency.
+
+## How do you use GitLab with Docker?
+
+**Using GitLab with Docker**
+
+To use GitLab with Docker, leverage GitLab’s container registry and CI/CD pipelines for building, storing, and deploying Docker images.
+
+**Key Steps**
+
+1. **Container Registry**: Enable in project **Settings** > **General**. Store images using `docker push <project-path>:tag`.
+2. **CI/CD Configuration**: In `.gitlab-ci.yml`, define jobs using Docker executor. Example:
+   ```yaml:disable-run
+   build_job:
+     stage: build
+     image: docker:latest
+     services:
+       - docker:dind
+     script:
+       - docker build -t $CI_REGISTRY_IMAGE .
+       - docker push $CI_REGISTRY_IMAGE
+   ```
+3. **Authentication**: Use `$CI_REGISTRY_USER` and `$CI_REGISTRY_PASSWORD` for registry access in CI jobs.
+4. **Deployment**: Deploy images to environments like Kubernetes via pipelines.
+
+**Purpose and Benefits**
+
+GitLab’s Docker integration streamlines container workflows, enabling automated image building, testing, and deployment. The registry centralizes image storage, while CI/CD ensures consistent, secure DevOps processes, enhancing scalability and efficiency in containerized applications.
+
+## What are GitLab's security scans?
+
+**Overview of GitLab's Security Scans**
+
+GitLab’s security scans are automated tools integrated into CI/CD pipelines to identify vulnerabilities in code, dependencies, and infrastructure, available in premium tiers.
+
+**Key Features**
+
+- **Static Application Security Testing (SAST)**: Scans source code for vulnerabilities like SQL injection.
+- **Dynamic Application Security Testing (DAST)**: Tests running applications for runtime issues.
+- **Dependency Scanning**: Checks dependencies for known vulnerabilities.
+- **Container Scanning**: Analyzes Docker images for security risks.
+- **Secret Detection**: Identifies exposed secrets (e.g., API keys) in code.
+
+**Configuration**
+
+Enable scans by adding templates to `.gitlab-ci.yml` (e.g., `include: 'Security/SAST.gitlab-ci.yml'`). Results appear in **Security & Compliance** > **Vulnerability Report**, with details and remediation suggestions.
+
+**Purpose and Benefits**
+
+Security scans enhance code safety by detecting issues early, reducing risks in production. They integrate seamlessly with CI/CD, support compliance, and streamline secure development, making them essential for robust DevOps workflows in GitLab’s ecosystem.
+
+## Explain GitLab's dependency scanning.
+
+**Overview of GitLab's Dependency Scanning**
+
+GitLab’s dependency scanning, available in premium tiers, is a security feature that identifies vulnerabilities in project dependencies within CI/CD pipelines.
+
+**Key Features**
+
+It scans dependency files (e.g., `package.json`, `Gemfile`) for known vulnerabilities using tools like Trivy or Gemnasium. Configured in `.gitlab-ci.yml` with the `Dependency-Scanning.gitlab-ci.yml` template, it runs automatically during pipelines. Results appear in **Security & Compliance** > **Vulnerability Report**, detailing vulnerable dependencies, severity, and remediation steps. Supports languages like JavaScript, Ruby, Python, and Java.
+
+**Purpose and Benefits**
+
+Dependency scanning ensures secure software by detecting outdated or vulnerable libraries early. It integrates with GitLab’s DevOps workflow, reduces manual security checks, and provides actionable insights, helping teams maintain compliance and deliver safer applications efficiently.
+
+## What is GitLab's SAST?
+
+**Definition of GitLab's SAST**
+
+GitLab’s Static Application Security Testing (SAST) is a security feature, available in premium tiers, that scans source code for vulnerabilities during CI/CD pipelines.
+
+**Key Features**
+
+SAST analyzes code for issues like SQL injection, cross-site scripting, or insecure functions using tools like Semgrep or Bandit. Configured in `.gitlab-ci.yml` with the `SAST.gitlab-ci.yml` template, it runs automatically on commits. Results appear in **Security & Compliance** > **Vulnerability Report**, showing vulnerability details, severity, and remediation advice. Supports languages like Python, Java, JavaScript, and C++.
+
+**Purpose and Benefits**
+
+SAST identifies security flaws early in development, reducing risks before deployment. It integrates seamlessly with GitLab’s CI/CD, automates security checks, and provides actionable insights, ensuring safer code and compliance while streamlining secure development workflows.
+
+## How do you enable DAST in GitLab?
+
+**Enabling DAST in GitLab**
+
+To enable Dynamic Application Security Testing (DAST) in GitLab, available in premium tiers, add the DAST template to your `.gitlab-ci.yml`. Navigate to **Security & Compliance** > **Configuration** and select **DAST**. Include the template by adding:
+
+```yaml
+include:
+  - template: DAST.gitlab-ci.yml
+```
+
+Set the target URL in `.gitlab-ci.yml` (e.g., `variables: DAST_WEBSITE: https://example.com`). Optionally, configure authentication or scan settings. Run the pipeline, and DAST scans the running application for vulnerabilities. Results appear in **Security & Compliance** > **Vulnerability Report**, detailing issues and remediation steps.
+
+**Purpose**
+
+DAST identifies runtime vulnerabilities like XSS or broken authentication, enhancing application security. It integrates with GitLab CI/CD, automates testing, and ensures safer deployments by catching issues in live environments.
+
+## Describe GitLab's secret detection.
+
+**Overview of GitLab's Secret Detection**
+
+GitLab’s secret detection, available in premium tiers, scans repositories and CI/CD pipelines for exposed sensitive data, such as API keys, passwords, or tokens.
+
+**Key Features**
+
+It uses tools like Gitleaks to detect secrets in code, commits, and configuration files. Enabled by adding the `Secret-Detection.gitlab-ci.yml` template to `.gitlab-ci.yml`:
+
+```yaml
+include:
+  - template: Secret-Detection.gitlab-ci.yml
+```
+
+Scans run automatically during pipelines, checking file contents and commit history. Results appear in **Security & Compliance** > **Vulnerability Report**, highlighting detected secrets with details and remediation guidance. Custom rules can be configured to adjust detection patterns.
+
+**Purpose and Benefits**
+
+Secret detection prevents accidental leaks of sensitive information, enhancing security and compliance. It integrates seamlessly with GitLab’s CI/CD, automates checks, and reduces risks by identifying secrets early, making it essential for secure development workflows in GitLab’s ecosystem.
+
+## What are GitLab's compliance features?
+
+**Overview of GitLab's Compliance Features**
+
+GitLab's compliance features, available in Ultimate tier, help organizations meet standards like CIS CSC, CSA CCM, and FedRAMP through automated controls and visibility.
+
+**Key Features**
+
+- **Compliance Frameworks**: Define requirements and controls for projects, with JSON templates for quick adoption and export/import.
+- **Compliance Center**: Central dashboard for adherence reporting, violations, and framework management at group/project levels.
+- **Audit Events and Reports**: Track changes, generate reports, and stream events to external tools for auditing.
+- **Security Policies**: Enforce merge request approvals, scans, and pipeline execution for secure workflows.
+- **Other Tools**: Policy enforcement, credentials inventory, SBOM generation, and license compliance for DevSecOps.
+
+These features automate compliance, reduce manual checks, and ensure regulatory adherence in DevOps pipelines.
+
+## How do you audit events in GitLab?
+
+**Auditing Events in GitLab**
+
+To audit events in GitLab, navigate to **Admin Area** > **Monitoring** > **Audit Events** (for self-managed instances, requires premium tiers). For project or group-level auditing, go to **Settings** > **Audit Events**. View events like user additions, project changes, or permission updates, with details on who, what, and when. Filter by date, user, or event type. Export events as CSV for reporting. Enable streaming to external tools (e.g., Splunk) via **Settings** > **Integrations**. Use the Audit Events API for programmatic access.
+
+**Purpose**
+
+Audit events provide transparency into user actions and system changes, ensuring compliance and security. They support tracking, troubleshooting, and regulatory requirements, making them essential for governance and monitoring in GitLab’s ecosystem.
+
+## What is GitLab's geo replication?
+
+**Definition of GitLab's Geo Replication**
+
+GitLab Geo replication is a feature in GitLab Enterprise Edition that enables continuous, unassisted synchronization of data from a primary GitLab site to one or more secondary sites, providing read-only replicas for geographically distributed teams.
+
+**Key Features**
+
+- **Data Replication**: Syncs repositories, issues, merge requests, LFS objects, attachments, and databases via streaming replication.
+- **Secondary Sites**: Read-only instances with tracking databases to monitor sync status and verify data integrity using checksums.
+- **Selective Sync**: Replicate specific groups or shards.
+- **Failover**: Supports automated failover with GitLab Environment Toolkit, though not zero-downtime.
+
+**How It Works**
+
+The primary site acts as the write master; secondary sites pull data periodically, accelerating clones and fetches for remote users. Configuration involves setting up PostgreSQL replication, replicating secrets, and registering nodes via the UI.
+
+**Purpose and Benefits**
+
+Geo improves performance for global teams by caching data locally, reduces latency, and ensures data availability during outages. It requires Premium/Ultimate licenses and synchronized clocks, but replicates corruption if present on primary.
+
+## Explain GitLab's high availability.
+
+**Overview of GitLab's High Availability**
+
+GitLab’s high availability (HA) ensures minimal downtime and reliable performance for self-managed instances by distributing components across multiple nodes to handle failures.
+
+**Key Features**
+
+- **Redundancy**: Uses multiple nodes for services like PostgreSQL (via Patroni for failover), Redis (with Sentinel), and Gitaly (for repository storage).
+- **Load Balancing**: Distributes traffic across web and API nodes using a load balancer (e.g., HAProxy).
+- **Failover**: Automatically switches to standby nodes if primary fails, configured via tools like Patroni or Consul.
+- **Scaling**: Supports horizontal scaling for CI/CD runners and Sidekiq for job processing.
+- **Setup**: Configured in `/etc/gitlab/gitlab.rb` with tools like Omnibus or GitLab Environment Toolkit for Kubernetes.
+
+**Purpose and Benefits**
+
+HA minimizes service disruptions, ensures data integrity, and supports large-scale deployments. It improves performance for distributed teams, meets enterprise uptime requirements, and enhances reliability, making it critical for mission-critical GitLab instances.
+
+## What are GitLab's backup strategies?
+
+**Overview of GitLab's Backup Strategies**
+
+GitLab’s backup strategies for self-managed instances ensure data protection and recovery, covering repositories, databases, and configurations.
+
+**Key Strategies**
+
+- **Full Backups**: Run `sudo gitlab-backup create` to generate a tar file including database (PostgreSQL), repositories, uploads, and CI/CD artifacts. Store in `/var/opt/gitlab/backups` or a custom path set in `/etc/gitlab/gitlab.rb`.
+- **Incremental Backups**: Enable in `/etc/gitlab/gitlab.rb` with `gitlab_rails['backup_upload_incremental'] = true` to reduce storage and time for frequent backups.
+- **Scheduled Backups**: Use cron jobs to automate daily/weekly backups (e.g., `0 2 * * *` for 2 AM daily).
+- **Offsite Storage**: Copy backups to cloud storage (e.g., S3, GCS) using `gitlab_rails['backup_upload_connection']`.
+- **Exclusions**: Exclude artifacts or uploads to reduce backup size if not critical.
+
+**Purpose and Benefits**
+
+Backup strategies ensure data recovery from failures, support compliance, and minimize downtime. They provide flexibility for full or incremental backups, automate processes, and secure data offsite, making them essential for reliable GitLab instance management.
+
+## How do you scale GitLab?
+
+**Scaling GitLab**
+
+To scale a self-managed GitLab instance, use horizontal scaling by distributing components across multiple nodes for high availability and performance.
+
+**Key Steps**
+
+1. **Separate Components**: Use dedicated nodes for PostgreSQL, Redis, Gitaly (repository storage), and Sidekiq (background jobs).
+2. **Load Balancing**: Deploy a load balancer (e.g., HAProxy, Nginx) to distribute traffic across multiple GitLab web/API nodes.
+3. **Database Scaling**: Implement PostgreSQL replication with Patroni for failover and read replicas.
+4. **Storage**: Use NFS or object storage for uploads and artifacts to share across nodes.
+5. **CI/CD Runners**: Scale runners horizontally with autoscaling groups (e.g., Docker, Kubernetes).
+6. **Configuration**: Update `/etc/gitlab/gitlab.rb` on each node for roles (e.g., `roles ['application_role']`) and run `gitlab-ctl reconfigure`.
+7. **Monitoring**: Use Prometheus and Grafana for performance metrics.
+
+**Purpose**
+
+Scaling ensures GitLab handles increased users and traffic, reducing latency and downtime. It supports enterprise growth with reliable, distributed architecture.
+
+## Describe GitLab's database configuration.
+
+**Overview of GitLab's Database Configuration**
+
+GitLab’s database configuration for self-managed instances uses PostgreSQL as the default database, managed via the Omnibus package for streamlined setup and scaling.
+
+**Key Features**
+
+- **Default Setup**: Omnibus installs PostgreSQL locally, configured in `/etc/gitlab/gitlab.rb`. Key settings include `postgresql['enable'] = true` and `postgresql['listen_address']`.
+- **External Database**: Connect to an external PostgreSQL instance by disabling the bundled one (`postgresql['enable'] = false`) and setting `gitlab_rails['db_adapter'] = 'postgresql'`, along with host, port, and credentials.
+- **High Availability**: Use Patroni for PostgreSQL replication and failover, configured with `patroni['enable'] = true`. Supports read replicas for load balancing.
+- **Tuning**: Adjust `postgresql['max_connections']` or `shared_buffers` for performance based on server resources.
+- **Backups**: Managed via `gitlab-backup` commands, with settings like `gitlab_rails['backup_path']`.
+
+**Purpose and Benefits**
+
+Proper database configuration ensures reliable data storage, scalability, and high availability. It supports efficient backups, performance tuning, and fault tolerance, making it critical for robust GitLab deployments in enterprise environments.
+
+## What is GitLab's Redis usage?
+
+**Overview of GitLab's Redis Usage**
+
+Redis in GitLab is used as an in-memory data store for caching, session management, and background job processing in self-managed instances.
+
+**Key Features**
+
+- **Caching**: Stores frequently accessed data (e.g., dashboard data) to reduce database load, configured in `/etc/gitlab/gitlab.rb` with `gitlab_rails['redis_cache_host']`.
+- **Session Storage**: Manages user sessions for secure, fast authentication.
+- **Background Jobs**: Powers Sidekiq for asynchronous tasks like CI/CD job queues and email notifications, set via `gitlab_rails['redis_queue_host']`.
+- **High Availability**: Supports Redis Sentinel for failover, configured with `redis['master_role']` and `sentinel['enable'] = true`.
+- **External Redis**: Use an external instance by disabling bundled Redis (`redis['enable'] = false`) and setting connection details.
+
+**Purpose and Benefits**
+
+Redis enhances GitLab’s performance by speeding up data access, managing sessions, and handling background tasks efficiently. It supports scalability and reliability, especially in HA setups, ensuring smooth operations for large-scale GitLab deployments.
+
+## How do you configure PostgreSQL for GitLab?
+
+**Configuring PostgreSQL for GitLab**
+
+To configure PostgreSQL for a self-managed GitLab instance, use the Omnibus package’s bundled PostgreSQL or an external database.
+
+**Key Steps**
+
+1. **Bundled PostgreSQL**: Enable in `/etc/gitlab/gitlab.rb` with `postgresql['enable'] = true`. Set `postgresql['listen_address'] = '0.0.0.0'` and adjust `postgresql['max_connections']` for performance. Run `sudo gitlab-ctl reconfigure`.
+2. **External PostgreSQL**: Disable bundled PostgreSQL (`postgresql['enable'] = false`). In `/etc/gitlab/gitlab.rb`, set `gitlab_rails['db_adapter'] = 'postgresql'`, `gitlab_rails['db_host']`, `db_port`, `db_database`, and credentials.
+3. **High Availability**: Configure Patroni for replication by enabling `patroni['enable'] = true` and setting up replica nodes.
+4. **Tuning**: Adjust `postgresql['shared_buffers']` and `work_mem` based on server resources.
+5. **Backups**: Enable database backups via `gitlab_rails['backup_path']`.
+
+**Purpose**
+
+Proper PostgreSQL configuration ensures reliable data storage, scalability, and performance. It supports HA setups, efficient backups, and optimized queries, critical for robust GitLab operations in enterprise environments.
+
+## What are GitLab's sidekiq jobs?
+
+**Definition of GitLab's Sidekiq Jobs**
+
+Sidekiq jobs in GitLab are asynchronous background tasks handled by Sidekiq, a Ruby-based job processing framework, to perform non-blocking operations in self-managed instances.
+
+**Key Features**
+
+- **Tasks**: Handle tasks like sending emails, processing CI/CD job queues, updating issue statuses, or running webhooks.
+- **Configuration**: Managed in `/etc/gitlab/gitlab.rb` with `sidekiq['enable'] = true` and settings like `sidekiq['concurrency']` for thread control.
+- **Queue Management**: Jobs are queued in Redis, with priorities and retry mechanisms for failed tasks.
+- **Monitoring**: View job status and metrics via **Admin Area** > **Monitoring** > **Background Jobs** or Prometheus integration.
+- **Scaling**: Run Sidekiq on dedicated nodes for high availability, configured via Omnibus roles.
+
+**Purpose and Benefits**
+
+Sidekiq jobs offload time-consuming tasks from the main application, improving performance and user experience. They ensure reliable, scalable processing of asynchronous workloads, supporting efficient CI/CD and system operations in GitLab’s ecosystem.
+
+## Explain GitLab's unicorn workers.
+
+**Definition of GitLab's Unicorn Workers**
+
+Unicorn workers in GitLab are multi-process instances of the Unicorn Ruby web server, which handles HTTP requests for the GitLab application in self-managed Omnibus installations.
+
+**Key Features**
+
+Configured in `/etc/gitlab/gitlab.rb` with `unicorn['worker_processes']` (default: 2-4 based on CPU cores). Each worker is a separate process with its own memory, processing requests concurrently. Workers are managed by Unicorn's master process, which restarts them on errors. Scaling involves increasing workers for higher traffic, but monitor memory usage to avoid overload. Changes require `sudo gitlab-ctl reconfigure`.
+
+**Purpose and Benefits**
+
+Unicorn workers improve GitLab's web performance by handling multiple requests simultaneously, preventing bottlenecks. They enhance reliability through automatic restarts and support high-traffic environments, ensuring efficient serving of the GitLab UI, API, and integrations while maintaining stability in production setups.
+
+## What is GitLab's puma server?
+
+**Definition of GitLab's Puma Server**
+
+GitLab’s Puma server is a Ruby-based, multithreaded web server used in self-managed GitLab instances (replacing Unicorn in newer versions) to handle HTTP requests for the application.
+
+**Key Features**
+
+Configured in `/etc/gitlab/gitlab.rb` with `puma['worker_processes']` and `puma['per_worker_max_memory_mb']` to control processes and memory. Puma uses threads within each worker for concurrency, reducing memory overhead compared to Unicorn’s multi-process model. It supports asynchronous request handling, improving performance for API and UI requests. Scaling involves adjusting `puma['threads_min']` and `puma['threads_max']`. Apply changes with `sudo gitlab-ctl reconfigure`.
+
+**Purpose and Benefits**
+
+Puma enhances GitLab’s performance by efficiently handling concurrent requests with lower resource usage. It supports high-traffic environments, improves response times, and ensures reliable delivery of GitLab’s web interface and API, making it critical for scalable, modern deployments in GitLab’s ecosystem.
+
+## Conclusion
+
+The "100 Basic GitLab Interview Questions" series covers essential concepts, tools, and workflows critical for mastering GitLab in a professional setting. From repositories and CI/CD pipelines to security scans, compliance features, and server configurations like Puma and PostgreSQL, these questions highlight GitLab’s robust capabilities as a DevOps platform. Understanding these topics equips candidates with the knowledge to manage projects, automate workflows, and ensure secure, scalable deployments. Whether preparing for an interview or deepening your GitLab expertise, this series provides a concise foundation to confidently navigate GitLab’s ecosystem and demonstrate proficiency in modern DevOps practices.
